@@ -1,0 +1,76 @@
+/* Sidebar Container */
+.sidebar-wrapper-content {
+    border-right: 2px solid #ededed;  /* Light border to separate sidebar */
+    height: calc(100vh - 55px);  /* Full height minus the header */
+    padding: 8px 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #f4f9fc;  /* Light background color for the sidebar */
+  }
+  
+  /* Add margin to all but the last parent element */
+  .sidebar-wrapper-content-parent:not(:last-child) {
+    margin-bottom: 8px;
+  }
+  
+  /* Header: 'Realtime' */
+  .sidebar-wrapper-content-parent-name {
+    font-size: 1.3rem;  /* Increased font size for better visibility */
+    font-weight: 700;  /* Bold text */
+    padding: 5px 13px 0;
+    color: #0056b3;  /* Blue text for the header */
+    opacity: 0.9;
+    margin-bottom: 16px;  /* Adds space below the header */
+  }
+  
+  /* Navigation Links */
+  .sidebar-wrapper-content-navbar-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 15px;
+    border-left: 4px solid transparent;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+    text-decoration: none !important;
+    color: #333 !important;  /* Default text color */
+    border-radius: 5px;
+  }
+  
+  /* Hover - Blue background and white text */
+  .sidebar-wrapper-content-navbar-list:hover {
+    background-color: #007bff;  /* Blue background on hover */
+    color: white;
+    border-left: 4px solid #0056b3;  /* Darker blue border on hover */
+  }
+  
+  /* Active link highlight */
+  .sidebar-wrapper-content-navbar-list.active {
+    background-color: #0056b3;  /* Dark blue background for active state */
+    color: white;
+    border-left: 4px solid #003366;  /* Even darker blue for active state border */
+  }
+  
+  /* Active state text boldness */
+  .sidebar-wrapper-content-navbar-list.active .sidebar-wrapper-content-navbar-list-item-name {
+    font-weight: bold;
+  }
+  
+  /* Add spacing between links */
+  .sidebar-wrapper-content-navbar-list-item-name {
+    margin-left: 10px;
+    font-size: 1rem;  /* Default font size for the items */
+  }
+  
+  /* Icon styling */
+  .sidebar-wrapper-content-navbar-list i {
+    font-size: 20px;  /* Slightly larger icons for better visibility */
+    color: #007bff;  /* Blue color for the icons */
+    transition: color 0.2s ease;
+  }
+  
+  /* Icon hover effect */
+  .sidebar-wrapper-content-navbar-list:hover i {
+    color: white;  /* Icon color changes to white on hover */
+  }
+  
