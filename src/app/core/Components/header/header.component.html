@@ -1,0 +1,54 @@
+
+  <header
+    class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <a routerLink="/home"
+      class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+      <img src="https://workfolio.s3.amazonaws.com/profile_picture/82310d70-490d-11ef-bac7-719e9d8b4bed.png" style="max-height: 70px" alt="icon" />
+    </a>
+    <!-- *ngIf="currentUser && currentUser.username" -->
+    <div>
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li>
+          <a class="nav-link px-2" routerLink="/home" routerLinkActive="active"
+            >Home
+            </a>
+        </li>
+        <li>
+          <a class="nav-link px-2" routerLink="/user" routerLinkActive="active"
+            >User Management
+        </a>
+        </li>
+        <li>
+          <a class="nav-link px-2" routerLink="/roles" routerLinkActive="active"
+            >Role Management
+        </a>
+        </li>
+        <li>
+        <a class="nav-link px-2" routerLink="/search" routerLinkActive="active"
+          >Search
+        </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- *ngIf="currentUser && currentUser.username" -->
+    <div>
+      <div class="btn-group ml-3 mr-5" dropdown>
+        <a
+          class="text-danger dropdown-toggle"
+          dropdownToggle
+          style="text-decoration: none; cursor: pointer">
+          <span style="font-weight: bold; font-size: large">
+            <!-- Welcome, {{ currentUser.username }} -->
+            !
+          </span>
+        </a>
+        <div *dropdownMenu class="dropdown-menu" role="menu">
+          <div class="dropdown-divider"></div>
+          <a (click)="logout()" style="cursor: pointer" class="dropdown-item">
+            Logout
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
