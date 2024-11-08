@@ -1,12 +1,15 @@
-<div class="container-fluid">
+<div>
   <!-- Header -->
   <app-header></app-header>
 
   <div class="row">
-    <div class="col-md-3">
+    <!-- Sidebar Column (col-3) -->
+    <div class="col-3 m-2 d-flex flex-column">
       <app-side-bar></app-side-bar>
     </div>
-    <div class="col-md-9">
+
+    <!-- Content Column (col-9) -->
+    <div class="col-9 m-2 d-flex flex-column">
       <router-outlet></router-outlet>
     </div>
   </div>

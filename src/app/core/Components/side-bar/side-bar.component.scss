@@ -1,12 +1,14 @@
-/* Sidebar Container */
+/* Sidebar Container Styles */
 .sidebar-wrapper-content {
-    border-right: 2px solid #ededed;  /* Light border to separate sidebar */
-    height: calc(100vh - 55px);  /* Full height minus the header */
-    padding: 8px 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: #f4f9fc;  /* Light background color for the sidebar */
-  }
+  border-right: 2px solid #ededed;  /* Light border to separate sidebar */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 8px 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #f4f9fc;  /* Light background color for the sidebar */
+  height: 100%;  /* Make sidebar take up 100% height of its container */
+}
   
   /* Add margin to all but the last parent element */
   .sidebar-wrapper-content-parent:not(:last-child) {
@@ -15,7 +17,7 @@
   
   /* Header: 'Realtime' */
   .sidebar-wrapper-content-parent-name {
-    font-size: 1.3rem;  /* Increased font size for better visibility */
+    font-size: 24px;  /* Increased font size for better visibility */
     font-weight: 700;  /* Bold text */
     padding: 5px 13px 0;
     color: #0056b3;  /* Blue text for the header */
@@ -59,7 +61,8 @@
   /* Add spacing between links */
   .sidebar-wrapper-content-navbar-list-item-name {
     margin-left: 10px;
-    font-size: 1rem;  /* Default font size for the items */
+    font-size: 18px;  /* Default font size for the items */
+    font-weight: 500;
   }
   
   /* Icon styling */

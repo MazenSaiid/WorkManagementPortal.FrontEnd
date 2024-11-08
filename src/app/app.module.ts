@@ -20,7 +20,7 @@ import { AuthInterceptor } from './core/Interceptors/auth-interceptor';
     AppComponent
   ],
   imports: [
-    BrowserModule,BrowserAnimationsModule ,
+    BrowserModule,BrowserAnimationsModule,
     AppRoutingModule,CoreModule,FormsModule,NgxSpinnerModule,ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-bottom-right',

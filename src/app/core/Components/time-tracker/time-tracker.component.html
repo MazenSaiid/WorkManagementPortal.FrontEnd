@@ -1,0 +1,86 @@
+<div class="container time-tracker">
+  <div class="card shadow-sm my-4">
+    <!-- Card Header with Greeting Message -->
+    <div class="card-header text-center">
+      <div class="greeting-message">
+        {{ greetingMessage }}
+      </div>
+    </div>
+      <!-- Time Display -->
+      <div class="row mt-4">
+        <div class="col-12 time-display">
+          <h2>{{ getFormattedTime() }}</h2>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="row justify-content-center buttons">
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <!-- Show "Check In" only if timer is not running or stopped -->
+            <button
+              *ngIf="!isWorking && !isPaused && timeElapsed === 0"
+              class="btn btn-primary"
+              (click)="checkIn()"
+            >
+              <i class="fas fa-play-circle"></i> Check In
+            </button>
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <!-- Show "Resume" if the timer is paused -->
+          <button
+            *ngIf="!isWorking && timeElapsed > 0"
+            class="btn btn-success"
+            (click)="resume()"
+          >
+            <i class="fas fa-play-circle"></i> Resume
+          </button>
+        </div>
+
+        <div class="col-auto">
+          <!-- Show "Pause Break" when working -->
+          <button
+            *ngIf="isWorking && !isPaused"
+            class="btn btn-warning"
+            (click)="pauseBreak()"
+          >
+            <i class="fas fa-pause-circle"></i> Take Break
+          </button>
+        </div>
+
+        <div class="col-auto">
+          <!-- Show "Pause Meeting" when working -->
+          <button
+            *ngIf="isWorking && !isPaused"
+            class="btn btn-warning"
+            (click)="pauseMeeting()"
+          >
+            <i class="fas fa-pause-circle"></i> Meeting
+          </button>
+        </div>
+
+        <div class="col-auto">
+          <!-- Show "Stop" when the timer is running or paused -->
+          <button
+            *ngIf="isWorking || isPaused"
+            class="btn btn-danger"
+            (click)="stop()"
+          >
+            <i class="fas fa-stop-circle"></i> Stop
+          </button>
+        </div>
+      </div>
+
+      <!-- Time Tracker Chart -->
+       <!-- Display the chart using CanvasJS -->
+      <div class="row mt-4">
+        <div class="col-12">
+          <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
+        </div>
+      </div>
+    </div>
+</div>
+    
+  

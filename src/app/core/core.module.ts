@@ -10,7 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ToastrModule } from 'ngx-toastr';
 import { RouterModule } from '@angular/router';
-
+import { TimeTrackerComponent } from './Components/time-tracker/time-tracker.component';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 
 
 @NgModule({
@@ -20,11 +21,12 @@ import { RouterModule } from '@angular/router';
     HomeComponent,
     NotFoundComponent,
     LoaderComponent,
-    SideBarComponent
+    SideBarComponent,
+    TimeTrackerComponent
   ],
   imports: [
     CommonModule,ReactiveFormsModule,TranslateModule,ToastrModule,FormsModule,
-    RouterModule
+    RouterModule,CanvasJSAngularChartsModule
   ],
   exports:[
     FormsModule,ReactiveFormsModule,LoaderComponent,TranslateModule,ToastrModule,
@@ -33,7 +35,7 @@ import { RouterModule } from '@angular/router';
     HomeComponent,
     NotFoundComponent,
     LoaderComponent,
-    SideBarComponent
+    SideBarComponent,TimeTrackerComponent
   ]
 })
 export class CoreModule { }

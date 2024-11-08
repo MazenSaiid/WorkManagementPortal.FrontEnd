@@ -9,6 +9,8 @@
     align-items: center;
     justify-content: space-between;  /* Spread the content */
     box-sizing: border-box;  /* Ensure padding doesn't affect overall width */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  
   }
   
   /* Logo Section */
@@ -38,7 +40,7 @@
   
   .nav-link {
     color: white;  /* Ensure nav link text is white */
-    font-size: 1rem;
+    font-size: 20px;
     font-weight: 500;  /* Slightly bolder for readability */
     text-decoration: none;
     transition: color 1s ease, background-color 1s ease;
@@ -85,7 +87,7 @@
   
   /* User Profile Icon */
   .profile-icon {
-    font-size: 1.5rem;  /* Larger profile icon */
+    font-size: 20px;  /* Larger profile icon */
     font-weight: bold;
     color: white;  /* White icon color */
     transition: color 0.3s ease;  /* Smooth transition */
