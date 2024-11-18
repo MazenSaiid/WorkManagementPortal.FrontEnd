@@ -1,0 +1,56 @@
+/* Custom Styles */
+.table th {
+    background-color: #f8f9fa;
+    text-align: left;
+    font-weight: bold;
+  }
+  
+  .table td {
+    vertical-align: middle;
+  }
+  
+  .table-responsive {
+    max-height: 400px;  /* Limit the height of the table for scrolling */
+  }
+  
+  .btn-group .btn {
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .card {
+    border-radius: 8px;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .card-header {
+    background-color: #f8f9fa;
+    font-weight: bold;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  /* Hover effects */
+  .table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .btn-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .btn-link:hover {
+    text-decoration: underline;
+  }
+  

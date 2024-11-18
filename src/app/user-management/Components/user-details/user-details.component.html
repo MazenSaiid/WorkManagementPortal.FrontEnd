@@ -1,0 +1,37 @@
+<!-- Modal HTML for viewing user details -->
+<div *ngIf="isVisible" class="modal fade show" tabindex="-1" style="display: block; background: rgba(0, 0, 0, 0.5)">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">User Details</h5>
+          <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+        </div>
+        
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <div *ngIf="user">
+            <p><strong>First Name:</strong> {{ user.firstName }}</p>
+            <p><strong>Last Name:</strong> {{ user.lastName }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Phone:</strong> {{ user.phoneNumber }}</p>
+            <p><strong>Role:</strong> {{ user.roleName }}</p>
+            
+            <div *ngIf="user.supervisor">
+              <p><strong>Supervisor:</strong> {{ user.supervisor.firstName }} {{ user.supervisor.lastName }}</p>
+            </div>
+            
+            <div *ngIf="user.teamLeader">
+              <p><strong>Team Leader:</strong> {{ user.teamLeader.firstName }} {{ user.teamLeader.lastName }}</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

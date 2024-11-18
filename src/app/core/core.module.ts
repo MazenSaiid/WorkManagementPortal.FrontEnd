@@ -12,6 +12,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { RouterModule } from '@angular/router';
 import { TimeTrackerComponent } from './Components/time-tracker/time-tracker.component';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { DeleteConfirmationModalComponent } from './Components/delete-confirmation-modal/delete-confirmation-modal.component';
 
 
 @NgModule({
@@ -22,15 +25,17 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
     NotFoundComponent,
     LoaderComponent,
     SideBarComponent,
-    TimeTrackerComponent
+    TimeTrackerComponent,
+    DeleteConfirmationModalComponent
   ],
   imports: [
     CommonModule,ReactiveFormsModule,TranslateModule,ToastrModule,FormsModule,
-    RouterModule,CanvasJSAngularChartsModule
+    RouterModule,CanvasJSAngularChartsModule,NgxSpinnerModule,HttpClientModule
   ],
   exports:[
     FormsModule,ReactiveFormsModule,LoaderComponent,TranslateModule,ToastrModule,
-    RouterModule,CommonModule,HeaderComponent,
+    RouterModule,CanvasJSAngularChartsModule,NgxSpinnerModule,HttpClientModule
+    ,HeaderComponent,
     FooterComponent,
     HomeComponent,
     NotFoundComponent,

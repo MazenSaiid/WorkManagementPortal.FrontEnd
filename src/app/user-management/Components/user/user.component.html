@@ -1,0 +1,75 @@
+<div class="container mt-4">
+  <!-- User Action Buttons -->
+  <div class="mb-3 text-end">
+    <button type="button" class="btn btn-success me-2" (click)="openCreateUserModal()">
+      <i class="fa fa-user-plus"></i> Add User
+    </button>
+    <button type="button" class="btn btn-primary" routerLink="/user/user-bulk">
+      <i class="fa fa-users"></i> Add Bulk Users
+    </button>
+  </div>
+
+  <!-- User Table -->
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-striped mb-0">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Full Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Phone</th>
+                  <th scope="col">Supervisor</th>
+                  <th scope="col">Team Leader</th>
+                  <th scope="col">Role</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of users">
+                  <td>{{ user.firstName }} {{ user.lastName }}</td>
+                  <td>{{ user.email }}</td>
+                  <td>{{ user.phoneNumber }}</td>
+                  <td>{{ user.supervisor?.firstName }} {{ user.supervisor?.lastName }}</td>
+                  <td>{{ user.teamLeader?.firstName }} {{ user.teamLeader?.lastName }}</td>
+                  <td>{{ user.roleName }}</td>
+                  <td>
+                    <div class="btn-group">
+                      <button class="btn btn-link btn-sm dropdown-toggle" data-bs-toggle="dropdown" type="button">
+                        <i class="fa fa-ellipsis-v"></i>
+                      </button>
+                      <div class="dropdown-menu">
+                        <button class="dropdown-item btn-sm" (click)="openViewUserModal(user)">
+                          <i class="fa fa-eye"></i> View
+                        </button>
+                        <button class="dropdown-item btn-sm" (click)="openEditUserModal(user)">
+                          <i class="fa fa-edit"></i> Edit
+                        </button>
+                        <button class="dropdown-item btn-sm text-danger" (click)="deleteUser(user.id)">
+                          <i class="fa fa-trash"></i> Delete
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create User Modal -->
+  <app-create-user [isVisible]="createUserModalVisible" (close)="closeCreateUserModal($event)"></app-create-user>
+
+  <!-- Edit User Modal -->
+  <app-edit-user [user]="selectedUser" [isVisible]="editUserModalVisible" (close)="closeEditUserModal($event)"></app-edit-user>
+
+  <!-- View User Modal -->
+  <app-user-details [user]="selectedUser" [isVisible]="viewUserModalVisible" (close)="closeViewUserModal($event)"></app-user-details>
+
+  <!-- Delete Confirmation Modal -->
+</div>

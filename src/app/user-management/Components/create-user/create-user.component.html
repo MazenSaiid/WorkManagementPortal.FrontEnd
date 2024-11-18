@@ -1,0 +1,61 @@
+<div class="modal" tabindex="-1" [class.show]="isVisible" *ngIf="isVisible">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create New User</h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <!-- First Name -->
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input formControlName="firstName" class="form-control" id="firstName" type="text" required>
+            </div>
+  
+            <!-- Last Name -->
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input formControlName="lastName" class="form-control" id="lastName" type="text" required>
+            </div>
+  
+            <!-- Email -->
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input formControlName="email" class="form-control" id="email" type="email" required>
+            </div>
+  
+            <!-- Password -->
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input formControlName="password" class="form-control" id="password" type="password" required>
+            </div>
+  
+            <!-- Role -->
+            <div class="form-group">
+              <label for="roleName">Role</label>
+              <input formControlName="roleName" class="form-control" id="roleName" type="text" required>
+            </div>
+  
+            <!-- Supervisor -->
+            <div class="form-group">
+              <label for="supervisorId">Supervisor</label>
+              <input formControlName="supervisorId" class="form-control" id="supervisorId" type="text">
+            </div>
+  
+            <!-- Team Leader -->
+            <div class="form-group">
+              <label for="teamLeaderId">Team Leader</label>
+              <input formControlName="teamLeaderId" class="form-control" id="teamLeaderId" type="text">
+            </div>
+  
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+              <button type="submit" class="btn btn-primary">Create User</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
