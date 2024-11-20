@@ -16,10 +16,13 @@ export class UserComponent implements OnInit {
   constructor(private toastrService: ToastrService, public globals: Globals, private http: HttpClient, private router: Router, private userService: UserService) {
   }
   users: UserDto[] = [];
-  selectedUser: UserDto | any = null; // To store the selected user for editing/viewing
+  selectedUser: UserDto | any = null; // To store the selected user for editing/viewing/deleting
+  filteredUsers: UserDto[] = [];   // This will hold the filtered users
+  searchText: string = '';  // This binds to the search input field
   createUserModalVisible: boolean = false;
   editUserModalVisible: boolean = false;
   viewUserModalVisible: boolean = false;
+  deleteUserModalVisible:boolean = false;
   ngOnInit(): void {
     this.loadAllUsers();
   }
@@ -28,6 +31,7 @@ export class UserComponent implements OnInit {
       next: (response) => {
         if (response.success) {
           this.users = response.users; // Now contains supervisor and team leader
+          this.filteredUsers = response.users;
         } else {
           this.toastrService.error(response.message, 'Error'); // Show error using Toastr
         }
@@ -37,33 +41,36 @@ export class UserComponent implements OnInit {
       }
     });
   }
-  
- // Delete a user by ID
- deleteUser(id: string) {
-  this.userService.deleteUser(id).subscribe({
-    next: (response) => {
-      if (response.success) {
-        this.loadAllUsers(); // Reload the list after deletion
-        this.toastrService.success('User deleted successfully', 'Success');
-      } else {
-        this.toastrService.error(response.message, 'Error');
-      }
-    },
-    error: () => {
-      this.toastrService.error('An error occurred while deleting the user.', 'Error');
-    }
-  });
-}
+    
   // Method to open Create User Modal
   openCreateUserModal(): void {
     this.createUserModalVisible = true;
   }
-
+  filterUsers() {
+    if (!this.searchText) {
+      // If no search text, show all users
+      this.filteredUsers = this.users;
+    } else {
+      // Filter users based on the search text (by full name)
+      this.filteredUsers = this.users.filter(user => {
+        const fullName = (user.firstName + ' ' + user.lastName).toLowerCase();
+        return fullName.includes(this.searchText.toLowerCase());
+      });
+    }
+  }
   // Method to close Create User Modal
   closeCreateUserModal(event: boolean): void {
     this.createUserModalVisible = event;
   }
-
+  // Method to delete User Modal
+  openDeleteConfirmationModal(user: UserDto) {
+    this.selectedUser = user;
+   this.deleteUserModalVisible =true;
+  }
+  // Method to close Create User Modal
+  closeDeleteUserModal(event: boolean): void {
+    this.deleteUserModalVisible = event;
+  }
   // Method to open Edit User Modal
   openEditUserModal(user: UserDto): void {
     this.selectedUser = user; // Set the user to be edited

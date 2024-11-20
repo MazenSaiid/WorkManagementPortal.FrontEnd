@@ -12,7 +12,7 @@ export class LoaderService {
     this.loaderRequestCount++;
     this.spinnerService.show(undefined,{
       type:"square-jelly-box",
-      color:'purple',
+      color:'blue',
       bdColor: "rgba(0,0,0,0.8)",
       size : "medium",
     })

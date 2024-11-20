@@ -1,56 +1,112 @@
-/* Custom Styles */
+/* User Component Container */
+.container {
+  background-color: #f4f9fc;  /* Light background color for consistency with sidebar */
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Search Input */
+.mb-3 input.form-control {
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  background-color: #fff;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Search Input Focus */
+.mb-3 input.form-control:focus {
+  border-color: #007bff;
+  box-shadow: inset 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* User Action Buttons */
+.mb-3 .btn {
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  background-color: #f4f9fc;  /* Sidebar matching background */
+  color: #007bff;  /* Blue text for consistency with sidebar */
+  border: 1px solid #e0e0e0;  /* Matching border with sidebar */
+}
+
+/* Button Hover and Active States */
+.mb-3 .btn:hover {
+  background-color: #007bff;  /* Blue background on hover */
+  color: white;
+}
+
+.mb-3 .btn-success:hover {
+  background-color: #28a745;
+}
+
+.mb-3 .btn-primary:hover {
+  background-color: #007bff;
+}
+
+/* Button Icons */
+.mb-3 .btn i {
+  margin-right: 8px;
+}
+
+/* User Table Styles */
+.card {
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 0;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table th, .table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
 .table th {
-    background-color: #f8f9fa;
-    text-align: left;
-    font-weight: bold;
-  }
-  
-  .table td {
-    vertical-align: middle;
-  }
-  
-  .table-responsive {
-    max-height: 400px;  /* Limit the height of the table for scrolling */
-  }
-  
-  .btn-group .btn {
-    padding: 0.4rem 0.6rem;
-  }
-  
-  .card {
-    border-radius: 8px;
-  }
-  
-  .card-body {
-    padding: 1rem;
-  }
-  
-  .card-header {
-    background-color: #f8f9fa;
-    font-weight: bold;
-  }
-  
-  .btn-success {
-    background-color: #28a745;
-    border-color: #28a745;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-  }
-  
-  /* Hover effects */
-  .table tbody tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .btn-link {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .btn-link:hover {
-    text-decoration: underline;
-  }
-  
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f9ff;
+}
+
+.table tbody td {
+  color: #555;
+}
+
+/* Action Buttons in Table */
+.table .btn-group button {
+  background: transparent;
+  border: none;
+  color: #007bff;
+}
+
+.table .btn-group button:hover {
+  color: #0056b3;
+}
+
+.table .dropdown-item {
+  font-size: 14px;
+  color: #333;
+}
+
+.table .dropdown-item:hover {
+  background-color: #f1f9ff;
+}
+
+/* Modal Background Color */
+.app-create-user, .app-edit-user, .app-user-details, .app-delete-confirmation-modal {
+  background-color: #f4f9fc;  /* Light background color to match sidebar */
+}
