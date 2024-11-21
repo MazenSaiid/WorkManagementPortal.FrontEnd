@@ -1,61 +1,132 @@
+<!-- Modal -->
 <div class="modal" *ngIf="isVisible" tabindex="-1" style="display: block; background: rgba(0, 0, 0, 0.5)">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Create New User</h5>
-          <button type="button" class="btn-close" (click)="closeModal()"></button>
-        </div>
-        <div class="modal-body">
-          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-            <!-- First Name -->
+  <div class="modal-dialog" style="max-width: 80%; width: auto; height: auto">
+    <div class="modal-content" style="
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        background-color: #f4f9fc;
+      ">
+      <div class="modal-header">
+        <h5 class="modal-title" style="font-size: 24px; color: #0056b3; font-weight: 700">
+          Create New User
+        </h5>
+        <button type="button" class="btn-close" (click)="closeModal()"
+          style="border: none; font-size: 20px; color: #007bff"></button>
+      </div>
+      <div class="modal-body" style="padding: 20px">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <!-- First Name -->
+          <div class="form-group">
+            <label for="firstName" style="font-weight: 600">First Name</label>
+            <div class="input-group">
+              <div class="input-group-text">
+                <i class="bi bi-person-fill" style="font-size: 20px; color: #007bff"></i>
+              </div>
+              <input formControlName="firstName" class="form-control" id="firstName" type="text" required />
+            </div>
+          </div>
+
+          <!-- Last Name -->
+          <div class="form-group">
+            <label for="lastName" style="font-weight: 600">Last Name</label>
+            <div class="input-group">
+              <div class="input-group-text">
+                <i class="bi bi-person-fill" style="font-size: 20px; color: #007bff"></i>
+              </div>
+              <input formControlName="lastName" class="form-control" id="lastName" type="text" required />
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email" style="font-weight: 600">Email</label>
+            <div class="input-group">
+              <div class="input-group-text">
+                <i class="bi bi-envelope" style="font-size: 20px; color: #007bff"></i>
+              </div>
+              <input formControlName="email" class="form-control" id="email" type="email" required />
+            </div>
+          </div>
+          <!-- Phone -->
+          <div class="form-group">
+            <label for="phone" style="font-weight: 600">Phone</label>
+            <div class="input-group">
+              <div class="input-group-text">
+                <i class="bi bi-phone" style="font-size: 20px; color: #007bff"></i>
+              </div>
+              <input formControlName="phone" class="form-control" id="phone" type="tel" inputmode="numeric"
+                pattern="[0-9]*" />
+            </div>
+          </div>
+          <!-- Password -->
+          <div class="form-group">
+            <label for="password" style="font-weight: 600">Password</label>
+            <div class="input-group">
+              <div class="input-group-text">
+                <i class="bi bi-lock" style="font-size: 20px; color: #007bff"></i>
+              </div>
+              <input formControlName="password" class="form-control" id="password"
+                [type]="passwordVisible ? 'text' : 'password'" required />
+              <div class="input-group-text">
+                <i class="bi bi-eye" id="eyeIcon" style="font-size: 20px; cursor: pointer"
+                  (click)="togglePasswordVisibility()"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="roleName" style="font-weight: 600">Role</label>
+            <select id="roleName" class="form-control" formControlName="roleName" required>
+              <option *ngFor="let role of roles" [value]="role.roleName">
+                {{ role.roleName }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Supervisor and Team Leader Fields (Conditional) -->
+          <div *ngIf="roleName === 'Employee'">
             <div class="form-group">
-              <label for="firstName">First Name</label>
-              <input formControlName="firstName" class="form-control" id="firstName" type="text" required>
+              <label for="supervisorId" style="font-weight: 600">Supervisor</label>
+              <div class="input-group">
+                <div class="input-group-text">
+                  <i class="bi bi-person-check" style="font-size: 20px; color: #007bff"></i>
+                </div>
+                <select id="supervisorId" class="form-control" formControlName="supervisorId">
+                  <option *ngFor="let supervisor of supervisors" [value]="supervisor.id">
+                    {{ supervisor.firstName }}{{ supervisor.lastName }}
+                  </option>
+                </select>
+              </div>
             </div>
-  
-            <!-- Last Name -->
+          </div>
+
+          <div *ngIf="roleName === 'Employee' || roleName === 'Supervisor'">
             <div class="form-group">
-              <label for="lastName">Last Name</label>
-              <input formControlName="lastName" class="form-control" id="lastName" type="text" required>
+              <label for="teamLeaderId" style="font-weight: 600">Team Leader</label>
+              <div class="input-group">
+                <div class="input-group-text">
+                  <i class="bi bi-person-bounding-box" style="font-size: 20px; color: #007bff"></i>
+                </div>
+                <select id="teamLeaderId" class="form-control" formControlName="teamLeaderId">
+                  <option *ngFor="let teamleader of teamLeaders" [value]="teamleader.id">
+                    {{ teamleader.firstName }}{{ teamleader.lastName }}
+                  </option>
+                </select>
+              </div>
             </div>
-  
-            <!-- Email -->
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input formControlName="email" class="form-control" id="email" type="email" required>
-            </div>
-  
-            <!-- Password -->
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input formControlName="password" class="form-control" id="password" type="password" required>
-            </div>
-  
-            <!-- Role -->
-            <div class="form-group">
-              <label for="roleName">Role</label>
-              <input formControlName="roleName" class="form-control" id="roleName" type="text" required>
-            </div>
-  
-            <!-- Supervisor -->
-            <div class="form-group">
-              <label for="supervisorId">Supervisor</label>
-              <input formControlName="supervisorId" class="form-control" id="supervisorId" type="text">
-            </div>
-  
-            <!-- Team Leader -->
-            <div class="form-group">
-              <label for="teamLeaderId">Team Leader</label>
-              <input formControlName="teamLeaderId" class="form-control" id="teamLeaderId" type="text">
-            </div>
-  
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-              <button type="submit" class="btn btn-primary">Create User</button>
-            </div>
-          </form>
-        </div>
+          </div>
+
+          <!-- Modal Footer with Updated Button Styling -->
+          <div class="modal-footer" style="border-top: none">
+            <button type="button" class="btn btn-action btn-secondary" (click)="closeModal()">
+              Close
+            </button>
+            <button type="submit" class="btn btn-action btn-primary">
+              Create User
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  
+</div>

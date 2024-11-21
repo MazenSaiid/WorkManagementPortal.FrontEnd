@@ -54,7 +54,7 @@ import { OverviewComponent } from './Components/overview/overview.component';
     RouterModule,
     CanvasJSAngularChartsModule,
     NgxSpinnerModule,
-    HttpClientModule,
+  
   ],
   exports: [
     FormsModule,
@@ -64,7 +64,7 @@ import { OverviewComponent } from './Components/overview/overview.component';
     RouterModule,
     CanvasJSAngularChartsModule,
     NgxSpinnerModule,
-    HttpClientModule,
+
     HeaderComponent,
     FooterComponent,
     HomeComponent,

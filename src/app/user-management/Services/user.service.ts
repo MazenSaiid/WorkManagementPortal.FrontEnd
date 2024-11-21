@@ -18,7 +18,10 @@ export class UserService {
   getAllUsers(): Observable<UserValidationResponse> {
     return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/GetAllUsers`);
   }
-
+  // Get all usersManaged
+  getAllUsersAndThierHeads(): Observable<UserValidationResponse> {
+    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/EmployeesAndTheirHeads`);
+  }
   // Get a user by ID
   getUserById(id: string): Observable<UserValidationResponse> {
     return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/GetUserById/${id}`);
@@ -54,9 +57,9 @@ export class UserService {
     return this.http.put<UserValidationResponse>(`${this.apiUrl}/Users/UpdateUser/${id}`, user);
   }
   // Create or update a user
-  createUser( user: any): Observable<ValidationResponse> {
-    return this.http.put<UserValidationResponse>(`${this.apiUrl}/Accounts/Register/`, user);
-  }
+  createUser(user: any): Observable<ValidationResponse> {
+    return this.http.post<ValidationResponse>(`${this.apiUrl}/Accounts/Register`, user);
+  }  
 
   // Delete a user
   deleteUser(id: string): Observable<UserValidationResponse> {

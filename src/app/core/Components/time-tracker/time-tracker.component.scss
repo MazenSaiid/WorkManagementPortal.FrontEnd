@@ -1,16 +1,20 @@
 /* Time Tracker Container */
 .time-tracker {
   text-align: center;
+  background-color: #f4f9fc;
+  border-radius: 8px;
+  padding: 20px;
 }
 
 .greeting-message {
-  white-space: pre-line; /* This respects the \n in the text */
+  white-space: pre-line;
   font-size: 1.8em;
   font-weight: bold;
   color: #4caf50;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+
 /* Card styling */
 .card {
   border-radius: 10px;
@@ -56,6 +60,20 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.buttons .dropdown-toggle {
+  width: 220px; /* Make dropdown button the same size as others */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown-menu {
+  min-width: 200px; /* Ensure dropdown has a consistent width */
+  text-align: left;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
 /* Disabled Button Styling */
 button:disabled {
   background-color: #ccc;
@@ -67,11 +85,10 @@ button:disabled {
 /* Icon Styling */
 .fas {
   margin-right: 10px;
-  font-size: 1.2em; /* Icon size */
+  font-size: 1.2em;
 }
 
 /* Extra spacing */
 .row {
   margin-bottom: 20px;
 }
-

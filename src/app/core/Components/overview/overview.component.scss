@@ -2,8 +2,9 @@
 .dashboard-summary,
 .dashboard-charts {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  flex-direction: row; /* Display cards in a row */
+  gap: 16px; /* Space between the cards */
+  flex-wrap: wrap;
 }
 
 .dashboard-card {
@@ -12,8 +13,9 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 16px;
   margin-bottom: 16px;
+  flex: 1 1 23%; /* Flex-grow, flex-shrink, and flex-basis to control card width */
+  box-sizing: border-box; /* Ensure padding does not affect width */
 }
-
 .dashboard-card-title {
   font-size: 18px;
   font-weight: 700;

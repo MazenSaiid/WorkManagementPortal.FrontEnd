@@ -1,37 +1,40 @@
 <!-- Modal HTML for viewing user details -->
 <div *ngIf="isVisible" class="modal fade show" tabindex="-1" style="display: block; background: rgba(0, 0, 0, 0.5)">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h5 class="modal-title">User Details</h5>
-          <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
-        </div>
-        
-        <!-- Modal Body -->
-        <div class="modal-body">
-          <div *ngIf="user">
-            <p><strong>First Name:</strong> {{ user.firstName }}</p>
-            <p><strong>Last Name:</strong> {{ user.lastName }}</p>
-            <p><strong>Email:</strong> {{ user.email }}</p>
-            <p><strong>Phone:</strong> {{ user.phoneNumber }}</p>
-            <p><strong>Role:</strong> {{ user.roleName }}</p>
-            
-            <div *ngIf="user.supervisor">
-              <p><strong>Supervisor:</strong> {{ user.supervisor.firstName }} {{ user.supervisor.lastName }}</p>
-            </div>
-            
-            <div *ngIf="user.teamLeader">
-              <p><strong>Team Leader:</strong> {{ user.teamLeader.firstName }} {{ user.teamLeader.lastName }}</p>
-            </div>
+  <div class="modal-dialog" style="max-width: 80%; width: auto; height: auto;">
+    <div class="modal-content" style="border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); background-color: #f4f9fc;">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" style="font-size: 24px; color: #0056b3; font-weight: 700;">
+          User Details
+        </h5>
+        <button type="button" class="btn-close" (click)="closeModal()" style="border: none; font-size: 20px; color: #007bff"></button>
+      </div>
+      
+      <!-- Modal Body -->
+      <div class="modal-body" style="padding: 20px;">
+        <div *ngIf="user">
+          <p><strong>First Name:</strong> {{ user.firstName }}</p>
+          <p><strong>Last Name:</strong> {{ user.lastName }}</p>
+          <p><strong>Email:</strong> {{ user.email }}</p>
+          <p><strong>Phone:</strong> {{ user.phoneNumber }}</p>
+          <p><strong>Role:</strong> {{ user.roleName }}</p>
+          
+          <div *ngIf="user.supervisor">
+            <p><strong>Supervisor:</strong> {{ user.supervisor.firstName }} {{ user.supervisor.lastName }}</p>
+          </div>
+          
+          <div *ngIf="user.teamLeader">
+            <p><strong>Team Leader:</strong> {{ user.teamLeader.firstName }} {{ user.teamLeader.lastName }}</p>
           </div>
         </div>
-        
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-        </div>
+      </div>
+      
+      <!-- Modal Footer -->
+      <div class="modal-footer" style="border-top: none;">
+        <button type="button" class="btn btn-action btn-secondary" (click)="closeModal()">
+          Close
+        </button>
       </div>
     </div>
   </div>
-  
+</div>

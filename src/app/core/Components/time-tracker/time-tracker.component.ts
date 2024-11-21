@@ -1,31 +1,30 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-time-tracker',
   templateUrl: './time-tracker.component.html',
-  styleUrl: './time-tracker.component.scss'
+  styleUrls: ['./time-tracker.component.scss']
 })
 export class TimeTrackerComponent implements OnInit, OnDestroy {
   timeElapsed: number = 0;  // Total time spent (working + paused)
-  timeWorked: number = 0;   // Time spent working in seconds
-  timePaused: number = 0;   // Time spent paused in seconds (break + meeting)
-  breakTime: number = 0;    // Time spent on break pauses in seconds
-  meetingTime: number = 0;  // Time spent on meeting pauses in seconds
+  timeWorked: number = 0;    // Time spent working in seconds
+  timePaused: number = 0;    // Time spent paused in seconds (break + meeting)
+  pauseTimeElapsed: number = 0; // Total time spent in pause (combined for break and meeting)
+  
   workingInterval: any = null;  // Interval for working
   pausedInterval: any = null;   // Interval for paused time
-  isWorking: boolean = false;  // Is the user currently working
-  isPaused: boolean = false;   // Is the user currently paused
-  pauseType: string = '';      // Type of pause (either "Break" or "Meeting")
-  isStopped: boolean = false;  // Has the timer been stopped
-  greetingMessage: string = '';  // Greeting message for the user
 
-  // Chart data
-  chartOptions: any;
+  isWorking: boolean = false;   // Is the user currently working
+  isPaused: boolean = false;    // Is the user currently paused
+  isStopped: boolean = false;   // Has the timer been stopped
+
+  pauseType: string = '';       // Type of pause (either "Break" or "Meeting")
+  greetingMessage: string = ''; // Greeting message for the user
 
   constructor() {}
 
   ngOnInit(): void {
     this.updateGreetingMessage();
-    this.initializeChart(); // Initialize the chart
   }
 
   ngOnDestroy(): void {
@@ -60,9 +59,8 @@ export class TimeTrackerComponent implements OnInit, OnDestroy {
 
     // Start working interval
     this.workingInterval = setInterval(() => {
-      this.timeWorked++;   // Increment time spent working
-      this.timeElapsed++;  // Increment total time
-      this.updateChartData();  // Update chart data
+      this.timeWorked++;    // Increment time spent working
+      this.timeElapsed++;   // Increment total time
     }, 1000);
   }
 
@@ -80,9 +78,8 @@ export class TimeTrackerComponent implements OnInit, OnDestroy {
 
     // Start paused interval for break
     this.pausedInterval = setInterval(() => {
-      this.breakTime++;   // Increment break time
-      this.timePaused++;  // Increment total paused time
-      this.updateChartData();  // Update chart data
+      this.timePaused++;          // Increment total paused time
+      this.pauseTimeElapsed++;    // Increment total pause time
     }, 1000);
   }
 
@@ -100,9 +97,8 @@ export class TimeTrackerComponent implements OnInit, OnDestroy {
 
     // Start paused interval for meeting
     this.pausedInterval = setInterval(() => {
-      this.meetingTime++;  // Increment meeting time
-      this.timePaused++;   // Increment total paused time
-      this.updateChartData();  // Update chart data
+      this.timePaused++;          // Increment total paused time
+      this.pauseTimeElapsed++;    // Increment total pause time
     }, 1000);
   }
 
@@ -120,9 +116,8 @@ export class TimeTrackerComponent implements OnInit, OnDestroy {
 
     // Start working interval again
     this.workingInterval = setInterval(() => {
-      this.timeWorked++;   // Increment time spent working
-      this.timeElapsed++;  // Increment total time
-      this.updateChartData();  // Update chart data
+      this.timeWorked++;    // Increment time spent working
+      this.timeElapsed++;   // Increment total time
     }, 1000);
   }
 
@@ -138,63 +133,29 @@ export class TimeTrackerComponent implements OnInit, OnDestroy {
     this.isWorking = false;
     this.isPaused = false;
     this.isStopped = true;
-    this.greetingMessage = `Your total time worked is ${this.getFormattedTime()}.`;
 
-    this.updateChartData();  // Update chart data
+    // Update greeting message with both worked and paused time
+    this.greetingMessage = `Your total time worked is ${this.getFormattedTime()}.\nYour total paused time is ${this.getFormattedPauseTime()}.`;
   }
 
   // Format the time as HH:MM:SS
+  formatTime(seconds: number): string {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${this.pad(hours)}:${this.pad(minutes)}:${this.pad(secs)}`;
+  }
+
   getFormattedTime(): string {
-    const hours = Math.floor(this.timeElapsed / 3600);
-    const minutes = Math.floor((this.timeElapsed % 3600) / 60);
-    const seconds = this.timeElapsed % 60;
-    return `${this.pad(hours)}:${this.pad(minutes)}:${this.pad(seconds)}`;
+    return this.formatTime(this.timeElapsed);
+  }
+
+  getFormattedPauseTime(): string {
+    return this.formatTime(this.pauseTimeElapsed);
   }
 
   // Helper method to pad single digits with a leading zero
   private pad(value: number): string {
     return value < 10 ? '0' + value : value.toString();
   }
-
-  // Initialize chart options
-  initializeChart(): void {
-    this.chartOptions = {
-      theme: "light2", // Chart theme
-      title: {
-        text: "Time Tracker Summary", // Chart title
-        fontSize: 24,  // Font size for the title
-      },
-      animationEnabled: true, // Enable animation
-      data: [{
-        type: "pie",  // Pie chart
-        indexLabel: "{label}: {y} seconds",  // Format for pie slices
-        indexLabelFontSize: 14,  // Font size for the index labels
-        toolTipContent: "{label}: {y} seconds",  // Tooltip content
-        dataPoints: [
-          { label: "Working", y: this.timeWorked },
-          { label: "Paused (Break)", y: this.breakTime },
-          { label: "Paused (Meeting)", y: this.meetingTime },
-          { label: "Total", y: this.timeElapsed }
-        ]
-      }]
-    };
-  }
-
-  // Update the chart with new values (working, paused, total time)
-  updateChart(): void {
-    this.chartOptions.data[0].dataPoints = [
-      { label: "Working", y: this.timeWorked },
-      { label: "Paused (Break)", y: this.breakTime },
-      { label: "Paused (Meeting)", y: this.meetingTime },
-      { label: "Total", y: this.timeElapsed + this.timePaused }
-    ];
-  }
-
-  // Call this method whenever the time is updated (checkIn, pause, resume, stop)
-  updateChartData(): void {
-    this.updateChart();  // Update chart data points
-    this.chartOptions = { ...this.chartOptions };  // Trigger chart re-render
-  }
 }
-
-
