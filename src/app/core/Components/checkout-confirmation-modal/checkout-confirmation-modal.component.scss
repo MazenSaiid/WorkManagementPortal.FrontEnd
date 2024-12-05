@@ -41,25 +41,25 @@
 /* Button Hover and Active States */
 .modal-footer .btn-action:hover {
     background-color: #007bff;  /* Blue background on hover */
-    color: #e0e0e0;
+    color:#e0e0e0;
 }
 
-.modal-footer .btn-action.btn-danger {
-    background-color: #dc3545; /* Red background for delete button */
+.modal-footer .btn-action.btn-success {
+    color: #007bff;
+    background-color: #f4f9fc;
+}
+
+.modal-footer .btn-action.btn-success:hover {
+    background-color:  #28a745;  /* Darker green for checkout button hover */
     color: white;
-    border-color: #dc3545;
-}
-
-.modal-footer .btn-action.btn-danger:hover {
-    background-color: #c82333;  /* Darker red for delete button hover */
-    border-color: #bd2130;
 }
 
 .modal-footer .btn-action.btn-secondary:hover {
-    background-color: #e0e0e0;  /* Light background for close button hover */
+    background-color: #e0e0e0;
+    color: white;
 }
 
-.modal-footer .btn-action.btn-danger:focus {
+.modal-footer .btn-action.btn-success:focus {
     outline: none;
 }
 

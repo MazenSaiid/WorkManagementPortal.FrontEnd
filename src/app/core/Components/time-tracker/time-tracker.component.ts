@@ -6,6 +6,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   styleUrls: ['./time-tracker.component.scss']
 })
 export class TimeTrackerComponent implements OnInit, OnDestroy {
+  checkoutModalVisible: boolean = false;
+  openCheckoutModal(){
+    this.checkoutModalVisible =true;
+  }
+closeCheckoutModal(event: boolean) {
+this.checkoutModalVisible = event;
+}
   timeElapsed: number = 0;  // Total time spent (working + paused)
   timeWorked: number = 0;    // Time spent working in seconds
   timePaused: number = 0;    // Time spent paused in seconds (break + meeting)

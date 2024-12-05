@@ -31,9 +31,8 @@
                 <tr>
                   <th scope="col">Full Name</th>
                   <th scope="col">Email</th>
+                  <th scope="col">Phone Number</th>
                   <th scope="col">Role</th>
-                  <th scope="col">Supervisor</th>
-                  <th scope="col">Team Leader</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
@@ -41,9 +40,8 @@
                 <tr *ngFor="let user of filteredUsers"> <!-- Display filtered users -->
                   <td>{{ user.firstName }} {{ user.lastName }}</td>
                   <td>{{ user.email }}</td>
+                  <td>{{ user.phoneNumber }}</td>
                   <td>{{ user.roleName }}</td>
-                  <td>{{ user.supervisor?.firstName }} {{ user.supervisor?.lastName }}</td>
-                  <td>{{ user.teamLeader?.firstName }} {{ user.teamLeader?.lastName }}</td>
                   <td>
                     <div class="btn-group">
                       <button class="btn btn-link btn-sm" data-bs-toggle="dropdown" type="button">

@@ -1,0 +1,76 @@
+<div class="container">
+    <!-- Search Input -->
+    <div class="mb-3">
+      <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Search Roles" 
+        [(ngModel)]="searchText" 
+        (ngModelChange)="filterRoles()" 
+      />
+    </div>
+  
+    <!-- User Action Buttons -->
+    <div class="mb-3 text-end">
+      <button type="button" class="btn btn-success me-2" (click)="openCreateRoleModal()">
+        <i class="fa fa-user-plus"></i> Add new Role
+      </button>
+    </div>
+  
+    <!-- User Table -->
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col">Role Name</th>
+                    <th scope="col">Count</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let role of filteredRoles"> <!-- Display filtered users -->
+                    <td>{{ role.roleName}} </td>        
+                    <td>{{ role.userCount}} </td>             
+                    <td>
+                      <div class="btn-group">
+                        <button class="btn btn-link btn-sm" data-bs-toggle="dropdown" type="button">
+                          <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                          <button class="dropdown-item btn-sm" (click)="openViewRoleModal(role)">
+                            <i class="fa fa-eye"></i> View
+                          </button>
+                          <button class="dropdown-item btn-sm" (click)="openEditRoleModal(role)">
+                            <i class="fa fa-edit"></i> Edit
+                          </button>
+                          <button class="dropdown-item btn-sm text-danger" (click)="openDeleteConfirmationModal(role)">
+                            <i class="fa fa-trash"></i> Delete
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Create Role Modal -->
+    <app-add-roles [isVisible]="createRoleModalVisible" (close)="closeCreateRoleModal($event)"></app-add-roles>
+  
+    <!-- Edit Role Modal -->
+    <app-edit-roles [role]="selectedRole" [isVisible]="editRoleModalVisible" (close)="closeEditRoleModal($event)"></app-edit-roles>
+  
+    <!-- View Role Modal -->
+    <app-view-roles [role]="selectedRole" [isVisible]="viewRoleModalVisible" (close)="closeViewRoleModal($event)"></app-view-roles>
+  
+    <!-- Delete Confirmation Modal -->
+    <app-delete-confirmation-modal [role]="selectedRole" [isVisible]="deleteRoleModalVisible" (close)="closeDeleteRoleModal($event)"></app-delete-confirmation-modal>
+  </div>

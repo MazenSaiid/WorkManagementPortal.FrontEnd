@@ -49,12 +49,12 @@
           </div>
           <!-- Phone -->
           <div class="form-group">
-            <label for="phone" style="font-weight: 600">Phone</label>
+            <label for="phoneNumber" style="font-weight: 600">Phone Number</label>
             <div class="input-group">
               <div class="input-group-text">
                 <i class="bi bi-phone" style="font-size: 20px; color: #007bff"></i>
               </div>
-              <input formControlName="phone" class="form-control" id="phone" type="tel" inputmode="numeric"
+              <input formControlName="phoneNumber" class="form-control" id="phoneNumber" type="tel" inputmode="numeric"
                 pattern="[0-9]*" />
             </div>
           </div>
@@ -76,7 +76,7 @@
 
           <div class="form-group">
             <label for="roleName" style="font-weight: 600">Role</label>
-            <select id="roleName" class="form-control" formControlName="roleName" required>
+            <select id="roleName" class="form-control" formControlName="roleName">
               <option *ngFor="let role of roles" [value]="role.roleName">
                 {{ role.roleName }}
               </option>

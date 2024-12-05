@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UpdateRoleDto } from '../../core/Models/UpdateRoleDto';
 import { RolesListDto } from '../../core/Models/RolesListDto';
+import { RolesValidationResponse } from '../../core/Models/RolesValidationResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -14,20 +15,24 @@ export class RoleService {
 
   constructor(private http: HttpClient) { }
 
-  getAllRoles(): Observable<RolesListDto[]> {
-    return this.http.get<RolesListDto[]>(`${this.apiUrl}/Role/GetAllRoles`);
-  }
-   // Create or update a role
-   updateRole( role: UpdateRoleDto): Observable<string> {
-    return this.http.put<string>(`${this.apiUrl}/Role/UpdateRole/`, role);
-  }
-  // Create or update a role
-  createRole( user: any): Observable<string> {
-    return this.http.post<string>(`${this.apiUrl}/Role/CreateRole/`, user);
+  getAllRoles(): Observable<RolesValidationResponse> {
+    return this.http.get<RolesValidationResponse>(`${this.apiUrl}/Role/GetAllRoles`);
   }
 
+  // Get user count per role
+  getUserCountPerRole(): Observable<RolesValidationResponse> {
+    return this.http.get<RolesValidationResponse>(`${this.apiUrl}/Role/GetUserCountPerRole`);
+  }
+   // Create or update a role
+   updateRole( role: UpdateRoleDto):Observable<RolesValidationResponse> {
+    return this.http.put<RolesValidationResponse>(`${this.apiUrl}/Role/UpdateRole/`, role);
+  }
+  // Create or update a role
+  createRole( roleName: any): Observable<RolesValidationResponse> {
+    return this.http.post<RolesValidationResponse>(`${this.apiUrl}/Role/CreateRole/`, roleName);
+  }
   // Delete a user
-  deleteRole(id: string): Observable<string> {
-    return this.http.delete<string>(`${this.apiUrl}/Role/DeleteRole/${id}`);
+  deleteRole(id: string): Observable<RolesValidationResponse> {
+    return this.http.delete<RolesValidationResponse>(`${this.apiUrl}/Role/DeleteRole/${id}`);
   }
 }

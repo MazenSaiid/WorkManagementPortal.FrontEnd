@@ -8,6 +8,7 @@ const routes: Routes = [
   {path:'home',component:HomeComponent},
   {path:'overview',component:OverviewComponent},
   {path: 'user',loadChildren: () =>  import('./user-management/user-management.module').then(module => module.UserManagementModule)},
+  {path: 'role',loadChildren: () =>  import('./role-management/role-management.module').then(module => module.RoleManagementModule)},
   {path:'**',redirectTo:'not-found',pathMatch:'full'},
 ];
 

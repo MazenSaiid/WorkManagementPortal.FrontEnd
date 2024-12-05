@@ -13,7 +13,7 @@ import { UserDto } from '../../../core/Models/UserDto';
   styleUrls: ['./edit-user.component.scss']
 })
 export class EditUserComponent implements OnInit{
-  @Input() user: any;
+  @Input() user: UserDto | any ;
   @Input() isVisible: boolean = false;
   @Output() close = new EventEmitter<boolean>();
   userForm: FormGroup;
@@ -82,7 +82,7 @@ export class EditUserComponent implements OnInit{
   loadRoles(): void {
     this.roleService.getAllRoles().subscribe({
       next: (data) => {
-        this.roles = data;
+        this.roles = data.roles;
       },
       error: (error) => {
         this.toastr.error('Error fetching roles.', 'Error');
@@ -99,7 +99,7 @@ export class EditUserComponent implements OnInit{
     if (this.userForm.invalid) return;
 
     const updatedUser = this.userForm.value;
-    this.userService.updateUser(updatedUser.id,updatedUser).subscribe({
+    this.userService.updateUser(this.user?.id,updatedUser).subscribe({
       next: (response) => {
         if (response.success) {
         this.toastr.success('User updated successfully!');

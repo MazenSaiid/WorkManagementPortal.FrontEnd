@@ -54,7 +54,7 @@ export class CreateUserComponent implements OnInit {
   loadRoles(): void {
     this.roleService.getAllRoles().subscribe({
       next: (data) => {
-        this.roles = data;
+        this.roles = data.roles;
       },
       error: (error) => {
         console.error(error);
@@ -68,7 +68,7 @@ export class CreateUserComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: [''],
+      phoneNumber: [''],
       password: ['', Validators.required],
       roleName: ['', Validators.required],
       supervisorId: [''],

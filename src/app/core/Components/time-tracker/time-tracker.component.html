@@ -48,10 +48,11 @@
 
       <div class="col-auto">
         <!-- Show "Stop" when the timer is running or paused -->
-        <button *ngIf="isWorking || isPaused" class="btn btn-danger" (click)="stop()">
+        <button *ngIf="isWorking || isPaused" class="btn btn-danger" (click)="openCheckoutModal()">
           <i class="fas fa-stop-circle"></i> Stop
         </button>
       </div>
     </div>
   </div>
 </div>
+<app-checkout-confirmation-modal  [isVisible]="checkoutModalVisible" (close)="closeCheckoutModal($event)"></app-checkout-confirmation-modal>

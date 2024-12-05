@@ -12,7 +12,7 @@
 
       <!-- Modal Body -->
       <div class="modal-body" style="padding: 20px;">
-        Are you sure you want to proceed with the deletion?
+        Are you sure you want to proceed with the delete?
       </div>
 
       <!-- Modal Footer -->
@@ -20,8 +20,11 @@
         <button type="button" class="btn btn-action btn-secondary" (click)="closeModal()">
           Close
         </button>
-        <button type="button" class="btn btn-action btn-danger" (click)="deleteUser()">
-          Delete
+        <button *ngIf="user" type="button" class="btn btn-action btn-danger" (click)="deleteUser()">
+          Delete User
+        </button>
+        <button *ngIf="role" type="button" class="btn btn-action btn-danger" (click)="deleteRole()">
+          Delete Role
         </button>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { RolesListDto } from "./RolesListDto";
 import { UserDto } from "./UserDto";
 
 export interface ValidationResponse {
@@ -9,3 +10,5 @@ export interface ValidationResponse {
   export interface UserValidationResponse extends ValidationResponse {
     users: UserDto[];
   }
+
+  

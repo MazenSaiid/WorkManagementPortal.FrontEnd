@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { OverviewComponent } from './Components/overview/overview.component';
+import { CheckoutConfirmationModalComponent } from './Components/checkout-confirmation-modal/checkout-confirmation-modal.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { OverviewComponent } from './Components/overview/overview.component';
     TimeTrackerComponent,
     DeleteConfirmationModalComponent,
     OverviewComponent,
+    CheckoutConfirmationModalComponent,
   ],
   imports: [
     CommonModule,
