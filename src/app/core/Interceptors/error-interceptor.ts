@@ -20,10 +20,10 @@ export class ErrorInterceptor implements HttpInterceptor{
           if(err.status === 404){
             this.router.navigateByUrl('not-found');
           }
-          if(err.status ===500){
-            const navigationEx :NavigationExtras = {state: {error:err.error}}
-            this.router.navigateByUrl('server-error',navigationEx);
-          }
+          // if(err.status ===500){
+          //   const navigationEx :NavigationExtras = {state: {error:err.error}}
+          //   this.router.navigateByUrl('server-error',navigationEx);
+          // }
         }
         return throwError(()=> err.message || 'Server Not Found!');
       }))
