@@ -4,7 +4,6 @@ import { HeaderComponent } from './Components/header/header.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { HomeComponent } from './Components/home/home.component';
 import { NotFoundComponent } from './Components/not-found/not-found.component';
-import { LoaderComponent } from './Components/loader/loader.component';
 import { SideBarComponent } from './Components/side-bar/side-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -27,7 +26,6 @@ import { CheckoutConfirmationModalComponent } from './Components/checkout-confir
     FooterComponent,
     HomeComponent,
     NotFoundComponent,
-    LoaderComponent,
     SideBarComponent,
     TimeTrackerComponent,
     DeleteConfirmationModalComponent,
@@ -71,7 +69,6 @@ import { CheckoutConfirmationModalComponent } from './Components/checkout-confir
     FooterComponent,
     HomeComponent,
     NotFoundComponent,
-    LoaderComponent,
     SideBarComponent,
     TimeTrackerComponent,
     DeleteConfirmationModalComponent,

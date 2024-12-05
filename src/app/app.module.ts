@@ -15,9 +15,9 @@ import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/
   declarations: [AppComponent],
   imports: [BrowserModule,HttpClientModule,BrowserAnimationsModule,UserManagementModule, AppRoutingModule, CoreModule,RoleManagementModule],
   providers: [
-    //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     provideClientHydration(),
     provideHttpClient(withFetch()),
   ],
