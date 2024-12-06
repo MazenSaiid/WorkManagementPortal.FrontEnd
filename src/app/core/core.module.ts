@@ -10,15 +10,17 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ToastrModule } from 'ngx-toastr';
 import { RouterModule } from '@angular/router';
 import { TimeTrackerComponent } from './Components/time-tracker/time-tracker.component';
-import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DeleteConfirmationModalComponent } from './Components/delete-confirmation-modal/delete-confirmation-modal.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { OverviewComponent } from './Components/overview/overview.component';
 import { CheckoutConfirmationModalComponent } from './Components/checkout-confirmation-modal/checkout-confirmation-modal.component';
+import { CoreRoutingModule } from './core.routing.module';
+import { LoginComponent } from './Components/login/login.component';
+import { MyTeamComponent } from './Components/my-team/my-team.component';
+import { MyWorkComponent } from './Components/my-work/my-work.component';
+
 
 @NgModule({
   declarations: [
@@ -31,6 +33,9 @@ import { CheckoutConfirmationModalComponent } from './Components/checkout-confir
     DeleteConfirmationModalComponent,
     OverviewComponent,
     CheckoutConfirmationModalComponent,
+    LoginComponent,
+    MyTeamComponent,
+    MyWorkComponent,
   ],
   imports: [
     CommonModule,
@@ -52,8 +57,8 @@ import { CheckoutConfirmationModalComponent } from './Components/checkout-confir
     }),
     FormsModule,
     RouterModule,
-    CanvasJSAngularChartsModule,
     NgxSpinnerModule,
+    CoreRoutingModule
   
   ],
   exports: [
@@ -62,12 +67,11 @@ import { CheckoutConfirmationModalComponent } from './Components/checkout-confir
     TranslateModule,
     ToastrModule,
     RouterModule,
-    CanvasJSAngularChartsModule,
     NgxSpinnerModule,
-
     HeaderComponent,
     FooterComponent,
     HomeComponent,
+    LoginComponent,
     NotFoundComponent,
     SideBarComponent,
     TimeTrackerComponent,

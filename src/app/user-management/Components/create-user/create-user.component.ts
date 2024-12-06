@@ -3,9 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../Services/user.service';
 import { RoleService } from '../../../role-management/Services/role.service';
-import { RolesListDto } from '../../../core/Models/RolesListDto';
-import { RegiserModel } from '../../../core/Models/RegisterModel';
-import { UserDto } from '../../../core/Models/UserDto';
+import { RolesListDto } from '../../../core/Models/Dtos/RolesListDto';
+import { RegiserModel } from '../../../core/Models/Dtos/RegisterModel';
+import { UserDto } from '../../../core/Models/Dtos/UserDto';
 
 @Component({
   selector: 'app-create-user',

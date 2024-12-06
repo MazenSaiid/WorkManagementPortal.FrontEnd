@@ -4,7 +4,7 @@ import { Globals } from '../../../core/globals';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UserService } from '../../Services/user.service';
-import { UserDto } from '../../../core/Models/UserDto';
+import { UserDto } from '../../../core/Models/Dtos/UserDto';
 import { DeleteConfirmationModalComponent } from '../../../core/Components/delete-confirmation-modal/delete-confirmation-modal.component';
 
 @Component({

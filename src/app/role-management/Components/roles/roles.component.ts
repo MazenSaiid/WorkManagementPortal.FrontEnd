@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RoleService } from '../../Services/role.service';
-import { RolesListDto } from '../../../core/Models/RolesListDto';
+import { RolesListDto } from '../../../core/Models/Dtos/RolesListDto';
 
 @Component({
   selector: 'app-roles',

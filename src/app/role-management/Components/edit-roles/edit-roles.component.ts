@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { RolesListDto } from '../../../core/Models/RolesListDto';
+import { RolesListDto } from '../../../core/Models/Dtos/RolesListDto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RoleService } from '../../Services/role.service';
 import { ToastrService } from 'ngx-toastr';

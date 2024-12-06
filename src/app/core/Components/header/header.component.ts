@@ -8,6 +8,7 @@ import { Globals } from '../../globals';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
+
   constructor(//private accountService:AccountService,
      private globals: Globals,private router:Router) {
   }
@@ -17,4 +18,6 @@ export class HeaderComponent implements OnInit {
     //this.checkUserSession();
   }
   logout() {}
+  changePassword() {
+  }
 }

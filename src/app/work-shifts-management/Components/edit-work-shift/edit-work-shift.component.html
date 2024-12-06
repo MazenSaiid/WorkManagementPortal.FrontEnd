@@ -1,0 +1,80 @@
+<!-- Modal --> 
+<div class="modal" *ngIf="isVisible" tabindex="-1" style="display: block; background: rgba(0, 0, 0, 0.5)">
+  <div class="modal-dialog" style="max-width: 80%; width: auto; height: auto">
+    <div class="modal-content" style="border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); background-color: #f4f9fc;">
+      <div class="modal-header">
+        <h5 class="modal-title" style="font-size: 24px; color: #0056b3; font-weight: 700">
+          Edit Work Shift
+        </h5>
+        <button type="button" class="btn-close" (click)="closeModal()" style="border: none; font-size: 20px; color: #007bff"></button>
+      </div>
+      <div class="modal-body" style="padding: 20px">
+        <form [formGroup]="editWorkShiftForm" (ngSubmit)="onSubmit()">
+          <!-- Shift Name -->
+          <div class="form-group">
+            <label for="shiftName" style="font-weight: 600">Shift Name</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-user-clock"></i> <!-- Icon for shift name -->
+                </span>
+              </div>
+              <input formControlName="shiftName" class="form-control" id="shiftName" type="text" required placeholder="Enter shift name" [value]="workShift?.shiftName"/>
+            </div>
+          </div>
+
+          <!-- Shift Type -->
+          <div class="form-group">
+            <label for="shiftType" style="font-weight: 600">Shift Type</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-tasks"></i> <!-- Icon for shift type -->
+                </span>
+              </div>
+              <select formControlName="shiftType" class="form-control" required>
+                <option *ngFor="let shift of shiftTypes" [value]="shift.id">{{ shift.name }}</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Start Time -->
+          <div class="form-group">
+            <label for="startTime" style="font-weight: 600">Start Time</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-clock"></i> <!-- Icon for time -->
+                </span>
+              </div>
+              <input formControlName="startTime" class="form-control" id="startTime" type="time" required/>
+            </div>
+          </div>
+
+          <!-- End Time -->
+          <div class="form-group">
+            <label for="endTime" style="font-weight: 600">End Time</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-clock"></i> <!-- Icon for time -->
+                </span>
+              </div>
+              <input formControlName="endTime" class="form-control" id="endTime" type="time" required />
+            </div>
+          </div>
+
+          <!-- Modal Footer with Updated Button Styling -->
+          <div class="modal-footer" style="border-top: none">
+            <button type="button" class="btn btn-action btn-secondary" (click)="closeModal()">
+              Close
+            </button>
+            <button type="submit" class="btn btn-action btn-primary">
+              Update Work Shift
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

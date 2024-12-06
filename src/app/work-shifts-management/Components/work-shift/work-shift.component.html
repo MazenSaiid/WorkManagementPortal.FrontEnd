@@ -1,0 +1,82 @@
+<div class="container">
+    <!-- Search Input -->
+    <div class="mb-3">
+      <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Search Work Shifts" 
+        [(ngModel)]="searchText" 
+        (ngModelChange)="filterWorkShifts()" 
+      />
+    </div>
+  
+    <!-- User Action Buttons -->
+    <div class="mb-3 text-end">
+          <button type="button" class="btn btn-success me-2" (click)="openCreateWorkShiftModal()">
+            <i class="fa fa-calendar"></i> Add Work Shift
+          </button>
+          
+    </div>
+  
+    <!-- User Table -->
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col">Shift Name</th>
+                    <th scope="col">Shift Type</th>
+                    <th scope="col">Start Time</th>
+                    <th scope="col">End Time</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let workShift of filteredWorkShifts"> <!-- Display filtered users -->
+                    <td>{{ workShift.shiftName }}</td>
+                    <td>{{ workShift.shiftType | enumToString }}</td> <!-- Using pipe to convert enum to string -->
+                    <td>{{ formatTimeToDate(workShift.startTime) | date:'hh:mm a' }}</td> <!-- Format the startTime -->
+                    <td>{{ formatTimeToDate(workShift.endTime) | date:'hh:mm a' }}</td>   <!-- Format the endTime -->
+                    <td>
+                      <div class="btn-group">
+                        <button class="btn btn-link btn-sm" data-bs-toggle="dropdown" type="button">
+                          <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                          <button class="dropdown-item btn-sm" (click)="openViewWorkShiftModal(workShift)">
+                            <i class="fa fa-eye"></i> View
+                          </button>
+                          <button class="dropdown-item btn-sm" (click)="openEditWorkShiftModal(workShift)">
+                            <i class="fa fa-edit"></i> Edit
+                          </button>
+                          <button class="dropdown-item btn-sm text-danger" (click)="openDeleteConfirmationModal(workShift)">
+                            <i class="fa fa-trash"></i> Delete
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Create WorkShift Modal -->
+    <app-add-work-shift [isVisible]="createWorkShiftModalVisible" (close)="closeCreateWorkShiftModal($event)"></app-add-work-shift >
+  
+    <!-- Edit WorkShift Modal -->
+    <app-edit-work-shift [workShift]="selectedWorkShift" [isVisible]="editWorkShiftModalVisible" (close)="closeEditWorkShiftModal($event)"></app-edit-work-shift>
+  
+    <!-- View WorkShift Modal -->
+    <app-view-work-shift [workShift]="selectedWorkShift" [isVisible]="viewWorkShiftModalVisible" (close)="closeViewWorkShiftModal($event)"></app-view-work-shift>
+  
+    <!-- Delete Confirmation Modal -->
+    <app-delete-confirmation-modal [workShift]="selectedWorkShift" [isVisible]="deleteWorkShiftModalVisible" (close)="closeDeleteWorkShiftModal($event)"></app-delete-confirmation-modal>
+  </div>
+  

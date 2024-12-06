@@ -24,16 +24,31 @@
 
   <!-- User Profile Section -->
   <div class="user-profile d-flex align-items-center">
-    <div class="dropdown">
-      <a class="dropdown-toggle" dropdownToggle style="cursor: pointer;">
+    <div class="dropdown" bsDropdown>
+      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" aria-expanded="false">
         <span class="profile-icon">
           <i class="fas fa-user-circle ml-2"></i>
           Welcome!
         </span>
-      </a>
-      <div *dropdownMenu class="dropdown-menu">
-        <a (click)="logout()" class="dropdown-item">Logout</a>
-      </div>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li>
+          <a (click)="logout()" class="dropdown-item">
+            <span class="profile-icon">
+              <i class="fas fa-sign-out-alt ml-2"></i> <!-- Icon for Logout -->
+              Logout
+            </span>
+          </a>
+        </li>
+        <li>
+          <a (click)="changePassword()" class="dropdown-item">
+            <span class="profile-icon">
+              <i class="fas fa-key ml-2"></i> <!-- Icon for Change Password -->
+              Change Password
+            </span>
+          </a>
+        </li>
+      </ul>
     </div>
-  </div>
+  </div>  
 </header>

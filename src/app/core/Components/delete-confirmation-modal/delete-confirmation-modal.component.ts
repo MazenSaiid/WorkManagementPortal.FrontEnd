@@ -1,12 +1,14 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { UserDto } from '../../Models/UserDto';
+import { UserDto } from '../../Models/Dtos/UserDto';
 import { ToastrService } from 'ngx-toastr';
 import { Globals } from '../../globals';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UserService } from '../../../user-management/Services/user.service';
-import { RolesListDto } from '../../Models/RolesListDto';
+import { RolesListDto } from '../../Models/Dtos/RolesListDto';
 import { RoleService } from '../../../role-management/Services/role.service';
+import { ListWorkShiftDto } from '../../Models/Dtos/ListWorkShiftDto';
+import { WorkShiftService } from '../../../work-shifts-management/Services/work-shift.service';
 
 @Component({
   selector: 'app-delete-confirmation-modal',
@@ -17,13 +19,32 @@ export class DeleteConfirmationModalComponent {
 
   @Input() user: UserDto | any;
   @Input() isVisible: boolean = false; 
+  @Input() workShift: ListWorkShiftDto | any;
   @Input() role: RolesListDto | any;
   @Output() close: EventEmitter<boolean> = new EventEmitter<boolean>();
-  constructor(private toastrService: ToastrService, private rolesService:RoleService, private userService: UserService) {
+  constructor(private toastrService: ToastrService, private rolesService:RoleService,
+     private userService: UserService,
+    private workShiftService: WorkShiftService) {
   }
   closeModal(): void {
     this.close.emit(false); // Emit false to close the modal
   }
+     // Delete a work shift by ID
+ deleteWorkShift() {
+  this.workShiftService.deleteWorkShift(this.workShift.id).subscribe({
+    next: (response) => {
+      if (response.success) {
+        this.toastrService.success('Work Shift deleted successfully', 'Success');
+        this.closeModal();
+      } else {
+        this.toastrService.error(response.message, 'Error');
+      }
+    },
+    error: () => {
+      this.toastrService.error('An error occurred while deleting the work shift.', 'Error');
+    }
+  });
+}
    // Delete a user by ID
  deleteUser() {
   this.userService.deleteUser(this.user.id).subscribe({

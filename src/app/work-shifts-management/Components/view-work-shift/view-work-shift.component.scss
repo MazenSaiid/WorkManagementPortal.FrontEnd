@@ -1,0 +1,62 @@
+/* Modal Styling */
+.modal-content {
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #f4f9fc; /* Sidebar matching background */
+    padding: 20px;
+}
+
+.modal-header {
+    padding-bottom: 15px;
+    border-bottom: 2px solid #ededed;
+}
+
+.modal-header .modal-title {
+    font-size: 24px;
+    color: #0056b3;
+    font-weight: 700;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    padding-top: 10px;
+    border-top: none;
+}
+
+/* Button Styling for Modal Footer */
+.modal-footer .btn-action {
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    background-color: #f4f9fc;  /* Sidebar matching background */
+    color: #007bff;  /* Blue text for consistency with sidebar */
+    border: 1px solid #e0e0e0;  /* Matching border with sidebar */
+}
+
+/* Button Hover and Active States */
+.modal-footer .btn-action:hover {
+    background-color: #007bff;  /* Blue background on hover */
+    color: white;
+}
+
+.modal-footer .btn-action.btn-primary:hover {
+    background-color: #0056b3;  /* Darker blue for primary button hover */
+}
+
+.modal-footer .btn-action.btn-secondary:hover {
+    background-color: #e0e0e0;  /* Light background for close button hover */
+}
+
+/* Hover/Focus effects */
+input.form-control:focus, select.form-control:focus {
+    border-color: #007bff;
+}
+
+.modal-footer button:hover {
+    opacity: 0.9;
+}

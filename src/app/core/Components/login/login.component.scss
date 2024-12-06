@@ -1,0 +1,107 @@
+/* Make the login form fill the entire page */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f9fc;
+}
+
+/* Full-page container */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+/* Content box */
+.login-content {
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f4f9fc;
+  width: 100%;
+  max-width: 400px;  /* Limits the width of the form */
+  padding: 20px;
+}
+
+/* Header styling */
+.login-header {
+  border-bottom: 2px solid #ededed;
+  padding-bottom: 15px;
+}
+
+.login-title {
+  font-size: 24px;
+  color: #0056b3;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Body styling */
+.login-body {
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input.form-control {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+input.form-control:focus {
+  border-color: #007bff;
+}
+
+/* Input Group for Email & Password */
+.input-group {
+  display: flex;
+  align-items: center;
+}
+
+.input-group-text {
+  background-color: #e9ecef;
+  border: 1px solid #ccc;
+  border-right: none;
+  border-radius: 8px;
+}
+
+.input-group .form-control {
+  border-radius: 8px;
+  border-left: none;
+}
+
+/* Action Button */
+.login-footer .btn-action {
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  background-color: #f4f9fc;
+  color: #007bff;
+  border: 1px solid #e0e0e0;
+}
+
+.login-footer .btn-action:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Icon styling */
+.bi-eye {
+  color: #007bff;
+  cursor: pointer;
+}
+
+/* Ensure the content is centered */
+.login-footer {
+  display: flex;
+  justify-content: center;
+}
+

@@ -1,5 +1,5 @@
-import { RolesListDto } from "./RolesListDto";
-import { UserDto } from "./UserDto";
+import { RolesListDto } from "../Dtos/RolesListDto";
+import { UserDto } from "../Dtos/UserDto";
 
 export interface ValidationResponse {
     success: boolean;

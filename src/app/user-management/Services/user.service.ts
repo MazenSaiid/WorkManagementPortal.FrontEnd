@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs'; // Assuming you have your environment defined
 import { environment } from '../../environment/environment';
-import { UserValidationResponse, ValidationResponse } from '../../core/Models/UserValidationResponse';
-import { UpdateUserDto } from '../../core/Models/UpdateUserDto';
+import { UserValidationResponse, ValidationResponse } from '../../core/Models/Responses/UserValidationResponse';
+import { UpdateUserDto } from '../../core/Models/Dtos/UpdateUserDto';
 
 
 @Injectable({

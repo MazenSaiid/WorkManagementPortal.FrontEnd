@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UpdateRoleDto } from '../../core/Models/UpdateRoleDto';
-import { RolesListDto } from '../../core/Models/RolesListDto';
-import { RolesValidationResponse } from '../../core/Models/RolesValidationResponse';
+import { UpdateRoleDto } from '../../core/Models/Dtos/UpdateRoleDto';
+import { RolesListDto } from '../../core/Models/Dtos/RolesListDto';
+import { RolesValidationResponse } from '../../core/Models/Responses/RolesValidationResponse';
 
 @Injectable({
   providedIn: 'root'

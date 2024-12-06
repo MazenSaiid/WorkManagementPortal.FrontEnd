@@ -3,9 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../Services/user.service';
 import { RoleService } from '../../../role-management/Services/role.service';
-import { RolesListDto } from '../../../core/Models/RolesListDto';
-import { UserValidationResponse } from '../../../core/Models/UserValidationResponse';
-import { UserDto } from '../../../core/Models/UserDto';
+import { RolesListDto } from '../../../core/Models/Dtos/RolesListDto';
+import { UserValidationResponse } from '../../../core/Models/Responses/UserValidationResponse';
+import { UserDto } from '../../../core/Models/Dtos/UserDto';
 
 @Component({
   selector: 'app-edit-user',
