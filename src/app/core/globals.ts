@@ -12,8 +12,6 @@ export class Globals {
 
   lang: string = 'en';
   loggedIn: boolean = true;
-  menuOpened: boolean = false;
-  placeholder = "assets/images/placeholder-image.png";
   currentUserInfo: any;
 
   constructor(public route: ActivatedRoute, private router: Router) {
@@ -29,7 +27,7 @@ export class Globals {
       localStorage.clear();
     }
     this.loggedIn = false;
-    this.router.navigate(['/account/login']);
+    this.router.navigate(['login']);
   }
 
   loadUserInfo() {
@@ -70,49 +68,6 @@ export class Globals {
         this.currentUserInfo.lastActionDate = lastActionDate;
       }
     }
-  }
-
-  updateUserTokenAndRefreshToken(token: string, refreshToken: string) {
-    if (this.isClient()) {
-      if (localStorage.getItem(this._UID) != null) {
-        let uid = localStorage.getItem(this._UID) ?? '';
-        let UserInfo = JSON.parse(this.decryptData(uid));
-        UserInfo.token = token;
-        UserInfo.refreshToken = refreshToken;
-        UserInfo = this.encryptData(JSON.stringify(UserInfo));
-        localStorage.setItem(this._UID, UserInfo);
-        this.currentUserInfo.token = token;
-        this.currentUserInfo.refreshToken = refreshToken;
-      }
-    }
-  }
-
-  updateLocalSessionExpireDate(localSessionExpireDate: Date) {
-    if (this.isClient()) {
-      if (localStorage.getItem(this._UID) != null) {
-        let uid = localStorage.getItem(this._UID) ?? '';
-        let UserInfo = JSON.parse(this.decryptData(uid));
-        UserInfo.localSessionExpireDate = localSessionExpireDate;
-        UserInfo = this.encryptData(JSON.stringify(UserInfo));
-        localStorage.setItem(this._UID, UserInfo);
-        this.currentUserInfo.localSessionExpireDate = localSessionExpireDate;
-      }
-    }
-  }
-
-  checkUserHasPermission(permissionName: string) {
-    let res = false;
-    if (permissionName.indexOf(',') >= 0) {
-      const permissionList: string[] = permissionName.split(',');
-      permissionList.forEach(permission => {
-        if (this.currentUserInfo?.permissions.indexOf(permission.trim()) !== -1) {
-          res = true;
-        }
-      });
-    } else {
-      res = this.currentUserInfo?.permissions.indexOf(permissionName.trim()) === -1 ? false : true;
-    }
-    return res;
   }
 
   get UID(): string {

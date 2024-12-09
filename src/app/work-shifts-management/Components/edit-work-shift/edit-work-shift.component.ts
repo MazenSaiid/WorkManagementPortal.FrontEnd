@@ -3,6 +3,7 @@ import { ListWorkShiftDto, ShiftType } from '../../../core/Models/Dtos/ListWorkS
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WorkShiftService } from '../../Services/work-shift.service';
 import { ToastrService } from 'ngx-toastr';
+import { WorkShiftDto } from '../../../core/Models/Dtos/WorkShiftDto';
 
 @Component({
   selector: 'app-edit-work-shift',
@@ -21,6 +22,7 @@ export class EditWorkShiftComponent {
     { id: ShiftType.Night, name: 'Night' },
     // Add more shift types as needed
   ];
+  updatedWorkShift: WorkShiftDto | null = null;
   constructor(private fb: FormBuilder, private workShiftService: WorkShiftService, private toastr: ToastrService){
     this.editWorkShiftForm = this.fb.group({
       shiftName: ['', Validators.required],
@@ -37,9 +39,8 @@ export class EditWorkShiftComponent {
 
   onSubmit() {
     if (this.editWorkShiftForm.invalid) return;
-
-    const updatedWorkShift = this.editWorkShiftForm.value;
-    this.workShiftService.updateWorkShift(this.workShift?.id,updatedWorkShift).subscribe({
+    this.updatedWorkShift = this.editWorkShiftForm.value;
+    this.workShiftService.updateWorkShift(this.workShift?.id,this.updatedWorkShift).subscribe({
       next: (response) => {
         if (response.success) {
         this.toastr.success('Work Shift updated successfully!');
@@ -49,7 +50,7 @@ export class EditWorkShiftComponent {
       }
     },
       error: (err) => {
-        this.toastr.error('Error updating user.');
+        this.toastr.error('Error updating Workshift.');
       }
     });
   }

@@ -1,5 +1,5 @@
-<!-- Static Login Form Component -->
-<div class="login-container">
+<div class="login-container"> 
+  <div class="login-left">
     <div class="login-content">
       <div class="login-header">
         <h3 class="login-title">Login</h3>
@@ -47,37 +47,7 @@
       </div>
     </div>
   </div>
-  
-  <!-- Forgot Password Modal -->
-  <div *ngIf="isForgotPasswordModalVisible" class="modal" tabindex="-1" style="display: block; background: rgba(0, 0, 0, 0.5);">
-    <div class="modal-dialog" style="max-width: 80%; width: auto; height: auto;">
-      <div class="modal-content" style="border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); background-color: #f4f9fc;">
-        <div class="modal-header">
-          <h5 class="modal-title" style="font-size: 24px; color: #0056b3; font-weight: 700;">Reset Password</h5>
-          <button type="button" class="btn-close" (click)="closeForgotPasswordModal()" style="border: none; font-size: 20px; color: #007bff"></button>
-        </div>
-        <div class="modal-body" style="padding: 20px;">
-          <form [formGroup]="forgotPasswordForm" (ngSubmit)="onForgotPasswordSubmit()">
-            <!-- Email Input -->
-            <div class="form-group">
-              <label for="resetEmail" style="font-weight: 600;">Enter your email to reset your password</label>
-              <div class="input-group">
-                <div class="input-group-text">
-                  <i class="bi bi-envelope" style="font-size: 20px; color: #007bff"></i>
-                </div>
-                <input formControlName="email" class="form-control" id="resetEmail" type="email" required />
-              </div>
-            </div>
-  
-            <!-- Submit Button -->
-            <div class="form-group" style="text-align: center; margin-top: 20px;">
-              <button type="submit" class="btn btn-action btn-primary">
-                Request Reset
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+  <div class="login-right">
+    <img src="assets/images/login.jpg" alt="Background Image" class="right-image"/>
   </div>
-  
+</div>

@@ -3,6 +3,7 @@ import { ListWorkShiftDto, ShiftType } from '../../../core/Models/Dtos/ListWorkS
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WorkShiftService } from '../../Services/work-shift.service';
 import { ToastrService } from 'ngx-toastr';
+import { WorkShiftDto } from '../../../core/Models/Dtos/WorkShiftDto';
 
 @Component({
   selector: 'app-add-work-shift',
@@ -10,7 +11,12 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './add-work-shift.component.scss'
 })
 export class AddWorkShiftComponent {
-
+  workShiftData: WorkShiftDto | null = null;
+  @Input() workShift: ListWorkShiftDto | any ;
+  @Input() isVisible: boolean = false;
+  @Output() close = new EventEmitter<boolean>();
+  createWorkShiftForm: FormGroup;
+  
 constructor(private fb: FormBuilder, private workShiftService: WorkShiftService, private toastr: ToastrService) {
   this.createWorkShiftForm = this.fb.group({
     shiftName: ['', Validators.required],
@@ -31,16 +37,17 @@ onSubmit(): void {
     return;
   }
 
-  const workShiftData: ListWorkShiftDto = this.createWorkShiftForm.value;
+   this.workShiftData = this.createWorkShiftForm.value;
 
-  // Ensure that end time is after start time
-  if (new Date(workShiftData.endTime) <= new Date(workShiftData.startTime)) {
-    this.toastr.error('End time must be later than start time.');
-    return;
+    // Ensure that end time is after start time
+  if(this.workShiftData){
+    if (new Date(this.workShiftData.endTime) <= new Date(this.workShiftData.startTime)) {
+      this.toastr.error('End time must be later than start time.');
+      return;
+    }
   }
-
   // Call the service to create the work shift
-  this.workShiftService.createWorkShift(workShiftData).subscribe({
+  this.workShiftService.createWorkShift(this.workShiftData).subscribe({
     next: (response) => {
       if (response.success) {
         this.toastr.success('Work Shift created successfully!');
@@ -54,11 +61,6 @@ onSubmit(): void {
     }
   });
 }
-  @Input() workShift: ListWorkShiftDto | any ;
-  @Input() isVisible: boolean = false;
-  @Output() close = new EventEmitter<boolean>();
-  createWorkShiftForm: FormGroup;
-
   closeModal(): void {
     this.close.emit(false);
   }

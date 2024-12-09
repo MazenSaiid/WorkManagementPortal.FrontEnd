@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../../Services/account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private router:Router
   ) {
     // Create the form group with validators
     this.loginForm = this.fb.group({
@@ -30,6 +32,8 @@ export class LoginComponent implements OnInit {
     });
   }
   ngOnInit(): void {}
+
+
   onForgotPasswordSubmit() {
     if (this.forgotPasswordForm.invalid) return;
     this.emailforPasswordReset = this.forgotPasswordForm.value;
@@ -66,6 +70,7 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         if (response.success) {
           this.toastr.success('Login successfully!');
+          this.router.navigate(['/home']);
         } else {
           this.toastr.error(response.message, 'Error');
         }

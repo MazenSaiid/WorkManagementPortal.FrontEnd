@@ -5,11 +5,11 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Globals } from '../globals';
-//import { AccountService } from './account/Services/account.service';
+import { AccountService } from '../Services/account.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private globals: Globals, private router: Router,//private accountService:AccountService
+  constructor(private globals: Globals, private router: Router,private accountService:AccountService
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -18,9 +18,9 @@ export class AuthInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           // JWT token has expired, logout the user
           this.globals.clearSession();
-          //this.accountService.currentUser.next(null);
+          this.accountService.currentUser.next(null);
           this.globals.loggedIn = false;
-          this.router.navigate(['/account/login']);
+          this.router.navigate(['/login']);
         }
         return throwError(error);
       })
