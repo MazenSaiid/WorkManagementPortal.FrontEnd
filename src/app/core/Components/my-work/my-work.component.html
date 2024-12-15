@@ -1,1 +1,52 @@
-<p>my-work works!</p>
+<div class="personal-statistics-root">
+    <div class="personal-header">
+      <!-- Date Picker Section -->
+      <div class="personal-header-calendar">
+        <label for="date-picker" class="calendar-label">Date:</label>
+        <input type="date" id="date-picker" class="calendar-input" (change)="onDateChange($event)">
+      </div>
+  
+      <!-- Clock In/Out Times Section -->
+      <div class="personal-header-clock-time" *ngIf="workLog">
+        <div class="personal-header-summary-card">
+          <div class="personal-header-summary-card-text">Clock-in Time</div>
+          <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ workLog.WorkTimeStart || '-' }}</h4>
+        </div>
+        <div class="personal-header-summary-card">
+          <div class="personal-header-summary-card-text">Clock-Out Time</div>
+          <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ workLog.WorkTimeEnd || '-' }}</h4>
+        </div>
+      </div>
+  
+      <!-- Worked Hours and Paused Time Section -->
+      <div class="personal-header-summary-row" *ngIf="workLog">
+        <div class="personal-header-summary-card">
+          <div class="personal-header-summary-card-text">Total Worked Hours</div>
+          <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ workLog.TotalWorkedHours.toFixed(2) }}h</h4>
+        </div>
+        <div class="personal-header-summary-card">
+          <div class="personal-header-summary-card-text">Total Paused Time</div>
+          <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ workLog.PausedTime.toFixed(2) }}h</h4>
+        </div>
+        <div class="personal-header-summary-card">
+          <div class="personal-header-summary-card-text">Actual Work Duration</div>
+          <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ workLog.ActualWorkDuration.toFixed(2) }}h</h4>
+        </div>
+      </div>
+  
+      <!-- Paused Times Section -->
+      <div class="personal-header-paused-times" *ngIf="workLog && workLog.Pauses && workLog.Pauses.length">
+        <div class="personal-header-summary-card" *ngFor="let pause of workLog.Pauses">
+          <div class="personal-header-summary-card-text">Pause Type</div>
+          <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ pause.PauseType }}</h4>
+          <div class="personal-header-summary-card-text">Pause Duration</div>
+          <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ pause.DurationFormatted }}</h4>
+          <div class="personal-header-summary-card-text">Pause Start</div>
+          <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ pause.PauseStart }}</h4>
+          <div class="personal-header-summary-card-text">Pause End</div>
+          <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ pause.PauseEnd }}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -8,6 +8,10 @@ import { SideBarComponent } from './Components/side-bar/side-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ToastrModule } from 'ngx-toastr';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
 import { TimeTrackerComponent } from './Components/time-tracker/time-tracker.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -40,6 +44,10 @@ import { MyWorkComponent } from './Components/my-work/my-work.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatFormFieldModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-bottom-right',
@@ -66,6 +74,10 @@ import { MyWorkComponent } from './Components/my-work/my-work.component';
     ReactiveFormsModule,
     TranslateModule,
     ToastrModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatFormFieldModule,
     RouterModule,
     NgxSpinnerModule,
     HeaderComponent,

@@ -1,0 +1,126 @@
+/* Button Styling */
+.my-team-root-filter-button {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.my-team-root-filter-button button {
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  margin-right: 8px;
+}
+
+.team-status-filter {
+  transition: background-color 0.3s ease;
+}
+
+.team-status-filter-selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.team-status-filter:hover {
+  background-color: #e9ecef;
+}
+
+/* Team Card Styling */
+.team-card-root {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* Reduced the gap between cards */
+  justify-content: space-between;
+}
+
+.team-card {
+  width: 280px;  /* Increased card width */
+  background-color: #f4f9fc;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.team-card-header,
+.team-card-footer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.team-card-avatar {
+  background-color: #007bff;
+  color: white;
+  width: 45px;  /* Increased avatar size slightly */
+  height: 45px; 
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.team-card-name {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.team-card-teammembername {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.team-card-teammemberemail {
+  font-size: 12px;
+  color: #888;
+}
+
+.team-card-role {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.team-card-rolename  {
+  font-size: 14px;
+  color: #007bff;
+}
+
+.team-card-footer {
+  margin-top: 15px;
+  justify-content: space-between;
+}
+
+.team-card-footer-phonenumber {
+  font-size: 12px;
+  color: #888;
+}
+
+.team-card-footer-id{
+  font-size: 14px;
+  color: #007bff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .team-card-root {
+    justify-content: center;
+    gap: 10px; /* Reduced gap for small screens */
+  }
+
+  .team-card {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .my-team-root-filter-button {
+    justify-content: center;
+  }
+}

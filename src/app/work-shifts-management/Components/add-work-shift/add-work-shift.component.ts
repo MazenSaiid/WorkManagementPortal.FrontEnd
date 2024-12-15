@@ -16,7 +16,7 @@ export class AddWorkShiftComponent {
   @Input() isVisible: boolean = false;
   @Output() close = new EventEmitter<boolean>();
   createWorkShiftForm: FormGroup;
-  
+  shiftTypes: any[] = [];  
 constructor(private fb: FormBuilder, private workShiftService: WorkShiftService, private toastr: ToastrService) {
   this.createWorkShiftForm = this.fb.group({
     shiftName: ['', Validators.required],
@@ -25,19 +25,34 @@ constructor(private fb: FormBuilder, private workShiftService: WorkShiftService,
     endTime: ['', Validators.required]
   });
 }
-shiftTypes = [
-  { id: ShiftType.Morning, name: 'Morning' },
-  { id: ShiftType.MidDay, name: 'Mid Day' },
-  { id: ShiftType.Evening, name: 'Evening' },
-  { id: ShiftType.Night, name: 'Night' },
-  // Add more shift types as needed
-];
+ngOnInit(): void {
+  this.fetchShiftTypes();
+}
+fetchShiftTypes(): void {
+  this.workShiftService.getShiftTypes().subscribe({
+    next: (response) => {
+      if (response && Array.isArray(response)) {
+        this.shiftTypes = response; 
+      } else {
+        this.toastr.error('Failed to load shift types', 'Error');
+      }
+    },
+    error: () => {
+      this.toastr.error('Error fetching shift types.');
+    }
+  });
+}
 onSubmit(): void {
   if (this.createWorkShiftForm.invalid) {
     return;
   }
-
-   this.workShiftData = this.createWorkShiftForm.value;
+  
+  const formData = { ...this.createWorkShiftForm.value };
+  formData.shiftType = Number(formData.shiftType);
+  formData.startTime = this.convertToTimeOnly(formData.startTime);
+  formData.endTime = this.convertToTimeOnly(formData.endTime);
+  
+  this.workShiftData = formData;  
 
     // Ensure that end time is after start time
   if(this.workShiftData){
@@ -60,6 +75,17 @@ onSubmit(): void {
       this.toastr.error('Error creating work shift.');
     }
   });
+}
+convertToTimeOnly(time: string): string {
+  // Assuming time is in "HH:mm" format and needs seconds appended
+  const timeParts = time.split(':');
+  
+  // If the time is in "HH:mm" format (2 parts), add default seconds ":45"
+  if (timeParts.length === 2) {
+    return `${timeParts[0].padStart(2, '0')}:${timeParts[1].padStart(2, '0')}:00`;
+  }
+  // If the format doesn't match, return the original input
+  return time;
 }
   closeModal(): void {
     this.close.emit(false);

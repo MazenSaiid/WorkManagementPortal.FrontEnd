@@ -16,6 +16,10 @@ export class WorkShiftService {
   getAllWorkShifts(): Observable<WorkShiftValidationResponse> {
     return this.http.get<WorkShiftValidationResponse>(`${this.apiUrl}/WorkShifts/GetAllWorkShifts`);
   }
+  
+  getShiftTypes(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/WorkShifts/GetShiftTypes`);
+  }
 
    // Create or update a workshift
    updateWorkShift(id: number, updateWorkShiftDto: any):Observable<WorkShiftValidationResponse> {

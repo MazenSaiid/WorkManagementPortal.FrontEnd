@@ -1,1 +1,53 @@
-<p>my-team works!</p>
+<div class="my-team-root-filter-button my-team-root-filter-button-all">
+  <button
+    type="button"
+    class="rounded-pill px-3 team-status-filter"
+    [ngClass]="{'team-status-filter-selected': selectedFilter === 'All'}"
+    (click)="filterTeam('All')"
+  >
+    All Members ({{ users.length }})
+  </button>
+  <button
+    type="button"
+    class="rounded-pill px-3 team-status-filter"
+    [ngClass]="{'team-status-filter-selected': selectedFilter === 'Employees'}"
+    (click)="filterTeam('Employees')"
+  >
+    Employees ({{ employeesLength}})
+  </button>
+  <button
+    type="button"
+    class="rounded-pill px-3 team-status-filter"
+    [ngClass]="{'team-status-filter-selected': selectedFilter === 'Supervisors'}"
+    (click)="filterTeam('Supervisors')"
+  >
+    Supervisors ({{supervisorsLength}})
+  </button>
+  <button
+    type="button"
+    class="rounded-pill px-3 team-status-filter"
+    [ngClass]="{'team-status-filter-selected': selectedFilter === 'TeamLeaders'}"
+    (click)="filterTeam('TeamLeaders')"
+  >
+    Team Leaders ({{ teamLeaderLength }})
+  </button>
+</div>
+
+<div class="team-card-root">
+  <div *ngFor="let user of filteredUsers" class="team-card">
+    <div class="team-card-header">
+      <div class="team-card-avatar">{{ user.firstName[0] }}</div>
+      <div class="team-card-name">
+        <div class="team-card-teammembername">{{ user.firstName + ' ' + user.lastName }}</div>
+        <div class="team-card-teammemberemail">{{ user.email }}</div>
+      </div>
+      <div class="team-card-role">
+        <div class="team-card-rolename">{{ user.roleName }}</div>
+      </div>
+    </div>
+    <div class="team-card-footer">
+      <div class="team-card-footer-phonenumber">{{ user.phoneNumber }}</div>
+      <div class="team-card-footer-id"></div>
+    </div>
+  </div>
+</div>
