@@ -47,15 +47,55 @@
   margin-right: 15px;
 }
 
-/* Date Picker Section (Now outside of a card) */
+/* Date Picker Section */
 .personal-header-calendar {
+  display: grid;
+  grid-template-columns: 4fr 8fr;  /* Create two columns, one taking 4 parts, the other 8 parts */
+  gap: 1rem;  /* Space between the columns */
   background-color: #f4f9fc;  /* Same background as root */
   padding: 10px;
   border-radius: 8px;
   box-shadow: none;  /* Remove shadow to match root */
-  width: 250px;  /* Set fixed width for calendar */
-  height: 120px;  /* Set fixed height for calendar */
+  width: 100%;
 }
+
+/* Calendar Content (Input field + label) */
+.calendar-content {
+  display: flex;
+  flex-direction: column;  /* Stack label and input vertically */
+  gap: 5px;  /* Space between label and input */
+}
+
+/* Calendar Message */
+.calendar-message {
+  font-size: 16px;
+  font-weight: 600;
+  color: #555;
+}
+
+/* Calendar Label */
+.calendar-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #555;
+}
+
+/* Calendar Input */
+.calendar-input {
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  outline: none;
+  transition: border-color 0.3s ease;
+  width: 100%;  /* Ensures input takes full width of its container */
+}
+
+/* Focused Calendar Input */
+.calendar-input:focus {
+  border-color: #007bff;
+}
+
 
 /* Summary Cards Section */
 .personal-header-summary-row {
@@ -74,7 +114,10 @@
   transition: box-shadow 0.3s ease;
   flex: 1;
   text-align: center;
-  height: 120px;  /* Set a uniform height for all cards */
+  height: 160px;  /* Increased height for the card */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* Paused Times Section */
@@ -108,37 +151,6 @@
   margin-bottom: 0;
 }
 
-/* Calendar Button Styles */
-.personal-header-calendar {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  background-color: #f4f9fc;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: none;
-}
-
-.calendar-label {
-  font-size: 16px;
-  font-weight: 600;
-  color: #555;
-  margin-right: 10px;
-}
-
-.calendar-input {
-  padding: 8px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  outline: none;
-  transition: border-color 0.3s ease;
-}
-
-.calendar-input:focus {
-  border-color: #007bff;
-}
-
 /* Responsive Styles */
 @media (max-width: 1200px) {
   .personal-header-row {
@@ -165,6 +177,7 @@
   .personal-header-summary-card {
       width: 100%;  /* Ensure summary cards stack and stretch full width */
       margin-bottom: 1rem;
+      height: auto;  /* Let height adjust dynamically on smaller screens */
   }
 }
 
@@ -183,5 +196,6 @@
   .personal-header-summary-card {
       width: 100%;  /* Full width for summary cards */
       padding: 15px;
+      height: auto;  /* Let height adjust dynamically on smaller screens */
   }
 }

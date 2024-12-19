@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { WorklogService } from '../../Services/worklog.service';
 import { ToastrService } from 'ngx-toastr';
+import { WorklogService } from '../../../core/Services/worklog.service';
 
 @Component({
   selector: 'app-my-work',

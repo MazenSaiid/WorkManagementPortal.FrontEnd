@@ -1,0 +1,19 @@
+<div class="container">
+    <h2>Users' Screenshots</h2>
+    <div class="card-deck">
+      <div class="card" *ngFor="let screenshot of screenshots">
+        <img [src]="'data:image/png;base64,' + screenshot.screenshotBase64" class="card-img-top" alt="screenshot">
+        <div class="card-body">
+          <h5 class="card-title">{{ screenshot.userName }}</h5>
+          <p class="card-text">
+            <strong>Shift Name:</strong> {{ screenshot.workShift?.shiftName }}<br>
+            <strong>Start Time:</strong> {{ screenshot.workShift?.startTime }}<br>
+            <strong>End Time:</strong> {{ screenshot.workShift?.endTime }}<br>
+            <strong>Shift Type:</strong> {{ screenshot.workShift?.shiftTypeName }}<br>
+          </p>
+          <button class="btn btn-primary" (click)="viewScreenshots(screenshot.userId)">View Screenshots</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../../user-management/Services/user.service';
-import { Globals } from '../../globals';
-import { UserDto } from '../../Models/Dtos/UserDto';
+import { UserDto } from '../../../core/Models/Dtos/UserDto';
+import { Globals } from '../../../core/globals';
 
 @Component({
   selector: 'app-my-team',

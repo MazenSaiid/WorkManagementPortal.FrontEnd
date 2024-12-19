@@ -13,33 +13,26 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
-import { TimeTrackerComponent } from './Components/time-tracker/time-tracker.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DeleteConfirmationModalComponent } from './Components/delete-confirmation-modal/delete-confirmation-modal.component';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { OverviewComponent } from './Components/overview/overview.component';
 import { CheckoutConfirmationModalComponent } from './Components/checkout-confirmation-modal/checkout-confirmation-modal.component';
 import { CoreRoutingModule } from './core.routing.module';
 import { LoginComponent } from './Components/login/login.component';
-import { MyTeamComponent } from './Components/my-team/my-team.component';
-import { MyWorkComponent } from './Components/my-work/my-work.component';
 
 
-@NgModule({
+
+@NgModule({ 
   declarations: [
     HeaderComponent,
     FooterComponent,
     HomeComponent,
     NotFoundComponent,
     SideBarComponent,
-    TimeTrackerComponent,
     DeleteConfirmationModalComponent,
-    OverviewComponent,
     CheckoutConfirmationModalComponent,
     LoginComponent,
-    MyTeamComponent,
-    MyWorkComponent,
   ],
   imports: [
     CommonModule,
@@ -86,7 +79,6 @@ import { MyWorkComponent } from './Components/my-work/my-work.component';
     LoginComponent,
     NotFoundComponent,
     SideBarComponent,
-    TimeTrackerComponent,
     DeleteConfirmationModalComponent,
   ],
 })
