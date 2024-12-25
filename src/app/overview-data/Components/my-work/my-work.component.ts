@@ -14,7 +14,7 @@ export class MyWorkComponent {
 
   // Fetch work logs for the selected date
   fetchWorkLogs(date: string){
-    this.workLogService.getWorkLogsByDate().subscribe({
+    this.workLogService.getWorkLogsByDate("",date).subscribe({
       next: (data) => {
         if (data && data.length > 0) {
           // Assuming only one log for the day

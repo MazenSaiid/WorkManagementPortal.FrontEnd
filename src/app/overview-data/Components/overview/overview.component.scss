@@ -1,3 +1,54 @@
+/* Date Picker Section */
+.personal-header-calendar {
+  display: grid;
+  grid-template-columns: 4fr 8fr;  /* Create two columns, one taking 4 parts, the other 8 parts */
+  gap: 1rem;  /* Space between the columns */
+  background-color: #f4f9fc;  /* Same background as root */
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: none;  /* Remove shadow to match root */
+  width: 100%;
+}
+
+/* Calendar Content (Input field + label) */
+.calendar-content {
+  display: flex;
+  flex-direction: column;  /* Stack label and input vertically */
+  gap: 5px;  /* Space between label and input */
+}
+
+/* Calendar Message */
+.calendar-message {
+  font-size: 16px;
+  font-weight: 600;
+  color: #555;
+}
+
+/* Calendar Label */
+.calendar-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #555;
+}
+
+/* Calendar Input */
+.calendar-input {
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  outline: none;
+  transition: border-color 0.3s ease;
+  width: 100%;  /* Ensures input takes full width of its container */
+}
+
+/* Focused Calendar Input */
+.calendar-input:focus {
+  border-color: #007bff;
+}
+
+
+
 /* Dashboard Container */
 .dashboard-summary,
 .dashboard-charts {
@@ -13,6 +64,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 16px;
   margin-bottom: 16px;
+  margin-top: 16px;
   flex: 1 1 23%; /* Flex-grow, flex-shrink, and flex-basis to control card width */
   box-sizing: border-box; /* Ensure padding does not affect width */
 }

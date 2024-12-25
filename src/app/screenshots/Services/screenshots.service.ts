@@ -14,15 +14,15 @@ export class ScreenshotsService {
   constructor(private http: HttpClient) { }
 
    // Get all screenshots
-  getScreenshotsForAllUsers(date: Date): Observable<ScreenShotValidationResponse> {
-    const params = new HttpParams().set('date', date.toISOString()); // Convert date to string
+  getScreenshotsForAllUsers(date: string): Observable<ScreenShotValidationResponse> {
+    const params = new HttpParams().set('date', date); // Convert date to string
     return this.http.get<ScreenShotValidationResponse>(`${this.apiUrl}/ScreenShotTrackings/GetScreenshotsForAllUsers`, { params });
   }
     // Get all userscreenshots
-  getScreenshotsForUser(date: Date, userId: string): Observable<ScreenShotValidationResponse> {
+  getScreenshotsForUser(date: string, userId: string): Observable<ScreenShotValidationResponse> {
     const params = new HttpParams()
       .set('userId', userId)
-      .set('date', date.toISOString()); // Convert date to string in correct format
+      .set('date', date); // Convert date to string in correct format
     return this.http.get<ScreenShotValidationResponse>(`${this.apiUrl}/ScreenShotTrackings/GetScreenshotsForUser`, { params });
   }
   

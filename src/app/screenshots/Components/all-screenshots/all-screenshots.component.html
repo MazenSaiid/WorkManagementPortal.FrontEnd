@@ -1,19 +1,74 @@
-<div class="container">
-    <h2>Users' Screenshots</h2>
-    <div class="card-deck">
-      <div class="card" *ngFor="let screenshot of screenshots">
-        <img [src]="'data:image/png;base64,' + screenshot.screenshotBase64" class="card-img-top" alt="screenshot">
-        <div class="card-body">
-          <h5 class="card-title">{{ screenshot.userName }}</h5>
-          <p class="card-text">
-            <strong>Shift Name:</strong> {{ screenshot.workShift?.shiftName }}<br>
-            <strong>Start Time:</strong> {{ screenshot.workShift?.startTime }}<br>
-            <strong>End Time:</strong> {{ screenshot.workShift?.endTime }}<br>
-            <strong>Shift Type:</strong> {{ screenshot.workShift?.shiftTypeName }}<br>
-          </p>
-          <button class="btn btn-primary" (click)="viewScreenshots(screenshot.userId)">View Screenshots</button>
+<div class="personal-statistics-root">
+  <div class="personal-header">
+    <!-- Date Picker Section -->
+    <div class="personal-header-calendar">
+      <div class="calendar-content">
+        <label for="date-picker" class="calendar-label">Date:</label>
+        <input
+          type="date"
+          id="date-picker"
+          class="calendar-input"
+          (change)="onDateChange($event)"
+        />
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Search Input -->
+      <div class="mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search Members"
+          [(ngModel)]="searchText"
+          (ngModelChange)="filterUsers()"
+        />
+      </div>
+
+      <div class="team-card-root">
+        <!-- Iterate through the grouped screenshots and display cards -->
+        <div
+          *ngFor="let user of filteredUserScreenshotsData"
+          class="team-card"
+        >
+          <!-- User Information -->
+          <div class="team-card-header">
+            <div class="team-card-avatar">{{ user.userName[0].toUpperCase() }}</div>
+            <div class="team-card-name">
+              <div class="team-card-teammembername">{{ user.userName }}</div>
+              <div class="team-card-teammemberemail">
+                {{ user.workShift?.shiftName }} ({{ user.workShift?.shiftType }})
+              </div>
+            </div>
+          </div>
+          
+          <!-- Display first 2 images -->
+          <div class="team-card-images">
+            <div
+              *ngFor="let screenshot of user.screenshots | slice:0:2"
+              class="team-card-image"
+            >
+              <img
+                [src]="getImageUrl(screenshot.screenshotFile)"
+                alt="Screenshot Image"
+                class="team-card-thumbnail"
+              />
+            </div>
+          </div>
+
+          <!-- Display screenshot count -->
+          <div class="team-card-footer">
+            <span>{{ user.screenshots.length }} screenshots</span>
+          </div>
+
+          <!-- Action Button to view more images in another component -->
+          <div class="team-card-footer">
+            <button (click)="viewScreenshots(user.userId,user.userName,user.workShift?.shiftName,user.workShift?.shiftType,user.screenshots)" class="view-all-btn">
+              View All Screenshots
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

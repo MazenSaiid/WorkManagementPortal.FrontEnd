@@ -1,0 +1,170 @@
+/* User Screenshots Container */
+.user-screenshots-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+/* Header Styles */
+.user-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Workshift Info Styles */
+.workshift-info {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Screenshot List */
+.screenshots-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Force 3 columns */
+  gap: 20px;  /* Space between images */
+  margin-top: 20px;
+}
+
+
+/* Screenshot Card */
+.screenshot-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; /* To position the eye icon */
+}
+
+/* Screenshot Thumbnail */
+.screenshot-thumbnail {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: opacity 0.3s ease;
+}
+
+/* Screenshot Details */
+.screenshot-details {
+  width: 100%;
+  text-align: center;
+}
+
+.screenshot-time {
+  font-size: 14px;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* Eye Icon */
+.eye-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none; /* Prevent click if not hovered */
+}
+
+/* Hover Effect for Screenshot Thumbnail */
+.screenshot-card:hover .screenshot-thumbnail {
+  opacity: 0.8; /* Slightly fade the image */
+}
+
+/* Eye Icon visible on hover */
+.screenshot-card:hover .eye-icon {
+  opacity: 1;
+  pointer-events: auto; /* Enable clicking */
+}
+
+/* Darker Overlay on Hover */
+.screenshot-card:hover .screenshot-thumbnail {
+  background-color: rgba(0, 0, 0, 0.5); /* Darkens the background */
+}
+
+/* Back Button */
+.back-button {
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  text-align: center;
+  display: inline-block;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+/* User Header Styles */
+.user-header h2 {
+  font-size: 32px;
+  color: #007bff;
+}
+
+.user-header .subheader {
+  font-size: 16px;
+  color: #888;
+}
+
+/* The Modal */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0, 0, 0, 0.8); /* Black with transparency */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  background-color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.modal-image {
+  max-width: 100%;
+  max-height: 80vh; /* Adjust to fit within the screen */
+  margin-bottom: 20px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  color: #000;
+  cursor: pointer;
+}
+
+/* Make modal visible when selectedImage is set */
+.modal.ng-trigger {
+  display: flex;
+}

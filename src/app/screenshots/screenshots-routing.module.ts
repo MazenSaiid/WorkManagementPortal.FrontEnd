@@ -5,7 +5,7 @@ import { UserScreenshotsComponent } from './Components/user-screenshots/user-scr
 
 const routes: Routes = [
   {path:'all',component:AllScreenshotsComponent},
-  {path: 'user',component:UserScreenshotsComponent}
+  {path: 'user-screenshots/:userId',component:UserScreenshotsComponent}
 ];
 
 @NgModule({

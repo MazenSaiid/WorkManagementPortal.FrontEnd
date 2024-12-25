@@ -1,1 +1,42 @@
-<p>user-screenshots works!</p>
+<div class="user-screenshots-container">
+  <div class="user-header">
+    <!-- Back Button -->
+    <button (click)="goBack()" class="back-button">Back to All Screenshots</button>
+    
+    <!-- User Info Header -->
+    <h2>{{ userName }}'s Screenshots</h2>
+    <p class="subheader">Viewing all screenshots</p>
+
+    <!-- Workshift Info -->
+    <div class="workshift-info">
+      <p><strong>Work Shift:</strong> {{ workShiftName }} ({{ workShiftType }})</p>
+    </div>
+  </div>
+
+  <!-- Screenshot List -->
+  <div class="screenshots-list">
+    <div *ngFor="let screenshot of screenshots" class="screenshot-card">
+      <div class="image-container">
+        <!-- Screenshot Thumbnail -->
+        <img 
+          [src]="getImageUrl(screenshot.screenshotFile)" 
+          alt="Screenshot Image" 
+          class="screenshot-thumbnail" 
+          (click)="viewImage(screenshot)"
+        />
+      </div>
+      <div class="screenshot-details">
+        <span class="screenshot-time">{{ screenshot.screenShotTime | date: 'short' }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal to view the image in full size -->
+<div class="modal" *ngIf="selectedImage" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <img [src]="getImageUrl(selectedImage.screenshotFile)" alt="Full size screenshot" class="modal-image" />
+    <p class="modal-time">{{ selectedImage.screenShotTime | date: 'short' }}</p>
+  </div>
+</div>

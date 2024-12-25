@@ -3,13 +3,17 @@ import { ValidationResponse } from "./UserValidationResponse";
 
 // Define the ScreenShotLogDto interface to represent a single screenshot
 export interface ScreenShotValidationResponse extends ValidationResponse {
-  screenshots: ScreenShotLogDto[];
+  userScreenShotLogDtos: UserScreenShotLogDto[];
   }
-  export interface ScreenShotLogDto{
-    id: number;
-    screenShotTime: string;  // DateTime in ISO format
+  export interface UserScreenShotLogDto{
     userId: string;
     userName: string;
-    screenshotBase64: string;  // Base64 encoded image string
     workShift: ListWorkShiftDto | null;  // Nullable work shift data
+    screenshots: ScreenShotLogDto[];
+  }
+
+  export interface ScreenShotLogDto{
+    id: number;
+    screenShotTime: string;
+    screenshotFile: any;
   }

@@ -1,76 +1,86 @@
-<div class="dashboard-summary">
-    <div class="dashboard-card">
-      <div class="dashboard-card-title">Total Team Members</div>
-      <h4 class="dashboard-card-value">-</h4>
+<div class="personal-statistics-root">
+  <div class="personal-header">
+    <!-- Date Picker Section -->
+    <div class="personal-header-calendar">
+      <div class="calendar-content">
+        <label for="date-picker" class="calendar-label">Date:</label>
+        <input type="date" id="date-picker" class="calendar-input" (change)="onDateChange($event)">
+      </div>
     </div>
-    <div class="dashboard-card">
-      <div class="dashboard-card-title">Currently Working</div>
-      <h4 class="dashboard-card-value">-</h4>
-    </div>
-    <div class="dashboard-card">
-      <div class="dashboard-card-title">Currently On Break</div>
-      <h4 class="dashboard-card-value">-</h4>
-    </div>
-    <div class="dashboard-card">
-      <div class="dashboard-card-title">Currently Finished Work</div>
-      <h4 class="dashboard-card-value">-</h4>
-    </div>
-  </div>
 
-  <div class="dashboard-charts">
-    <div class="dashboard-table-section">
-      <div class="dashboard-header">
-        <div class="dashboard-header-title">Late Clock-in Employees</div>
-        <div class="dashboard-header-count">
-        </div>
+    <!-- Dashboard Summary Cards -->
+    <div class="dashboard-summary">
+
+      <!-- Total Team Members Card (Static or dynamic depending on your data) -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-title">Total Team Members</div>
+        <h4 class="dashboard-card-value">{{ users.length || '-' }}</h4>
       </div>
-      <div class="table-responsive">
-        <table class="dashboard-table">
-          <thead>
-            <tr>
-              <th>Employee Name</th>
-              <th>Actual</th>
-              <th>Required</th>
-              <th>Late By</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div class="employee-info">
-                  <div class="employee-avatar">A</div>
-                  <a href="/personal-statistics/FO8EJCO7N9Gji_Q67lUIj" class="employee-name">Ahmed Ali Mohamed</a>
-                </div>
-              </td>
-              <td>10:34 AM</td>
-              <td>05:00 AM</td>
-              <td>05h 34m</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="employee-info">
-                  <div class="employee-avatar">M</div>
-                  <a href="/personal-statistics/pAGKTx9lEIVkKPSUV2rPl" class="employee-name">Mayar Mohamed Ahmed </a>
-                </div>
-              </td>
-              <td>07:12 AM</td>
-              <td>05:00 AM</td>
-              <td>02h 12m</td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Finished Work Logs -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-title">Currently Finished Work</div>
+        <h4 class="dashboard-card-value">{{ finishedWorkLogs?.count || '-' }}</h4>
+      </div>
+
+      <!-- Active Work Logs -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-title">Currently Working</div>
+        <h4 class="dashboard-card-value">{{ activeWorkLogs?.count || '-' }}</h4>
+      </div>
+
+      <!-- Paused Work Logs -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-title">Currently On Break</div>
+        <h4 class="dashboard-card-value">{{ pausedWorkLogs?.count || '-' }}</h4>
       </div>
     </div>
-  
-    <div class="dashboard-table-section">
-      <div class="dashboard-header">
-        <div class="dashboard-header-title">Absence Today</div>
+
+    <!-- Dashboard Charts and Tables -->
+    <div class="dashboard-charts">
+      <!-- Late Clock-in Employees Table -->
+      <div class="dashboard-table-section">
+        <div class="dashboard-header">
+          <div class="dashboard-header-title">Late Clock-in Employees</div>
+        </div>
+        <div class="table-responsive">
+          <table class="dashboard-table">
+            <thead>
+              <tr>
+                <th>Employee Name</th>
+                <th>Actual</th>
+                <th>Required</th>
+                <th>Late By</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let employee of lateClockInEmployees">
+                <td>
+                  <div class="employee-info">
+                    <div class="employee-avatar">{{ employee.avatar }}</div>
+                    <a [routerLink]="['/personal-statistics', employee.id]" class="employee-name">{{ employee.name }}</a>
+                  </div>
+                </td>
+                <td>{{ employee.actual }}</td>
+                <td>{{ employee.required }}</td>
+                <td>{{ employee.lateBy }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div class="dashboard-absence-listing">
-        <div class="absence-item">
-          <div class="employee-avatar">A</div>
-          <a href="/personal-statistics/fMrEj31fRNBH8gZyd2OSo" class="employee-name">Ammar Mohamed Samir Ibrahim</a>
+
+      <!-- Absence Today Table -->
+      <div class="dashboard-table-section">
+        <div class="dashboard-header">
+          <div class="dashboard-header-title">Absence Today</div>
+        </div>
+        <div class="dashboard-absence-listing">
+          <div class="absence-item" *ngFor="let employee of absenceToday">
+            <div class="employee-avatar">{{ employee.avatar }}</div>
+            <a [routerLink]="['/personal-statistics', employee.id]" class="employee-name">{{ employee.name }}</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
