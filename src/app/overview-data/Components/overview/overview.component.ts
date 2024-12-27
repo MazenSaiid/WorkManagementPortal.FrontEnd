@@ -41,7 +41,7 @@ export class OverviewComponent implements OnInit {
         }
       },
       error: (err) => {
-        this.toastr.error('An error occurred while fetching users.', 'Error');
+        console.error('An error occurred while fetching users.', 'Error');
       }
     });
   }
@@ -85,13 +85,12 @@ export class OverviewComponent implements OnInit {
       next: ([finishedResponse, pausedResponse, activeResponse]) => {
         // Store the successful responses for each request
         this.finishedWorkLogs = finishedResponse;  // Store finished work logs
-        console.log(this.finishedWorkLogs);
         this.pausedWorkLogs = pausedResponse;      // Store paused work logs
         this.activeWorkLogs = activeResponse;      // Store active work logs
       },
       error: (err) => {
         // Handle errors for any of the requests
-        this.toastr.error('Error fetching work logs. Please try again.', 'Error');
+        console.error('Error fetching work logs. Please try again.', 'Error');
       },
       complete: () => {
       }

@@ -44,7 +44,7 @@ export class MyTeamComponent implements OnInit {
         }
       },
       error: (err) => {
-        this.toastrService.error('An error occurred while fetching users.', 'Error');
+        console.error('An error occurred while fetching users.', 'Error');
       }
     });
   }
@@ -61,7 +61,7 @@ export class MyTeamComponent implements OnInit {
         }
       },
       error: (err) => {
-        this.toastrService.error('An error occurred while fetching users.', 'Error');
+        console.error('An error occurred while fetching users.', 'Error');
       }
     });
   }
@@ -78,7 +78,7 @@ export class MyTeamComponent implements OnInit {
         }
       },
       error: (err) => {
-        this.toastrService.error('An error occurred while fetching users.', 'Error');
+        console.error('An error occurred while fetching users.', 'Error');
       }
     });
   }
@@ -95,7 +95,7 @@ export class MyTeamComponent implements OnInit {
         }
       },
       error: (err) => {
-        this.toastrService.error('An error occurred while fetching users.', 'Error');
+        console.error('An error occurred while fetching users.', 'Error');
       }
     });
   }

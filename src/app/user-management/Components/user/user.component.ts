@@ -37,7 +37,7 @@ export class UserComponent implements OnInit {
         }
       },
       error: (err) => {
-        this.toastrService.error('An error occurred while fetching users.', 'Error'); // Show error using Toastr
+        console.error('An error occurred while fetching users.', 'Error'); // Show error using Toastr
       }
     });
   }

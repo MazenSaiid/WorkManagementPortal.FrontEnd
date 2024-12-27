@@ -16,7 +16,9 @@ export class AccountService {
   currentUser$ = this.currentUser.asObservable();
 
   constructor(private http: HttpClient,private globals:Globals) { }
-
+  createUser(user: any): Observable<ValidationResponse> {
+    return this.http.post<ValidationResponse>(`${this.apiUrl}/Accounts/Register`, user)
+  }
   // login
   login( loginDto: any): Observable<AccountServiceValidationResponse> {
     return this.http.post<AccountServiceValidationResponse>(`${this.apiUrl}/Accounts/Login`, loginDto).pipe(

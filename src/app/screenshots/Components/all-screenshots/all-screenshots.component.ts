@@ -57,7 +57,7 @@ export class AllScreenshotsComponent {
         }
       },
       error: (err) => {
-        this.toastrService.error('An error occurred while fetching screenshots.', 'Error'); // Show error using Toastr
+        console.error('An error occurred while fetching screenshots.', 'Error'); // Show error using Toastr
       }
       
     });

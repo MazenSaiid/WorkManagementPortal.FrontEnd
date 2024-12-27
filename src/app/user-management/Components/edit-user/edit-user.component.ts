@@ -6,6 +6,8 @@ import { RoleService } from '../../../role-management/Services/role.service';
 import { RolesListDto } from '../../../core/Models/Dtos/RolesListDto';
 import { UserValidationResponse } from '../../../core/Models/Responses/UserValidationResponse';
 import { UserDto } from '../../../core/Models/Dtos/UserDto';
+import { WorkShiftService } from '../../../work-shifts-management/Services/work-shift.service';
+import { ListWorkShiftDto } from '../../../core/Models/Dtos/ListWorkShiftDto';
 
 @Component({
   selector: 'app-edit-user',
@@ -16,27 +18,38 @@ export class EditUserComponent implements OnInit{
   @Input() user: UserDto | any ;
   @Input() isVisible: boolean = false;
   @Output() close = new EventEmitter<boolean>();
+  @Output() userUpdated = new EventEmitter<void>();
   userForm: FormGroup;
   roles: RolesListDto[] = [];
   supervisors: UserDto[] | null = [];
   teamLeaders: UserDto[] | null = [];
+  workShifts: ListWorkShiftDto[] = [];
   roleName: string = ''; // To track selected role
 
-  constructor(private roleService: RoleService,private fb: FormBuilder, private userService: UserService, private toastr: ToastrService) {
+  constructor(private roleService: RoleService,private fb: FormBuilder, private userService: UserService, 
+    private workShiftService: WorkShiftService,private toastr: ToastrService) {
     this.userForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: [''],
+      phoneNumber: [
+        '',
+        [
+          Validators.required, 
+          Validators.pattern('^[0-9]{11}$')  // Only 11 digits, and all digits must be numbers.
+        ]
+      ],
       roleName: ['', Validators.required],
       supervisorId: [''],
-      teamLeaderId: ['']
+      teamLeaderId: [''],
+      workShiftName: ['', Validators.required],
     });
   }
   ngOnInit(): void {
     this.loadRoles();
     this.loadSupervisors();
     this.loadTeamLeaders();
+    this.loadWorkShifts();
     this.userForm.get('roleName')?.valueChanges.subscribe((role) => {
       this.roleName = role;
       this.toggleRoleFields();
@@ -65,7 +78,7 @@ export class EditUserComponent implements OnInit{
         this.supervisors = data.users;
       },
       error: (error) => {
-        this.toastr.error('Error fetching supervisors.', 'Error');
+        console.error('Error fetching supervisors.', 'Error');
       }
     });
   }
@@ -75,7 +88,7 @@ export class EditUserComponent implements OnInit{
         this.teamLeaders = data.users;
       },
       error: (error) => {
-        this.toastr.error('Error fetching teamleaders.', 'Error');
+        console.error('Error fetching teamleaders.', 'Error');
       }
     });
   }
@@ -85,7 +98,17 @@ export class EditUserComponent implements OnInit{
         this.roles = data.roles;
       },
       error: (error) => {
-        this.toastr.error('Error fetching roles.', 'Error');
+        console.error('Error fetching roles.', 'Error');
+      }
+    });
+  }
+  loadWorkShifts(): void {
+    this.workShiftService.getAllWorkShifts().subscribe({
+      next: (data) => {
+        this.workShifts = data.workShifts;
+      },
+      error: (error) => {
+        console.error('Error fetching workshifts.', 'Error');
       }
     });
   }
@@ -103,13 +126,16 @@ export class EditUserComponent implements OnInit{
       next: (response) => {
         if (response.success) {
         this.toastr.success('User updated successfully!');
-        this.close.emit(true); // Close modal
+        this.userUpdated.emit();
+        this.loadSupervisors();
+        this.loadTeamLeaders();
+        this.closeModal(); // Close modal
       }else {
         this.toastr.error(response.message, 'Error'); // Error notification
       }
     },
       error: (err) => {
-        this.toastr.error('Error updating user.');
+        this.toastr.error(err.message, 'Error');
       }
     });
   }

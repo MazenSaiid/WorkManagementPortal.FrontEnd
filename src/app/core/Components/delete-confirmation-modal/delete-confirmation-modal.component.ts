@@ -22,6 +22,9 @@ export class DeleteConfirmationModalComponent {
   @Input() workShift: ListWorkShiftDto | any;
   @Input() role: RolesListDto | any;
   @Output() close: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() userDeleted = new EventEmitter<void>();
+  @Output() workShiftDeleted = new EventEmitter<void>();
+  @Output() roleDeleted = new EventEmitter<void>();
   constructor(private toastrService: ToastrService, private rolesService:RoleService,
      private userService: UserService,
     private workShiftService: WorkShiftService) {
@@ -35,13 +38,14 @@ export class DeleteConfirmationModalComponent {
     next: (response) => {
       if (response.success) {
         this.toastrService.success('Work Shift deleted successfully', 'Success');
+        this.workShiftDeleted.emit();
         this.closeModal();
       } else {
         this.toastrService.error(response.message, 'Error');
       }
     },
-    error: () => {
-      this.toastrService.error('An error occurred while deleting the work shift.', 'Error');
+    error: (err) => {
+      this.toastrService.error(err.message, 'Error');
     }
   });
 }
@@ -51,13 +55,14 @@ export class DeleteConfirmationModalComponent {
     next: (response) => {
       if (response.success) {
         this.toastrService.success('User deleted successfully', 'Success');
+        this.userDeleted.emit()
         this.closeModal();
       } else {
         this.toastrService.error(response.message, 'Error');
       }
     },
-    error: () => {
-      this.toastrService.error('An error occurred while deleting the user.', 'Error');
+    error: (err) => {
+      this.toastrService.error(err.message, 'Error');
     }
   });
 }
@@ -67,13 +72,14 @@ deleteRole() {
     next: (response) => {
       if (response.success) {
         this.toastrService.success('Role deleted successfully', 'Success');
+        this.roleDeleted.emit();
         this.closeModal();
       } else {
         this.toastrService.error(response.message, 'Error');
       }
     },
-    error: () => {
-      this.toastrService.error('An error occurred while deleting the role.', 'Error');
+    error: (err) => {
+      this.toastrService.error(err.message, 'Error');
     }
   });
 }

@@ -33,7 +33,7 @@
 </div>
 
 <!-- Modal to view the image in full size -->
-<div class="modal" *ngIf="selectedImage" (click)="closeModal()">
+<div class="modal" *ngIf="isVisible" (click)="closeModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <span class="close" (click)="closeModal()">&times;</span>
     <img [src]="getImageUrl(selectedImage.screenshotFile)" alt="Full size screenshot" class="modal-image" />

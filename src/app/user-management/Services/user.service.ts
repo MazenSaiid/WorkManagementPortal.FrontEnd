@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs'; // Assuming you have your environment defined
+import { catchError, Observable, throwError } from 'rxjs'; // Assuming you have your environment defined
 import { environment } from '../../environment/environment';
 import { UserValidationResponse, ValidationResponse } from '../../core/Models/Responses/UserValidationResponse';
 import { UpdateUserDto } from '../../core/Models/Dtos/UpdateUserDto';
@@ -16,11 +16,11 @@ export class UserService {
 
   // Get all users
   getAllUsers(): Observable<UserValidationResponse> {
-    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/GetAllUsers`);
+    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/GetAllUsersPaginated`);
   }
   // Get all usersManaged
-  getAllUsersAndThierHeads(): Observable<UserValidationResponse> {
-    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/EmployeesAndTheirHeads`);
+  getAllEmployeesWithSupervisorsAndTeamLeads(): Observable<UserValidationResponse> {
+    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/GetAllEmployeesWithSupervisorsAndTeamLeadsPaginatedAsync`);
   }
   // Get a user by ID
   getUserById(id: string): Observable<UserValidationResponse> {
@@ -29,40 +29,37 @@ export class UserService {
 
   // Get all supervisors
   getAllSupervisors(): Observable<UserValidationResponse> {
-    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/Supervisors`);
+    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/SupervisorsPaginated`);
   }
 
   // Get all team leaders
   getAllTeamLeaders(): Observable<UserValidationResponse> {
-    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/TeamLeaders`);
+    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/TeamLeadersPaginated`);
   }
 
   // Get all employees
   getAllEmployees(): Observable<UserValidationResponse> {
-    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/Employees`);
+    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/EmployeesPaginated`);
   }
 
   // Get all supervisors and their team leaders
   getAllSupervisorsAndTeamLeaders(): Observable<UserValidationResponse> {
-    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/SupervisorsAndTeamLeaders`);
+    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/SupervisorsAndTeamLeadersPaginated`);
   }
 
   // Get all employees and their supervisors
   getAllEmployeesAndSupervisors(): Observable<UserValidationResponse> {
-    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/EmployeesAndSupervisors`);
+    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/EmployeesAndSupervisorsPaginated`);
   }
 
   // Create or update a user
   updateUser(id: string, user: UpdateUserDto): Observable<UserValidationResponse> {
     return this.http.put<UserValidationResponse>(`${this.apiUrl}/Users/UpdateUser/${id}`, user);
   }
-  // Create or update a user
-  createUser(user: any): Observable<ValidationResponse> {
-    return this.http.post<ValidationResponse>(`${this.apiUrl}/Accounts/Register`, user);
-  }  
-
   // Delete a user
   deleteUser(id: string): Observable<UserValidationResponse> {
     return this.http.delete<UserValidationResponse>(`${this.apiUrl}/Users/DeleteUser/${id}`);
   }
 }
+
+

@@ -1,11 +1,8 @@
 <!-- Modal -->
 <div class="modal" *ngIf="isVisible" tabindex="-1" style="display: block; background: rgba(0, 0, 0, 0.5)">
   <div class="modal-dialog" style="max-width: 80%; width: auto; height: auto">
-    <div class="modal-content" style="
-        border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        background-color: #f4f9fc;
-      ">
+    <div class="modal-content"
+      style="border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); background-color: #f4f9fc;">
       <div class="modal-header">
         <h5 class="modal-title" style="font-size: 24px; color: #0056b3; font-weight: 700">
           Create New User
@@ -24,6 +21,10 @@
               </div>
               <input formControlName="firstName" class="form-control" id="firstName" type="text" required />
             </div>
+            <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched"
+              class="text-danger">
+              First name is required.
+            </div>
           </div>
 
           <!-- Last Name -->
@@ -34,6 +35,10 @@
                 <i class="bi bi-person-fill" style="font-size: 20px; color: #007bff"></i>
               </div>
               <input formControlName="lastName" class="form-control" id="lastName" type="text" required />
+            </div>
+            <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched"
+              class="text-danger">
+              Last name is required.
             </div>
           </div>
 
@@ -46,7 +51,11 @@
               </div>
               <input formControlName="email" class="form-control" id="email" type="email" required />
             </div>
+            <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-danger">
+              A valid email is required.
+            </div>
           </div>
+
           <!-- Phone -->
           <div class="form-group">
             <label for="phoneNumber" style="font-weight: 600">Phone Number</label>
@@ -55,9 +64,16 @@
                 <i class="bi bi-phone" style="font-size: 20px; color: #007bff"></i>
               </div>
               <input formControlName="phoneNumber" class="form-control" id="phoneNumber" type="tel" inputmode="numeric"
-                pattern="[0-9]*" />
+                pattern="^[0-9]{11}$" maxlength="11" />
+            </div>
+            <!-- Validation Message -->
+            <div *ngIf="registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched"
+              class="text-danger">
+              Phone number is required and must be exactly 11 digits long and numeric.
             </div>
           </div>
+
+
           <!-- Password -->
           <div class="form-group">
             <label for="password" style="font-weight: 600">Password</label>
@@ -72,8 +88,25 @@
                   (click)="togglePasswordVisibility()"></i>
               </div>
             </div>
+            <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+              class="text-danger">
+              Password is required.
+            </div>
           </div>
-
+          <!-- WorkShift -->
+          <div class="form-group">
+            <label for="workShiftId" style="font-weight: 600">WorkShift</label>
+            <select id="workShiftName" class="form-control" formControlName="workShiftName">
+              <option *ngFor="let workShift of workShifts" [value]="workShift.shiftName">
+                {{ workShift.shiftName }}
+              </option>
+            </select>
+            <div *ngIf="registerForm.get('workShiftName')?.invalid && registerForm.get('workShiftName')?.touched"
+              class="text-danger">
+              WorkShift is required.
+            </div>
+          </div>
+        <!-- Role -->
           <div class="form-group">
             <label for="roleName" style="font-weight: 600">Role</label>
             <select id="roleName" class="form-control" formControlName="roleName">
@@ -81,6 +114,10 @@
                 {{ role.roleName }}
               </option>
             </select>
+            <div *ngIf="registerForm.get('roleName')?.invalid && registerForm.get('roleName')?.touched"
+              class="text-danger">
+              Role is required.
+            </div>
           </div>
 
           <!-- Supervisor and Team Leader Fields (Conditional) -->
@@ -93,7 +130,7 @@
                 </div>
                 <select id="supervisorId" class="form-control" formControlName="supervisorId">
                   <option *ngFor="let supervisor of supervisors" [value]="supervisor.id">
-                    {{ supervisor.firstName }}{{ supervisor.lastName }}
+                    {{ supervisor.firstName }} {{ supervisor.lastName }}
                   </option>
                 </select>
               </div>
@@ -109,7 +146,7 @@
                 </div>
                 <select id="teamLeaderId" class="form-control" formControlName="teamLeaderId">
                   <option *ngFor="let teamleader of teamLeaders" [value]="teamleader.id">
-                    {{ teamleader.firstName }}{{ teamleader.lastName }}
+                    {{ teamleader.firstName }} {{ teamleader.lastName }}
                   </option>
                 </select>
               </div>

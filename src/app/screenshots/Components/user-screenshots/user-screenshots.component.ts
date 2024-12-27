@@ -12,20 +12,21 @@ export class UserScreenshotsComponent implements OnInit {
   userName: string | null = null;  // To hold the username (if available)
   workShiftName: string | undefined = '';
   workShiftType: any;
+  isVisible: boolean = false;
   selectedImage: any | null = null;  // Store the selected image
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   // Method to open the modal and set the selected image
   viewImage(screenshot: any): void {
-    console.log('Opening image: ', screenshot);
     this.selectedImage = screenshot;
-    console.log('Opening image: ', this.selectedImage);
+    this.isVisible = true;
   }
   
 
   closeModal(): void {
     this.selectedImage = null;
+    this.isVisible = false
   }
 
   ngOnInit(): void {
