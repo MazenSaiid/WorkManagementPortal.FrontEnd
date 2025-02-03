@@ -21,11 +21,17 @@ export class RolesComponent implements OnInit{
   deleteRoleModalVisible:boolean = false;
   currentPage: number =1;
   itemsPerPage: number = 5;
+  totalCount: number = 0;
+  totalPages: number = 0;
   constructor(private toastrService: ToastrService, private rolesService: RoleService) {
     
   }
   ngOnInit(): void {
-    this.loadAllRolesAndCount();
+    this.loadPaginatedRoles();
+  }
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.loadPaginatedRoles(page); // Reload users for the selected page
   }
   filterRoles() {
     if (!this.searchText) {
@@ -39,7 +45,23 @@ export class RolesComponent implements OnInit{
       });
     }
   }
-  
+  loadPaginatedRoles(page: number = this.currentPage) {
+    this.rolesService.getUserCountPerRolePaginated(page,this.itemsPerPage).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.allRoles = response.roles; // Now contains allroles
+          this.filteredRoles = response.roles;
+          this.totalCount = response.totalCount;
+          this.totalPages = response.totalPages;
+        } else {
+          this.toastrService.error(response.message, 'Error'); // Show error using Toastr
+        }
+      },
+      error: (err) => {
+        console.error('An error occurred while fetching roles.', 'Error'); // Show error using Toastr
+      }
+    });
+  }
   loadAllRolesAndCount() {
     this.rolesService.getUserCountPerRole().subscribe({
       next: (response) => {

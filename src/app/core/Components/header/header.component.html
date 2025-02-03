@@ -18,7 +18,7 @@
         >
           <span class="profile-icon">
             <i class="fas fa-user-circle ml-2"></i>
-            Welcome!
+            Welcome {{currentUser.username}}!
           </span>
         </a>
         <ul
@@ -26,14 +26,14 @@
           aria-labelledby="navbarDropdownUser"
         >
           <li>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="/profile/info">
               <span class="profile-icon">
                 <i class="fas fa-user ml-2"></i> Profile
               </span>
             </a>
           </li>
           <li>
-            <a (click)="changePassword()" class="dropdown-item" href="#">
+            <a class="dropdown-item" href="/profile/change-password">
               <span class="profile-icon">
                 <i class="fas fa-key ml-2"></i> Change Password
               </span>

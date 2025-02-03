@@ -19,7 +19,7 @@ export class SideBarComponent implements OnInit  {
   }
 
   checkUserSession(){
-    this.accountService.currentUser$.subscribe({
+    this.globals.currentUser$.subscribe({
       next: (user: AccountServiceValidationResponse | null) => {
         this.currentUser = user;
         if (user) {

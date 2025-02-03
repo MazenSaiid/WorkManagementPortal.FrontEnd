@@ -25,9 +25,11 @@ export class UserComponent implements OnInit {
   viewUserModalVisible: boolean = false;
   deleteUserModalVisible:boolean = false;
   currentPage: number =1;
-  itemsPerPage: number = 20; 
+  itemsPerPage: number = 5; 
+  totalCount: number = 0;
+  totalPages: number = 0; 
   ngOnInit(): void {
-    this.loadAllUsers();
+    this.loadPaginatedUsers();
   }
   loadAllUsers() {
     this.userService.getAllUsers().subscribe({
@@ -35,6 +37,23 @@ export class UserComponent implements OnInit {
         if (response.success) {
           this.users = response.users; // Now contains supervisor and team leader
           this.filteredUsers = response.users;
+        } else {
+          this.toastrService.error(response.message, 'Error'); // Show error using Toastr
+        }
+      },
+      error: (err) => {
+        console.error('An error occurred while fetching users.', 'Error'); // Show error using Toastr
+      }
+    });
+  }
+  loadPaginatedUsers(page: number = this.currentPage) {
+    this.userService.getAllUsersPaginated(page,this.itemsPerPage).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.users = response.users; // Now contains supervisor and team leader
+          this.filteredUsers = response.users;
+          this.totalCount = response.totalCount; // Total number of users
+          this.totalPages = response.totalPages;
         } else {
           this.toastrService.error(response.message, 'Error'); // Show error using Toastr
         }
@@ -56,7 +75,11 @@ export class UserComponent implements OnInit {
       });
     }
   }
-     
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.loadPaginatedUsers(page); // Reload users for the selected page
+  }
+
   // Method to open Create User Modal
   openCreateUserModal(): void {
     this.createUserModalVisible = true;

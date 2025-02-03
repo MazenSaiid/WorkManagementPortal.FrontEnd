@@ -3,62 +3,53 @@
   display: flex;
   width: 100%;
   height: 100vh;
-  background-color: #f4f9fc; 
+  background-color: #f4f9fc;
 }
 
-/* Login form takes 1/3 of the width */
+/* Left side for title and login form */
 .login-left {
   flex: 1 1 33.33%;
   padding: 20px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-}
-.login-footer{
-  margin-top: 10px;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-weight: 600;
-  transition: background-color 0.2s ease, color 0.2s ease;
-  color: #007bff;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Image takes 2/3 of the width */
-.login-right {
-  flex: 2 1 66.66%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Title: Welcome to Innovative Portal */
+.welcome-title {
+  margin-bottom: 30px; /* Space between the title and the login form */
+  font-size: 36px;
+  font-weight: 700;
+  color: #0056b3;
+  text-align: center;
+  opacity: 0;
+  animation: fadeInFromTop 2s forwards;
 }
 
-/* Adjust the image to cover the available space and maintain its aspect ratio */
-.right-image {
+@keyframes fadeInFromTop {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Login form */
+.login-content {
   width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 10px; /* Optional: adds rounded corners */
+  max-width: 400px; /* Ensure the form width is controlled */
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Make the login form fill the entire page */
-html, body {
-  height: 100%;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f4f9fc;
-}
-
-/* Full-page container */
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-}
-
-/* Header styling */
 .login-header {
   border-bottom: 2px solid #ededed;
   padding-bottom: 15px;
@@ -71,11 +62,11 @@ html, body {
   text-align: center;
 }
 
-/* Body styling */
 .login-body {
   padding: 20px;
 }
 
+/* Form Group Styling */
 .form-group {
   margin-bottom: 15px;
 }
@@ -122,9 +113,185 @@ input.form-control:focus {
   color: white;
 }
 
-/* Ensure the content is centered */
-.login-footer {
+/* Right side image */
+.login-right {
+  flex: 2 1 66.66%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
+/* Container for the two images */
+.image-container {
+  display: flex;
+  flex-direction: column; /* Stack the images vertically by default */
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-image {
+  width: 100%; /* Make sure images fill available width */
+  height: auto;
+  object-fit: cover;
+  margin-bottom: 10px; /* Add some space between the images */
+  border-radius: 10px;
+}
+
+/* Make the login form fill the entire page */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f9fc;
+}
+
+/* Full-page container */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+/* Stack images by default */
+.image-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* On larger screens, display images side by side */
+@media (min-width: 768px) {
+  .image-container {
+    flex-direction: row; /* Align images side by side */
+  }
+  .right-image {
+    margin-bottom: 0; /* Remove margin when images are side by side */
+    width: 50%; /* Set each image to take up half the width */
+  }
+}
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6); /* Darker background for better contrast */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6); /* Darker background for better contrast */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #f4f9fc;
+  padding-bottom: 15px;
+}
+
+.modal-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-btn:hover {
+  color: #007bff;
+}
+
+/* Modal Body */
+.modal-body {
+  margin-top: 20px;
+}
+
+/* Modal Footer */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+  gap: 15px; /* Space between the buttons */
+}
+
+.modal-footer button {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-secondary {
+  background-color: #f4f9fc;
+  color: #007bff;
+  border: 1px solid #007bff;
+}
+
+.btn-secondary:hover {
+  color: white;
+  background-color: #e0e0e0;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Modal Close Button */
+.modal-content {
+  position: relative;
+}
+
+.modal-content .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 28px;
+}

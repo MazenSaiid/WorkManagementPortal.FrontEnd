@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs'; // Assuming you have your environment defined
 import { environment } from '../../environment/environment';
-import { UserValidationResponse, ValidationResponse } from '../../core/Models/Responses/UserValidationResponse';
+import { UserValidationPaginatedResponse, UserValidationResponse, ValidationResponse } from '../../core/Models/Responses/UserValidationResponse';
 import { UpdateUserDto } from '../../core/Models/Dtos/UpdateUserDto';
 
 
@@ -18,8 +18,23 @@ export class UserService {
   getAllUsers(): Observable<UserValidationResponse> {
     return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/GetAllUsers`);
   }
+  getAllUsersPaginated(page: number = 1, pageSize: number = 20, fetchAll: boolean = false): Observable<UserValidationPaginatedResponse> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString())
+      .set('fetchAll', fetchAll.toString());
+  
+    return this.http.get<UserValidationPaginatedResponse>(`${this.apiUrl}/Users/GetAllUsers`, { params });
+  }
   getAllAbsentUsers(date:string): Observable<UserValidationResponse> {
     return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/AbsentUsers?date=${date}`);
+  }
+  getAllAbsentUsersPaginated(date:string,page: number = 1, pageSize: number = 20, fetchAll: boolean = false): Observable<UserValidationPaginatedResponse> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString())
+      .set('fetchAll', fetchAll.toString());
+    return this.http.get<UserValidationPaginatedResponse>(`${this.apiUrl}/Users/AbsentUsers?date=${date}`,{params});
   }
   // Get all users Included Supervisors And TeamLeads
   getAllEmployeesWithSupervisorsAndTeamLeads(): Observable<UserValidationResponse> {

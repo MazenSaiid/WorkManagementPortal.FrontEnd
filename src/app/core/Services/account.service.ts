@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import {  AccountServiceValidationResponse, ValidationResponse } from '../Models/Responses/UserValidationResponse';
 import { map, Observable, ReplaySubject } from 'rxjs';
 import { Globals } from '../globals';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,8 @@ export class AccountService {
  
   private apiUrl = `${environment.apiUrl}/api`; // Adjust base URL if needed
 
-  currentUser = new ReplaySubject<AccountServiceValidationResponse | null>(1);
-  currentUser$ = this.currentUser.asObservable();
 
-  constructor(private http: HttpClient,private globals:Globals) { }
+  constructor(private http: HttpClient,private globals:Globals, private router:Router) { }
 
   createUser(user: any): Observable<ValidationResponse> {
     return this.http.post<ValidationResponse>(`${this.apiUrl}/Accounts/Register`, user)
@@ -37,7 +36,9 @@ export class AccountService {
           roles: response.roles,
           localSessionExpiryDate: response.localSessionExpiryDate
         };
-        this.currentUser.next(user);
+        this.globals.storeUserInfo(user); // Save to localStorage and update Globals state
+        console.log(user);
+        this.router.navigate(['home']);
         this.globals.loggedIn = true;
       } else {
         console.error('User object is not found in the response');
@@ -54,6 +55,6 @@ export class AccountService {
 
    // request password change 
    requestPasswordReset( email: any): Observable<ValidationResponse> {
-    return this.http.post<ValidationResponse>(`${this.apiUrl}/Accounts/RequestPasswordReset`, email);
+    return this.http.post<ValidationResponse>(`${this.apiUrl}/Accounts/ForgotPassword`, email);
   }
 }

@@ -1,5 +1,9 @@
-<div class="login-container"> 
+<div class="login-container">
   <div class="login-left">
+    <!-- Title above the login form -->
+    <div class="welcome-title">
+      <h1>Welcome to Innovative Portal</h1>
+    </div>
     <div class="login-content">
       <div class="login-header">
         <h3 class="login-title">Login</h3>
@@ -16,7 +20,7 @@
               <input formControlName="email" class="form-control" id="email" type="email" required />
             </div>
           </div>
-  
+
           <!-- Password -->
           <div class="form-group">
             <label for="password" style="font-weight: 600">Password</label>
@@ -32,11 +36,11 @@
               </div>
             </div>
           </div>
-  
+
           <div class="login-footer">
             <button type="submit" class="btn btn-action btn-primary" style="width: 100%;">Login</button>
           </div>
-  
+
           <!-- Forgot Password Link -->
           <div class="forgot-password" style="text-align: center; margin-top: 10px;">
             <a href="javascript:void(0)" (click)="openForgotPasswordModal()" style="color: #007bff; text-decoration: none;">
@@ -47,7 +51,34 @@
       </div>
     </div>
   </div>
+
   <div class="login-right">
-    <img src="assets/images/login.jpg" alt="Background Image" class="right-image"/>
+    <!-- Display two images in a stacked or side-by-side manner -->
+    <div class="image-container">
+      <img src="assets/images/login.jpg" alt="Background Image" class="right-image"/>
+      <img src="assets/images/login2.jpg" alt="Background Image" class="right-image"/>
+    </div>
   </div>
+
+  <!-- Forgot Password Modal -->
+<div *ngIf="isForgotPasswordModalVisible" class="modal-overlay" (click)="closeForgotPasswordModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h4 class="modal-title">Reset Password</h4>
+      <button (click)="closeForgotPasswordModal()" class="close-btn">&times;</button>
+    </div>
+    <form [formGroup]="forgotPasswordForm" (ngSubmit)="onForgotPasswordSubmit()">
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="email">Enter your Email</label>
+          <input formControlName="email" class="form-control" type="email" placeholder="Email" required />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeForgotPasswordModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
 </div>

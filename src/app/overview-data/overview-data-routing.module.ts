@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OverviewComponent } from './Components/overview/overview.component';
 import { MyWorkComponent } from './Components/my-work/my-work.component';
 import { MyTeamComponent } from './Components/my-team/my-team.component';
+import { authGuard } from '../core/Guards/auth/auth.guard';
 
 const routes: Routes = [
 {path:'overview',component:OverviewComponent},

@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
   onForgotPasswordSubmit() {
     if (this.forgotPasswordForm.invalid) return;
     this.emailforPasswordReset = this.forgotPasswordForm.value;
+    console.log(this.emailforPasswordReset);
     this.accountService
       .requestPasswordReset(this.emailforPasswordReset)
       .subscribe({
@@ -50,7 +51,7 @@ export class LoginComponent implements OnInit {
           }
         },
         error: (err) => {
-          this.toastr.error('Failed to login.', 'Error');
+          this.toastr.error('Failed to Request Password Reset!.', 'Error');
         },
       });
   }

@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environment/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { WorkShiftValidationResponse } from '../../core/Models/Responses/WorkShiftValidationResponse';
+import { WorkShiftValidationPaginatedResponse, WorkShiftValidationResponse } from '../../core/Models/Responses/WorkShiftValidationResponse';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WorkShiftService {
-  
 
   private apiUrl = `${environment.apiUrl}/api`; // Adjust base URL if needed
 
@@ -17,7 +16,13 @@ export class WorkShiftService {
   getAllWorkShifts(): Observable<WorkShiftValidationResponse> {
     return this.http.get<WorkShiftValidationResponse>(`${this.apiUrl}/WorkShifts/GetAllWorkShifts`);
   }
-  
+  getAllWorkShiftsPaginated(page: number = 1, pageSize: number = 20, fetchAll: boolean = false): Observable<WorkShiftValidationPaginatedResponse>  {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString())
+      .set('fetchAll', fetchAll.toString());
+  return this.http.get<WorkShiftValidationPaginatedResponse>(`${this.apiUrl}/WorkShifts/GetAllWorkShifts`, { params });
+  }
   getShiftTypes(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/WorkShifts/GetShiftTypes`);
   }

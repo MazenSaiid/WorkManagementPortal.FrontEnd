@@ -75,9 +75,10 @@
 
     <!-- Pagination -->
     <app-pagination 
-    [totalItems]="filteredUsers.length" 
     [currentPage]="currentPage" 
-    [itemsPerPage]="itemsPerPage">
+    [itemsPerPage]="itemsPerPage"
+    [totalItems]="totalCount"
+    (pageChange)="onPageChange($event)">
   </app-pagination>
 
 

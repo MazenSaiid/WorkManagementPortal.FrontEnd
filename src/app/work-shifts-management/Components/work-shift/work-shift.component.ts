@@ -21,6 +21,8 @@ export class WorkShiftComponent implements OnInit {
   deleteWorkShiftModalVisible:boolean = false;
   currentPage: number =1;
   itemsPerPage: number = 5; 
+  totalCount: number = 0;
+  totalPages: number = 0; 
   constructor(private toastrService: ToastrService, private http: HttpClient, private workShiftService: WorkShiftService) {
 
   }
@@ -33,7 +35,7 @@ export class WorkShiftComponent implements OnInit {
     return date;
   }
   ngOnInit(): void {
-    this.loadAllWorkShifts();
+    this.loadPaginatedWorkShifts();
   }
   loadAllWorkShifts() {
     this.workShiftService.getAllWorkShifts().subscribe({
@@ -50,6 +52,23 @@ export class WorkShiftComponent implements OnInit {
       }
     });
   }
+  loadPaginatedWorkShifts(page: number = this.currentPage) {
+    this.workShiftService.getAllWorkShiftsPaginated(page,this.itemsPerPage).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.workShifts = response.workShifts;
+          this.filteredWorkShifts = response.workShifts;
+          this.totalCount = response.totalCount;
+          this.totalPages = response.totalPages;
+        } else {
+          this.toastrService.error(response.message, 'Error');
+        }
+      },
+      error: (err) => {
+       console.error('An error occurred while fetching Work Shifts.', 'Error');
+      }
+    });
+  }
 
   filterWorkShifts() {
     if (!this.searchText) {
@@ -62,6 +81,10 @@ export class WorkShiftComponent implements OnInit {
         return WorkShiftName.includes(this.searchText.toLowerCase());
       });
     }
+  }
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.loadPaginatedWorkShifts(page); // Reload users for the selected page
   }
   // Method to open Create WorkShift Modal
   openCreateComplexWorkShiftModal(): void {

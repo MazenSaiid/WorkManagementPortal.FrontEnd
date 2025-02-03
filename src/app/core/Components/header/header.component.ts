@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Globals } from '../../globals';
 import { AccountService } from '../../Services/account.service';
 import { AccountServiceValidationResponse } from '../../Models/Responses/UserValidationResponse';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-header',
@@ -11,34 +12,34 @@ import { AccountServiceValidationResponse } from '../../Models/Responses/UserVal
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private accountService:AccountService,private globals: Globals,private router:Router) {
-  }
-  currentUser: any | null = null;
-  ngOnInit(): void {
-  this.checkUserSession();
+  constructor(private accountService:AccountService,private globals: Globals,private router:Router,private toastr:ToastrService) {
   }
 
-  checkUserSession(){
-    this.accountService.currentUser$.subscribe({
+  currentUser: any = null;
+  ngOnInit(): void {
+    // Subscribe to the currentUser$ observable to get updates
+    this.globals.currentUser$.subscribe({
       next: (user: AccountServiceValidationResponse | null) => {
-        this.currentUser = user;
+        this.currentUser = user;  // Update the local user state when currentUser changes
         if (user) {
           this.globals.loggedIn = true;
+          console.log(this.currentUser);
         } else {
           this.globals.loggedIn = false;
-          this.router.navigateByUrl('login');
         }
       },
       error: (error) => {
         console.error('Error fetching current user:', error);
       }
     });
-  }
+  }  
+
   logout() {
-    this.currentUser.next(null); // Clear the current user
     this.globals.clearSession();
+    this.router.navigate(['']);
+    this.toastr.success("Logout Completed Successfully");
+    console.log(1231)
   }
-  changePassword() {
-  }
+  
 
 }
