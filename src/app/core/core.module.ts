@@ -9,17 +9,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ToastrModule } from 'ngx-toastr';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DeleteConfirmationModalComponent } from './Components/delete-confirmation-modal/delete-confirmation-modal.component';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CheckoutConfirmationModalComponent } from './Components/checkout-confirmation-modal/checkout-confirmation-modal.component';
 import { CoreRoutingModule } from './core.routing.module';
 import { LoginComponent } from './Components/login/login.component';
+import { PaginationComponent } from './Components/pagination/pagination.component';
 
 
 
@@ -33,6 +38,7 @@ import { LoginComponent } from './Components/login/login.component';
     DeleteConfirmationModalComponent,
     CheckoutConfirmationModalComponent,
     LoginComponent,
+    PaginationComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +47,10 @@ import { LoginComponent } from './Components/login/login.component';
     MatNativeDateModule,
     MatInputModule,
     MatFormFieldModule,
+    MatSelectModule,
+    BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot(),
+    MatIconModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-bottom-right',
@@ -69,13 +79,18 @@ import { LoginComponent } from './Components/login/login.component';
     ToastrModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    BsDatepickerModule,
+    TimepickerModule,
     MatInputModule,
     MatFormFieldModule,
+    MatSelectModule,
+    MatIconModule,
     RouterModule,
     NgxSpinnerModule,
     HeaderComponent,
     FooterComponent,
     HomeComponent,
+    PaginationComponent,
     LoginComponent,
     NotFoundComponent,
     SideBarComponent,

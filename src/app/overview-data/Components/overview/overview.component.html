@@ -33,6 +33,18 @@
         <div class="dashboard-card-title">Currently On Break</div>
         <h4 class="dashboard-card-value">{{ pausedWorkLogs?.count || '-' }}</h4>
       </div>
+
+       <!-- Late CheckIn Work Logs -->
+       <div class="dashboard-card">
+        <div class="dashboard-card-title">Late Checkin</div>
+        <h4 class="dashboard-card-value">{{ pausedWorkLogs?.count || '-' }}</h4>
+      </div>
+
+       <!-- Paused Work Logs -->
+       <div class="dashboard-card">
+        <div class="dashboard-card-title">Early Checkout</div>
+        <h4 class="dashboard-card-value">{{ pausedWorkLogs?.count || '-' }}</h4>
+      </div>
     </div>
 
     <!-- Dashboard Charts and Tables -->
@@ -57,7 +69,7 @@
                 <td>
                   <div class="employee-info">
                     <div class="employee-avatar">{{ employee.avatar }}</div>
-                    <a [routerLink]="['/personal-statistics', employee.id]" class="employee-name">{{ employee.name }}</a>
+                    <div class="employee-name">{{ employee.name }}</div>
                   </div>
                 </td>
                 <td>{{ employee.actual }}</td>
@@ -75,9 +87,10 @@
           <div class="dashboard-header-title">Absence Today</div>
         </div>
         <div class="dashboard-absence-listing">
-          <div class="absence-item" *ngFor="let employee of absenceToday">
-            <div class="employee-avatar">{{ employee.avatar }}</div>
-            <a [routerLink]="['/personal-statistics', employee.id]" class="employee-name">{{ employee.name }}</a>
+          <div class="absence-item" *ngFor="let employee of absentUsers">
+            <div class="employee-avatar">{{ employee.firstName[0] }}</div>
+            <div class="employee-name">{{ employee.firstName }} {{employee.lastName}}-- </div>
+            <div class="employee-name"> {{ employee.workShift.shiftTypeName }} -- {{employee.workShift.shiftName}}</div>
           </div>
         </div>
       </div>

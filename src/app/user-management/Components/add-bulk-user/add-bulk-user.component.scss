@@ -1,0 +1,113 @@
+/* Modal Styling */
+.modal-content {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f4f9fc;
+  padding: 20px;
+}
+
+.modal-header {
+  padding-bottom: 15px;
+  border-bottom: 2px solid #ededed;
+}
+
+.modal-header .modal-title {
+  font-size: 24px;
+  color: #0056b3;
+  font-weight: 700;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input.form-control {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+select.form-control {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+/* Ensure the file input and button align next to each other */
+.form-group.d-flex {
+  display: flex;
+  align-items: center;
+}
+
+.form-group.d-flex .form-control {
+  margin-right: 15px; /* Space between input and button */
+  flex: 1;
+}
+
+.csv-button {
+  background-color: transparent;
+  border: none;
+  padding: 10px 20px;
+  font-weight: 600;
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.csv-button:hover {
+  color: white;
+  background-color: #007bff;
+}
+
+/* User Action Buttons */
+.modal-footer .btn-action {
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  background-color: #f4f9fc;
+  color: #007bff;
+  border: 1px solid #e0e0e0;
+}
+
+.modal-footer .btn-action:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.modal-footer .btn-action.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.modal-footer .btn-action.btn-secondary:hover {
+  background-color: #e0e0e0;
+}
+
+/* Input Group */
+.input-group {
+  display: flex;
+  align-items: center;
+}
+
+.input-group-text {
+  background-color: #e9ecef;
+  border: 1px solid #ccc;
+  border-right: none;
+  border-radius: 8px;
+}
+
+.input-group .form-control {
+  border-radius: 8px;
+  border-left: none;
+}
+
+/* Hover/Focus effects */
+input.form-control:focus, select.form-control:focus {
+  border-color: #007bff;
+}

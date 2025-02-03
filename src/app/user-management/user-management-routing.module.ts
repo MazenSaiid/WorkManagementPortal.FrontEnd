@@ -8,10 +8,10 @@ import { AddBulkUserComponent } from './Components/add-bulk-user/add-bulk-user.c
 
 const routes: Routes = [
   { path: '', component: UserComponent },
-  { path: 'user-create', component: CreateUserComponent },
-  { path: 'user-edit', component: EditUserComponent },
+  { path: 'create', component: CreateUserComponent },
+  { path: 'edit', component: EditUserComponent },
   { path: 'user-details', component: UserDetailsComponent },
-  { path: 'user-bulk', component: AddBulkUserComponent },
+  { path: 'create-bulk', component: AddBulkUserComponent },
 ];
 
 @NgModule({

@@ -1,9 +1,9 @@
-import { ShiftType } from "./ListWorkShiftDto";
+import { ShiftType, WorkShiftDetailDto } from "./ListWorkShiftDto";
 
 export interface WorkShiftDto {
-    shiftType: ShiftType;
-    startTime: Date;
-    endTime: Date; 
+    shiftType: ShiftType; 
     shiftName: string;
+    isComplex: boolean;
+    workShiftDetails?: WorkShiftDetailDto[];
   }
   

@@ -16,9 +16,14 @@ export class AccountService {
   currentUser$ = this.currentUser.asObservable();
 
   constructor(private http: HttpClient,private globals:Globals) { }
+
   createUser(user: any): Observable<ValidationResponse> {
     return this.http.post<ValidationResponse>(`${this.apiUrl}/Accounts/Register`, user)
   }
+  createBulkUsers(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/Accounts/UploadBulk`, formData); 
+  }
+
   // login
   login( loginDto: any): Observable<AccountServiceValidationResponse> {
     return this.http.post<AccountServiceValidationResponse>(`${this.apiUrl}/Accounts/Login`, loginDto).pipe(
@@ -33,7 +38,7 @@ export class AccountService {
           localSessionExpiryDate: response.localSessionExpiryDate
         };
         this.currentUser.next(user);
-        this.globals.updateUserLoginFlag(true);
+        this.globals.loggedIn = true;
       } else {
         console.error('User object is not found in the response');
       }

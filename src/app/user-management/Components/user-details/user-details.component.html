@@ -13,12 +13,13 @@
       <!-- Modal Body -->
       <div class="modal-body" style="padding: 20px;">
         <div *ngIf="user">
+          <p><strong>Employee Number:</strong> {{ user.employeeSerialNumber }}</p>
           <p><strong>First Name:</strong> {{ user.firstName }}</p>
           <p><strong>Last Name:</strong> {{ user.lastName }}</p>
           <p><strong>Email:</strong> {{ user.email }}</p>
           <p><strong>Phone:</strong> {{ user.phoneNumber }}</p>
           <p><strong>Role:</strong> {{ user.roleName }}</p>
-          
+          <p><strong>Work Shift:</strong> {{ user.workShift.shiftName}}</p>
           <div *ngIf="user.supervisor">
             <p><strong>Supervisor:</strong> {{ user.supervisor.firstName }} {{ user.supervisor.lastName }}</p>
           </div>

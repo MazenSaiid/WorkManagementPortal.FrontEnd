@@ -14,6 +14,7 @@ export class EditWorkShiftComponent implements OnInit {
   @Input() workShift: ListWorkShiftDto | any ;
   @Input() isVisible: boolean = false;
   @Output() close = new EventEmitter<boolean>();
+  @Output() workShiftUpdated = new EventEmitter<boolean>();
   editWorkShiftForm: FormGroup;
   shiftTypes: any[] = [];  
   updatedWorkShift: WorkShiftDto | null = null;
@@ -65,7 +66,8 @@ export class EditWorkShiftComponent implements OnInit {
       next: (response) => {
         if (response.success) {
           this.toastr.success('Work Shift updated successfully!');
-          this.close.emit(true); // Close modal
+          this.workShiftUpdated.emit();
+        this.closeModal();
         } else {
           this.toastr.error(response.message, 'Error'); // Error notification
         }

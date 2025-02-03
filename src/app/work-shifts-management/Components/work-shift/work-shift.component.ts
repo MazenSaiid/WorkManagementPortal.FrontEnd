@@ -15,11 +15,12 @@ export class WorkShiftComponent implements OnInit {
   selectedWorkShift: ListWorkShiftDto | any = null; // To store the selected workshifts for editing/viewing/deleting
   filteredWorkShifts: ListWorkShiftDto[] = [];   // This will hold the filtered workshifts
   searchText: string = '';  // This binds to the search input field
-  createWorkShiftModalVisible: boolean = false;
+  createComplexWorkShiftModalVisible: boolean = false;
   editWorkShiftModalVisible: boolean = false;
   viewWorkShiftModalVisible: boolean = false;
   deleteWorkShiftModalVisible:boolean = false;
-
+  currentPage: number =1;
+  itemsPerPage: number = 5; 
   constructor(private toastrService: ToastrService, private http: HttpClient, private workShiftService: WorkShiftService) {
 
   }
@@ -45,15 +46,11 @@ export class WorkShiftComponent implements OnInit {
         }
       },
       error: (err) => {
-        this.toastrService.error('An error occurred while fetching Work Shifts.', 'Error'); // Show error using Toastr
+       console.error('An error occurred while fetching Work Shifts.', 'Error'); // Show error using Toastr
       }
     });
   }
 
-  // Method to open Create WorkShift Modal
-  openCreateWorkShiftModal(): void {
-    this.createWorkShiftModalVisible = true;
-  }
   filterWorkShifts() {
     if (!this.searchText) {
       // If no search text, show all WorkShifts
@@ -66,16 +63,20 @@ export class WorkShiftComponent implements OnInit {
       });
     }
   }
+  // Method to open Create WorkShift Modal
+  openCreateComplexWorkShiftModal(): void {
+    this.createComplexWorkShiftModalVisible = true;
+  }
   // Method to close Create WorkShift Modal
-  closeCreateWorkShiftModal(event: boolean): void {
-    this.createWorkShiftModalVisible = event;
+  closeCreateComplexWorkShiftModal(event: boolean): void {
+    this.createComplexWorkShiftModalVisible = event;
   }
   // Method to delete WorkShift Modal
   openDeleteConfirmationModal(workshift: ListWorkShiftDto) {
     this.selectedWorkShift = workshift;
    this.deleteWorkShiftModalVisible =true;
   }
-  // Method to close Create WorkShift Modal
+  // Method to close delete WorkShift Modal
   closeDeleteWorkShiftModal(event: boolean): void {
     this.deleteWorkShiftModalVisible = event;
   }
@@ -94,7 +95,6 @@ export class WorkShiftComponent implements OnInit {
     this.selectedWorkShift = workshift; // Set the WorkShift to be viewed
     this.viewWorkShiftModalVisible = true;
   }
-
   // Method to close View WorkShift Modal
   closeViewWorkShiftModal(event: boolean): void {
     this.viewWorkShiftModalVisible = event;

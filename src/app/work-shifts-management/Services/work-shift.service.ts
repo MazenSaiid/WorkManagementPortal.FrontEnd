@@ -8,11 +8,12 @@ import { WorkShiftValidationResponse } from '../../core/Models/Responses/WorkShi
   providedIn: 'root'
 })
 export class WorkShiftService {
+  
 
   private apiUrl = `${environment.apiUrl}/api`; // Adjust base URL if needed
 
   constructor(private http: HttpClient) { }
-
+ 
   getAllWorkShifts(): Observable<WorkShiftValidationResponse> {
     return this.http.get<WorkShiftValidationResponse>(`${this.apiUrl}/WorkShifts/GetAllWorkShifts`);
   }
@@ -20,16 +21,15 @@ export class WorkShiftService {
   getShiftTypes(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/WorkShifts/GetShiftTypes`);
   }
-
-   // Create or update a workshift
+  getDaysOfTheWeek() {
+    return this.http.get<any>(`${this.apiUrl}/WorkShifts/GetDaysofTheWeek`);
+  }
    updateWorkShift(id: number, updateWorkShiftDto: any):Observable<WorkShiftValidationResponse> {
     return this.http.put<WorkShiftValidationResponse>(`${this.apiUrl}/WorkShifts/UpdateWorkShift/${id}`, updateWorkShiftDto);
   }
-  // Create or update a workshift
   createWorkShift( createWorkShiftDto: any): Observable<WorkShiftValidationResponse> {
     return this.http.post<WorkShiftValidationResponse>(`${this.apiUrl}/WorkShifts/CreateWorkShift`, createWorkShiftDto);
   }
-  // Delete a workshift
   deleteWorkShift(id: number): Observable<WorkShiftValidationResponse> {
     return this.http.delete<WorkShiftValidationResponse>(`${this.apiUrl}/WorkShifts/DeleteWorkShift/${id}`);
   }

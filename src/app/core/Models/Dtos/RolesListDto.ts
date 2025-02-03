@@ -3,3 +3,11 @@ export interface RolesListDto {
     roleName: string;
     userCount: number;
   }
+  export enum Roles {
+    Admin =61, 
+    Manager,
+    Employee,
+    Supervisor, 
+    TeamLead
+    // Add other shift types as needed
+  }

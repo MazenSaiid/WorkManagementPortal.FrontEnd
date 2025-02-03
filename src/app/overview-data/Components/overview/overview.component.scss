@@ -53,9 +53,9 @@
 .dashboard-summary,
 .dashboard-charts {
   display: flex;
-  flex-direction: row; /* Display cards in a row */
   gap: 16px; /* Space between the cards */
   flex-wrap: wrap;
+  width: 100%; /* Full width */
 }
 
 .dashboard-card {
@@ -101,9 +101,27 @@
   color: #333;
 }
 
+.dashboard-charts {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  width: 100%; /* Full width */
+}
+
+.dashboard-table-section {
+  flex: 1 1 45%; /* Each section takes 50% width */
+  max-width: 50%;
+  box-sizing: border-box;
+}
+.table-responsive {
+  width: 100%;  /* Ensures the table takes the full width of the parent container */
+  overflow-x: auto; /* Ensures responsiveness for smaller screens */
+}
+
 .dashboard-table {
-  width: 100%;
-  border-collapse: collapse;
+  width: 100%;  /* Makes the table take up the full available width */
+  table-layout: fixed; /* Ensures that columns expand to fit the width */
+  border-collapse: collapse; /* Removes space between cells */
 }
 
 .dashboard-table th,
@@ -111,6 +129,7 @@
   padding: 12px;
   text-align: left;
   border: 1px solid #e0e0e0;
+  word-wrap: break-word; /* Allows long content to break into the next line if necessary */
 }
 
 .dashboard-table th {

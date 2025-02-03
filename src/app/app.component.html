@@ -1,4 +1,5 @@
 <div>
+  <ng-container *ngIf="isLogggedIn" >
   <!-- Header -->
   <app-header></app-header>
   <div class="root-layout web">
@@ -11,4 +12,9 @@
   </div>
   <!-- Footer -->
   <app-footer></app-footer>
+</ng-container>
+
+  <!-- <ng-container *ngIf="!isLogggedIn">
+    <router-outlet></router-outlet>
+  </ng-container> -->
 </div>

@@ -19,6 +19,8 @@ export class RolesComponent implements OnInit{
   editRoleModalVisible: boolean = false;
   viewRoleModalVisible: boolean = false;
   deleteRoleModalVisible:boolean = false;
+  currentPage: number =1;
+  itemsPerPage: number = 5;
   constructor(private toastrService: ToastrService, private rolesService: RoleService) {
     
   }
@@ -49,7 +51,7 @@ export class RolesComponent implements OnInit{
         }
       },
       error: (err) => {
-        this.toastrService.error('An error occurred while fetching roles.', 'Error'); // Show error using Toastr
+        console.error('An error occurred while fetching roles.', 'Error'); // Show error using Toastr
       }
     });
   }
@@ -66,7 +68,7 @@ export class RolesComponent implements OnInit{
     this.selectedRole = role;
    this.deleteRoleModalVisible =true;
   }
-  // Method to close Create Role Modal
+  // Method to close delete Role Modal
   closeDeleteRoleModal(event: boolean): void {
     this.deleteRoleModalVisible = event;
   }

@@ -35,8 +35,6 @@
         <div *ngIf="workShift">
           <p><strong>Shift Name:</strong> {{ workShift.shiftName }}</p>
           <p><strong>Shift Type:</strong> {{ workShift.shiftTypeName }}</p>
-          <p><strong>Start Time:</strong> {{ formatTimeToDate(workShift.startTime) | date:'hh:mm a' }}</p>
-          <p><strong>End Time:</strong> {{ formatTimeToDate(workShift.endTime) | date:'hh:mm a' }}</p>
         </div>
       </div>
 

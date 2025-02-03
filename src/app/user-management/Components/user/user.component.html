@@ -15,7 +15,7 @@
     <button type="button" class="btn btn-success me-2" (click)="openCreateUserModal()">
       <i class="fa fa-user-plus"></i> Add User
     </button>
-    <button type="button" class="btn btn-primary me-2" routerLink="/user/user-bulk">
+    <button type="button" class="btn btn-primary me-2" (click)="openCreateBulkUserModal()">
       <i class="fa fa-users"></i> Add Bulk Users
     </button>
   </div>
@@ -29,19 +29,23 @@
             <table class="table mb-0">
               <thead>
                 <tr>
+                  <th scope="col">Employee Number</th>
                   <th scope="col">Full Name</th>
                   <th scope="col">Email</th>
                   <th scope="col">Phone Number</th>
                   <th scope="col">Role</th>
+                  <th scope="col">Work Shift</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let user of filteredUsers"> <!-- Display filtered users -->
+                  <td>{{ user.employeeSerialNumber }}</td>
                   <td>{{ user.firstName }} {{ user.lastName }}</td>
                   <td>{{ user.email }}</td>
                   <td>{{ user.phoneNumber }}</td>
                   <td>{{ user.roleName }}</td>
+                  <td>{{ user.workShift.shiftName || '-'}}</td>
                   <td>
                     <div class="btn-group">
                       <button class="btn btn-link btn-sm" data-bs-toggle="dropdown" type="button">
@@ -69,6 +73,17 @@
     </div>
   </div>
 
+    <!-- Pagination -->
+    <app-pagination 
+    [totalItems]="filteredUsers.length" 
+    [currentPage]="currentPage" 
+    [itemsPerPage]="itemsPerPage">
+  </app-pagination>
+
+
+   <!-- Create Bulk User Modal -->
+  <app-add-bulk-user [isVisible]="createBulkUserModalVisible" (bulkUsersCreated)="loadAllUsers()" (close)="closeCreateBulkUserModal($event)"></app-add-bulk-user>
+  
   <!-- Create User Modal -->
   <app-create-user [isVisible]="createUserModalVisible" (userCreated)="loadAllUsers()" (close)="closeCreateUserModal($event)"></app-create-user>
 

@@ -12,6 +12,22 @@
       </div>
       <div class="modal-body" style="padding: 20px">
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <!-- Employee Id -->
+          <div class="form-group">
+            <label for="employeeSerialNumber" style="font-weight: 600">Employee Number</label>
+            <div class="input-group">
+              <div class="input-group-text">
+                <i class="bi bi-file-person" style="font-size: 20px; color: #007bff"></i>
+              </div>
+              <input formControlName="employeeSerialNumber" class="form-control" id="employeeSerialNumber" type="number" inputmode="numeric"
+                pattern="^[0-9]{11}$" />
+            </div>
+            <!-- Validation Message -->
+            <div *ngIf="registerForm.get('employeeSerialNumber')?.invalid && registerForm.get('employeeSerialNumber')?.touched"
+              class="text-danger">
+              Employee number is required and must be numeric.
+            </div>
+          </div>
           <!-- First Name -->
           <div class="form-group">
             <label for="firstName" style="font-weight: 600">First Name</label>
@@ -72,55 +88,25 @@
               Phone number is required and must be exactly 11 digits long and numeric.
             </div>
           </div>
-
-
-          <!-- Password -->
-          <div class="form-group">
-            <label for="password" style="font-weight: 600">Password</label>
-            <div class="input-group">
-              <div class="input-group-text">
-                <i class="bi bi-lock" style="font-size: 20px; color: #007bff"></i>
-              </div>
-              <input formControlName="password" class="form-control" id="password"
-                [type]="passwordVisible ? 'text' : 'password'" required />
-              <div class="input-group-text">
-                <i class="bi bi-eye" id="eyeIcon" style="font-size: 20px; cursor: pointer"
-                  (click)="togglePasswordVisibility()"></i>
-              </div>
-            </div>
-            <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
-              class="text-danger">
-              Password is required.
-            </div>
-          </div>
-          <!-- WorkShift -->
-          <div class="form-group">
-            <label for="workShiftId" style="font-weight: 600">WorkShift</label>
-            <select id="workShiftName" class="form-control" formControlName="workShiftName">
-              <option *ngFor="let workShift of workShifts" [value]="workShift.shiftName">
-                {{ workShift.shiftName }}
-              </option>
-            </select>
-            <div *ngIf="registerForm.get('workShiftName')?.invalid && registerForm.get('workShiftName')?.touched"
-              class="text-danger">
-              WorkShift is required.
-            </div>
-          </div>
-        <!-- Role -->
+          <!-- Role -->
           <div class="form-group">
             <label for="roleName" style="font-weight: 600">Role</label>
-            <select id="roleName" class="form-control" formControlName="roleName">
-              <option *ngFor="let role of roles" [value]="role.roleName">
-                {{ role.roleName }}
-              </option>
-            </select>
+            <div class="input-group">
+              <div class="input-group-text">
+                <i class="bi bi-person-badge" style="font-size: 20px; color: #007bff"></i>
+              </div>
+              <select id="roleName" class="form-control" formControlName="roleName">
+                <option *ngFor="let role of roles" [value]="role.roleName">
+                  {{ role.roleName }}
+                </option>
+              </select>
+            </div>
             <div *ngIf="registerForm.get('roleName')?.invalid && registerForm.get('roleName')?.touched"
               class="text-danger">
               Role is required.
             </div>
           </div>
-
-          <!-- Supervisor and Team Leader Fields (Conditional) -->
+          <!-- Supervisor  Fields (Conditional) -->
           <div *ngIf="roleName === 'Employee'">
             <div class="form-group">
               <label for="supervisorId" style="font-weight: 600">Supervisor</label>
@@ -136,7 +122,7 @@
               </div>
             </div>
           </div>
-
+          <!-- Team Leader Fields (Conditional) -->
           <div *ngIf="roleName === 'Employee' || roleName === 'Supervisor'">
             <div class="form-group">
               <label for="teamLeaderId" style="font-weight: 600">Team Leader</label>
@@ -149,6 +135,26 @@
                     {{ teamleader.firstName }} {{ teamleader.lastName }}
                   </option>
                 </select>
+              </div>
+            </div>
+          </div>
+          <!-- WorkShift -->
+          <div *ngIf="roleName !== 'Manager' && roleName !== 'Admin'">
+            <div class="form-group">
+              <label for="workShiftId" style="font-weight: 600">WorkShift</label>
+              <div class="input-group">
+                <div class="input-group-text">
+                  <i class="bi bi-clock" style="font-size: 20px; color: #007bff"></i>
+                </div>
+                <select id="workShiftId" class="form-control" formControlName="workShiftId">
+                  <option *ngFor="let workShift of workShifts" [value]="workShift.id">
+                    {{ workShift.shiftName }}
+                  </option>
+                </select>
+              </div>
+              <div *ngIf="registerForm.get('workShiftId')?.invalid && registerForm.get('workShiftId')?.touched"
+                class="text-danger">
+                WorkShift is required.
               </div>
             </div>
           </div>

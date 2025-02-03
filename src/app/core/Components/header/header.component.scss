@@ -1,133 +1,130 @@
 /* General Header Styling */
 .sidebar-header {
-    background-color: #007bff;  /* Match the sidebar's blue background */
-    color: white;  /* White text to match sidebar */
-    border-bottom: 2px solid #0056b3;  /* Dark blue bottom border */
-    padding-left: 20px;  /* Add padding to sides for spacing */
-    padding-right: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;  /* Spread the content */
-    box-sizing: border-box;  /* Ensure padding doesn't affect overall width */
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  
+  background-color: #007bff; 
+  color: white; /* Text color */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px; /* Horizontal padding */
+  box-sizing: border-box; /* Include padding in width calculation */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-radius: 8px; /* Rounded corners */
+}
+
+/* Logo Section */
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none; /* Remove underline from logo */
+}
+
+.logo-img {
+  max-height: 50px; /* Logo image max height */
+  margin-right: 10px;
+}
+
+/* Profile Dropdown */
+.sidebar-header .dropdown-toggle {
+  background: transparent; /* No background on dropdown button */
+  color: white;
+  font-size: 1.1rem; /* Slightly smaller font size */
+  cursor: pointer;
+  border: none; /* Remove button borders */
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.profile-icon {
+  font-size: 1.25rem; /* Slightly smaller profile icon */
+  margin-right: 8px; /* Space between icon and text */
+}
+
+/* Dropdown Menu */
+.sidebar-header .dropdown-menu {
+  background-color: #007bff; /* Dark blue background for dropdown */
+  border-radius: 5px; /* Rounded corners */
+  border: none; /* Remove border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Slight shadow */
+}
+
+/* Dropdown Item Styling */
+.sidebar-header .dropdown-item {
+  color: white;
+  padding: 8px 16px; /* Slightly smaller padding */
+  font-size: 0.95rem; /* Smaller font size for dropdown items */
+  text-decoration: none; /* Remove underline */
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-header .dropdown-item:hover {
+  background-color: #007bff;  /* Darker blue on hover */
+}
+
+/* Navbar Styling */
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 15px; /* Reduced gap for a tighter layout */
+}
+
+.nav-link {
+  color: white;
+  font-size: 0.95rem; /* Slightly smaller font size */
+  font-weight: 400; /* Normal weight for better readability */
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+/* Active Link Styling */
+.nav-link.active {
+  font-weight: 600; /* Slightly bolder font for active state */
+}
+
+/* Hover effect on navigation links */
+.nav-link:hover {
+  color: white;  /* Maintain white color on hover */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .sidebar-header {
+      padding: 0 10px; /* Reduce padding on small screens */
   }
-  
-  /* Logo Section */
-  .logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;  /* Remove underline from logo link */
-  }
-  
-  .logo-img {
-    max-height: 70px;  /* Logo image max height */
-    margin-right: 10px;
-  }
-  
-  /* Navigation Menu */
+
   .nav-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
+      display: none; /* Hide nav links on mobile */
   }
-  
-  .nav-item {
-    margin: 0 20px;
+
+  /* Profile dropdown adjustment for small screens */
+  .dropdown-toggle {
+      font-size: 1rem; /* Adjust font size on mobile */
   }
-  
-  .nav-link {
-    color: white;  /* Ensure nav link text is white */
-    font-size: 20px;
-    font-weight: 500;  /* Slightly bolder for readability */
-    text-decoration: none;
-    transition: color 1s ease, background-color 1s ease;
-  }
-  
-  /* Hover effect on navigation links */
-  .nav-link:hover {
-    color: #0056b3;  /* Darker blue on hover for active links */
-    background-color: #ffffff;  /* White background on hover */
-    border-radius: 5px;  /* Add border radius for smoother hover effect */
-  }
-  
-  /* Active Link Styling */
-  .nav-link.active {
-    color: #003366 ;  /* Darker color for active links */
-    font-weight: bold;
-    background-color: #ffffff;
-    border-radius: 5px;
-  }
-  
-  /* Profile Dropdown */
-  .sidebar-header .dropdown-toggle {
-    color: white;  /* White text for the dropdown toggle */
-    font-size: 1.25rem;  /* Larger font size for the dropdown toggle */
-    cursor: pointer;
-  }
-  
+
   .sidebar-header .dropdown-menu {
-    background-color: #0056b3;  /* Dark blue background for the dropdown */
-    color: white;  /* White text in the dropdown */
-    border-radius: 5px;  /* Round the corners for a modern look */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Add subtle shadow */
+      width: 100%; /* Make dropdown take full width on mobile */
   }
-  
-  .sidebar-header .dropdown-item {
-    color: white;  /* White text for the dropdown items */
-    padding: 10px 15px;  /* Add padding for better spacing */
-    text-decoration: none;  /* Remove text underline */
-  }
-  
-  .sidebar-header .dropdown-item:hover {
-    background-color: #003366;  /* Darker blue on hover in the dropdown */
-  }
-  
-  /* User Profile Icon */
-  .profile-icon {
-    font-size: 20px;  /* Larger profile icon */
-    font-weight: bold;
-    color: white;  /* White icon color */
-    transition: color 0.3s ease;  /* Smooth transition */
-  }
-  
-  .profile-icon:hover {
-    color: #0056b3;  /* Change icon color on hover */
-  }
-  
-  /* Mobile Responsiveness */
-  @media (max-width: 768px) {
-    .sidebar-header {
-      padding-left: 10px;  /* Reduce padding for smaller screens */
-      padding-right: 10px;
-    }
-  
-    .nav {
-      display: none;  /* Hide the nav menu on mobile by default */
-    }
-  
-    .btn-group {
-      margin-top: 10px;  /* Move dropdown down on smaller screens */
-    }
-  
-    /* Show the nav menu when the hamburger menu is clicked (if you choose to add a hamburger) */
-    .nav-active {
+
+  /* Show navigation menu when needed (e.g. with a hamburger menu) */
+  .nav-active {
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-  
-    .nav-item {
+  }
+
+  .nav-item {
       margin: 10px 0;
-    }
   }
-  
-  /* Show navigation on medium and large screens */
-  @media (min-width: 769px) {
-    .nav {
-      display: flex;  /* Show the nav menu in row */
-    }
+}
+
+/* Larger screens */
+@media (min-width: 769px) {
+  .nav-list {
+      display: flex; /* Show nav links in row on larger screens */
   }
-  
+}

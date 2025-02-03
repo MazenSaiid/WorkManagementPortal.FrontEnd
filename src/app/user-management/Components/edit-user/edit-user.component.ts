@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../Services/user.service';
 import { RoleService } from '../../../role-management/Services/role.service';
-import { RolesListDto } from '../../../core/Models/Dtos/RolesListDto';
+import { Roles, RolesListDto } from '../../../core/Models/Dtos/RolesListDto';
 import { UserValidationResponse } from '../../../core/Models/Responses/UserValidationResponse';
 import { UserDto } from '../../../core/Models/Dtos/UserDto';
 import { WorkShiftService } from '../../../work-shifts-management/Services/work-shift.service';
@@ -29,6 +29,13 @@ export class EditUserComponent implements OnInit{
   constructor(private roleService: RoleService,private fb: FormBuilder, private userService: UserService, 
     private workShiftService: WorkShiftService,private toastr: ToastrService) {
     this.userForm = this.fb.group({
+      employeeSerialNumber: [
+        '',
+        [
+          Validators.required, 
+          Validators.pattern('^[0-9]$')  // Only all digits must be numbers.
+        ]
+      ],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -42,7 +49,7 @@ export class EditUserComponent implements OnInit{
       roleName: ['', Validators.required],
       supervisorId: [''],
       teamLeaderId: [''],
-      workShiftName: ['', Validators.required],
+      workShiftId: [null],
     });
   }
   ngOnInit(): void {
@@ -58,19 +65,33 @@ export class EditUserComponent implements OnInit{
   toggleRoleFields(): void {
     const supervisorControl = this.userForm.get('supervisorId');
     const teamLeaderControl = this.userForm.get('teamLeaderId');
-
-    if (this.roleName === 'Admin' || this.roleName === 'Manager') {
+    const workShiftControl = this.userForm.get('workShiftId');
+  
+    if (this.roleName === Roles.Admin.toString() || this.roleName === Roles.Manager.toString()) {
+      // Clear validators for supervisor, teamLeader, and workShift for Admin/Manager
       supervisorControl?.clearValidators();
       teamLeaderControl?.clearValidators();
-      supervisorControl?.setValue('');
+      supervisorControl?.setValue('');   // Empty string for optional supervisorId
+      teamLeaderControl?.setValue('');   // Empty string for optional teamLeaderId
+    } else if (this.roleName === Roles.TeamLead.toString()) {
+      // Set workShiftId as required for TeamLead
+      workShiftControl?.setValidators([Validators.required]);
+    } else if (this.roleName === Roles.Supervisor.toString()) {
+      // Set workShiftId as required for Supervisor
+      teamLeaderControl?.clearValidators();  // Clear teamLeader for Supervisor
       teamLeaderControl?.setValue('');
+      workShiftControl?.setValidators([Validators.required]);
+    } else if (this.roleName === Roles.Employee.toString()) {
+      // Add validators for supervisor and teamLeader for Employee
+      supervisorControl?.setValidators([Validators.required]);
+      teamLeaderControl?.setValidators([Validators.required]);
+      workShiftControl?.setValidators([Validators.required]);
     }
-    else if(this.roleName === 'Supervisor'){
-      teamLeaderControl?.clearValidators();
-      teamLeaderControl?.setValue('');
-    }
+  
+    // Ensure form controls are updated after changing validators
     supervisorControl?.updateValueAndValidity();
     teamLeaderControl?.updateValueAndValidity();
+    workShiftControl?.updateValueAndValidity();
   }
   loadSupervisors(): void {
     this.userService.getAllSupervisors().subscribe({
@@ -118,8 +139,14 @@ export class EditUserComponent implements OnInit{
     }
   }
 
-  onSubmit() {
-    if (this.userForm.invalid) return;
+  onSubmit() {;
+    Object.values(this.userForm.controls).forEach(control => {
+      control.markAsTouched();
+    });
+    if (this.userForm.invalid) {
+      this.toastr.error('Invalid Data');
+      return;
+    }
 
     const updatedUser = this.userForm.value;
     this.userService.updateUser(this.user?.id,updatedUser).subscribe({
@@ -130,6 +157,7 @@ export class EditUserComponent implements OnInit{
         this.loadSupervisors();
         this.loadTeamLeaders();
         this.closeModal(); // Close modal
+        this.userForm.reset();
       }else {
         this.toastr.error(response.message, 'Error'); // Error notification
       }

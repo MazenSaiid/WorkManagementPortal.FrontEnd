@@ -29,12 +29,21 @@ export class WorklogService {
   }
 
   // Get Paused Work Logs
-  getPausedWorkLogs(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/WorkTrackings/GetPausedWorkLogs`);
+  getPausedWorkLogs(date:string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/WorkTrackings/GetPausedWorkLogs?date=${date}`);
   }
 
   // Get Active Work Logs
-  getActiveWorkLogs(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/WorkTrackings/GetActiveWorkLogs`);
+  getActiveWorkLogs(date:string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/WorkTrackings/GetActiveWorkLogs?date=${date}`);
+  }
+
+  // Get Early Checkout WorkLogs
+  getEarlyCheckoutWorkLogs(date:string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/WorkTrackings/GetEarlyCheckoutWorkLogs?date=${date}`);
+  }
+  // Get Late Checkin WorkLogs
+  getLateCheckinWorkLogs(date:string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/WorkTrackings/GetLateCheckInWorkLogs?date=${date}`);
   }
 }

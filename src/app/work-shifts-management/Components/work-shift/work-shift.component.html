@@ -12,10 +12,9 @@
   
     <!-- User Action Buttons -->
     <div class="mb-3 text-end">
-          <button type="button" class="btn btn-success me-2" (click)="openCreateWorkShiftModal()">
+          <button type="button" class="btn btn-success me-2" (click)="openCreateComplexWorkShiftModal()">
             <i class="fa fa-calendar"></i> Add Work Shift
           </button>
-          
     </div>
   
     <!-- User Table -->
@@ -29,8 +28,7 @@
                   <tr>
                     <th scope="col">Shift Name</th>
                     <th scope="col">Shift Type</th>
-                    <th scope="col">Start Time</th>
-                    <th scope="col">End Time</th>
+                    <th scope="col">Is Complex</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
@@ -38,8 +36,7 @@
                   <tr *ngFor="let workShift of filteredWorkShifts"> <!-- Display filtered users -->
                     <td>{{ workShift.shiftName }}</td>
                     <td>{{ workShift.shiftType | enumToString }}</td> <!-- Using pipe to convert enum to string -->
-                    <td>{{ formatTimeToDate(workShift.startTime) | date:'hh:mm a' }}</td> <!-- Format the startTime -->
-                    <td>{{ formatTimeToDate(workShift.endTime) | date:'hh:mm a' }}</td>   <!-- Format the endTime -->
+                    <td>{{workShift.isComplex}}</td>   <!-- Format the endTime -->
                     <td>
                       <div class="btn-group">
                         <button class="btn btn-link btn-sm" data-bs-toggle="dropdown" type="button">
@@ -66,17 +63,25 @@
         </div>
       </div>
     </div>
-  
-    <!-- Create WorkShift Modal -->
-    <app-add-work-shift [isVisible]="createWorkShiftModalVisible" (close)="closeCreateWorkShiftModal($event)"></app-add-work-shift >
+    
+     <!-- Pagination -->
+     <app-pagination 
+     [totalItems]="filteredWorkShifts.length" 
+     [currentPage]="currentPage" 
+     [itemsPerPage]="itemsPerPage">
+   </app-pagination>
+
   
     <!-- Edit WorkShift Modal -->
-    <app-edit-work-shift [workShift]="selectedWorkShift" [isVisible]="editWorkShiftModalVisible" (close)="closeEditWorkShiftModal($event)"></app-edit-work-shift>
+    <app-edit-work-shift [workShift]="selectedWorkShift" [isVisible]="editWorkShiftModalVisible" (workShiftUpdated)="loadAllWorkShifts()" (close)="closeEditWorkShiftModal($event)"></app-edit-work-shift>
   
     <!-- View WorkShift Modal -->
     <app-view-work-shift [workShift]="selectedWorkShift" [isVisible]="viewWorkShiftModalVisible" (close)="closeViewWorkShiftModal($event)"></app-view-work-shift>
   
     <!-- Delete Confirmation Modal -->
-    <app-delete-confirmation-modal [workShift]="selectedWorkShift" [isVisible]="deleteWorkShiftModalVisible" (close)="closeDeleteWorkShiftModal($event)"></app-delete-confirmation-modal>
+    <app-delete-confirmation-modal [workShift]="selectedWorkShift" [isVisible]="deleteWorkShiftModalVisible" (workShiftDeleted)="loadAllWorkShifts()" (close)="closeDeleteWorkShiftModal($event)"></app-delete-confirmation-modal>
+
+     <!-- Create Complex WorkShift Modal -->
+     <app-add-complex-work-shift [isVisible]="createComplexWorkShiftModalVisible" (workShiftCreated)="loadAllWorkShifts()" (close)="closeCreateComplexWorkShiftModal($event)"></app-add-complex-work-shift >
   </div>
   

@@ -12,6 +12,23 @@
       </div>
       <div class="modal-body" style="padding: 20px">
         <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+          <!-- Employee Number -->
+          <div class="form-group">
+            <label for="employeeSerialNumber" style="font-weight: 600">Employee Number</label>
+            <div class="input-group">
+              <div class="input-group-text">
+                <i class="bi bi-phone" style="font-size: 20px; color: #007bff"></i>
+              </div>
+              <input formControlName="employeeSerialNumber" class="form-control" id="employeeSerialNumber" type="number" inputmode="numeric"
+                pattern="^[0-9]{11}$"  />
+            </div>
+            <!-- Validation Message -->
+            <div *ngIf="userForm.get('employeeSerialNumber')?.invalid && userForm.get('employeeSerialNumber')?.touched"
+              class="text-danger">
+              Employee number is required and must be and numeric.
+            </div>
+          </div>
           <!-- First Name -->
           <div class="form-group">
             <label for="firstName" style="font-weight: 600">First Name</label>
@@ -72,28 +89,19 @@
               Phone number is required and must be exactly 11 digits long and numeric.
             </div>
           </div>
-          <!-- WorkShift -->
-          <div class="form-group">
-            <label for="workShiftId" style="font-weight: 600">WorkShift</label>
-            <select id="workShiftName" class="form-control" formControlName="workShiftName">
-              <option *ngFor="let workShift of workShifts" [value]="workShift.shiftName">
-                {{ workShift.shiftName }}
-              </option>
-            </select>
-            <div *ngIf="userForm.get('workShiftName')?.invalid && userForm.get('workShiftName')?.touched"
-              class="text-danger">
-              WorkShift is required.
-            </div>
-          </div>
-
           <!-- Role -->
           <div class="form-group">
             <label for="roleName" style="font-weight: 600">Role</label>
+            <div class="input-group">
+              <div class="input-group-text">
+                <i class="bi bi-person-badge" style="font-size: 20px; color: #007bff"></i>
+              </div>
             <select id="roleName" class="form-control" formControlName="roleName" required>
               <option *ngFor="let role of roles" [value]="role.roleName">
                 {{ role.roleName }}
               </option>
             </select>
+            </div>
             <div *ngIf="userForm.get('roleName')?.invalid && userForm.get('roleName')?.touched"
               class="text-danger">
               Role is required.
@@ -110,7 +118,7 @@
                 </div>
                 <select id="supervisorId" class="form-control" formControlName="supervisorId">
                   <option *ngFor="let supervisor of supervisors" [value]="supervisor.id">
-                    {{ supervisor.firstName }}{{ supervisor.lastName }}
+                    {{ supervisor.firstName }} {{ supervisor.lastName }}
                   </option>
                 </select>
               </div>
@@ -126,12 +134,32 @@
                 </div>
                 <select id="teamLeaderId" class="form-control" formControlName="teamLeaderId">
                   <option *ngFor="let teamleader of teamLeaders" [value]="teamleader.id">
-                    {{ teamleader.firstName }}{{ teamleader.lastName }}
+                    {{ teamleader.firstName }} {{ teamleader.lastName }}
                   </option>
                 </select>
               </div>
             </div>
-          </div> 
+          </div>
+              <!-- WorkShift -->
+              <div *ngIf="roleName !== 'Manager' && roleName !== 'Admin'">
+              <div class="form-group">
+                <label for="workShiftId" style="font-weight: 600">WorkShift</label>
+                <div class="input-group">
+                  <div class="input-group-text">
+                    <i class="bi bi-clock" style="font-size: 20px; color: #007bff"></i>
+                  </div>
+                <select id="workShiftId" class="form-control" formControlName="workShiftId">
+                  <option *ngFor="let workShift of workShifts" [value]="workShift.id">
+                    {{ workShift.shiftName }}
+                  </option>
+                </select>
+                </div>
+                <div *ngIf="userForm.get('workShiftId')?.invalid && userForm.get('workShiftId')?.touched"
+                  class="text-danger">
+                  WorkShift is required.
+                </div>
+              </div> 
+              </div>
 
           <!-- Modal Footer with Updated Button Styling -->
           <div class="modal-footer" style="border-top: none">

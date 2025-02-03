@@ -1,57 +1,53 @@
-<!-- *ngIf="currentUser" -->
 <header class="sidebar-header d-flex align-items-center justify-content-between py-3 border-bottom">
   <!-- Logo Section -->
   <a routerLink="/home" class="logo d-flex align-items-center text-decoration-none">
     <img src="https://workfolio.s3.amazonaws.com/profile_picture/82310d70-490d-11ef-bac7-719e9d8b4bed.png" alt="Logo" class="logo-img" />
   </a>
 
-  <!-- Navigation Links -->
-  <nav class="nav d-none d-md-flex">
-    <ul class="nav-list d-flex justify-content-center">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
-      </li>
-      <!-- *ngIf="currentUser.roles && currentUser.roles.includes('Admin')" -->
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/user" routerLinkActive="active">User Management</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/role" routerLinkActive="active">Role Management</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/workshift" routerLinkActive="active">Work Shifts Management</a>
-        </li>
-      
-    </ul>
-  </nav>
-
   <!-- User Profile Section -->
   <div class="user-profile d-flex align-items-center">
-    <div class="dropdown" bsDropdown>
-      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" aria-expanded="false">
-        <span class="profile-icon">
-          <i class="fas fa-user-circle ml-2"></i>
-          Welcome!
-        </span>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <li>
-          <a (click)="logout()" class="dropdown-item">
-            <span class="profile-icon">
-              <i class="fas fa-sign-out-alt ml-2"></i> <!-- Icon for Logout -->
-              Logout
-            </span>
-          </a>
-        </li>
-        <li>
-          <a (click)="changePassword()" class="dropdown-item">
-            <span class="profile-icon">
-              <i class="fas fa-key ml-2"></i> <!-- Icon for Change Password -->
-              Change Password
-            </span>
-          </a>
-        </li>
-      </ul>
-    </div>
+    <ul class="navbar-nav flex-row">
+      <li class="nav-item dropdown me-3 me-lg-1">
+        <a
+          class="nav-link dropdown-toggle hidden-arrow"
+          href="#"
+          id="navbarDropdownUser"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <span class="profile-icon">
+            <i class="fas fa-user-circle ml-2"></i>
+            Welcome!
+          </span>
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownUser"
+        >
+          <li>
+            <a class="dropdown-item" href="#">
+              <span class="profile-icon">
+                <i class="fas fa-user ml-2"></i> Profile
+              </span>
+            </a>
+          </li>
+          <li>
+            <a (click)="changePassword()" class="dropdown-item" href="#">
+              <span class="profile-icon">
+                <i class="fas fa-key ml-2"></i> Change Password
+              </span>
+            </a>
+          </li>
+          <li>
+            <a (click)="logout()" class="dropdown-item" href="#">
+              <span class="profile-icon">
+                <i class="fas fa-sign-out-alt ml-2"></i> Logout
+              </span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </div>  
 </header>

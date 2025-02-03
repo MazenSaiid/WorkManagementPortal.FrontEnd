@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../Services/user.service';
 import { RoleService } from '../../../role-management/Services/role.service';
-import { RolesListDto } from '../../../core/Models/Dtos/RolesListDto';
-import { RegiserModel } from '../../../core/Models/Dtos/RegisterModel';
+import { Roles, RolesListDto } from '../../../core/Models/Dtos/RolesListDto';
+import { CreateUserDto } from '../../../core/Models/Dtos/CreateUserDto';
 import { UserDto } from '../../../core/Models/Dtos/UserDto';
 import { AccountService } from '../../../core/Services/account.service';
 import { ListWorkShiftDto } from '../../../core/Models/Dtos/ListWorkShiftDto';
@@ -22,10 +22,14 @@ export class CreateUserComponent implements OnInit {
   registerForm: FormGroup;
   roles: RolesListDto[] = [];
   workShifts: ListWorkShiftDto[] = [];
-  roleName: string = ''; // To track selected role
-  createUser: RegiserModel | null = null;
-  supervisors: UserDto[] | null = [];
-  teamLeaders: UserDto[] | null = [];
+  roleName: string = Roles.Employee.toString();// To track selected role
+  workShiftSearch: string = ''; // To track workshift
+  roleSearch: string = ''// To track search role
+  supervisorSearch: string = '';
+  teamLeaderSearch: string = '';
+  createUser: CreateUserDto | null = null;
+  supervisors: UserDto[]  = [];
+  teamLeaders: UserDto[] = [];
 
   ngOnInit(): void {
     this.loadRoles();
@@ -79,57 +83,84 @@ export class CreateUserComponent implements OnInit {
   }
 
   constructor(private roleService: RoleService, private fb: FormBuilder, private userService: UserService,
-  private accountService:AccountService,private workShiftService: WorkShiftService, private toastr: ToastrService) {
+    private accountService: AccountService, private workShiftService: WorkShiftService, private toastr: ToastrService) {
     this.registerForm = this.fb.group({
+      employeeSerialNumber:[
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]$')  // all digits must be numbers.
+        ]
+      ],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: [
         '',
         [
-          Validators.required, 
+          Validators.required,
           Validators.pattern('^[0-9]{11}$')  // Only 11 digits, and all digits must be numbers.
         ]
       ],
-      password: ['', Validators.required],
       roleName: ['', Validators.required],
       supervisorId: [''],
       teamLeaderId: [''],
-      workShiftName: ['', Validators.required],
+      workShiftId: [null],
     });
-    
-  }
-  passwordVisible = false; // Initially set to false, password is hidden
 
-  togglePasswordVisibility() {
-    this.passwordVisible = !this.passwordVisible; // Toggle the visibility
   }
   toggleRoleFields(): void {
     const supervisorControl = this.registerForm.get('supervisorId');
     const teamLeaderControl = this.registerForm.get('teamLeaderId');
-
-    if (this.roleName === 'Admin' || this.roleName === 'Manager') {
+    const workShiftControl = this.registerForm.get('workShiftId');
+  
+    if (this.roleName === Roles.Admin.toString() || this.roleName === Roles.Manager.toString()) {
+      // Clear validators for supervisor, teamLeader, and workShift for Admin/Manager
       supervisorControl?.clearValidators();
       teamLeaderControl?.clearValidators();
-      supervisorControl?.setValue('');
+      workShiftControl?.clearValidators();
+      
+      // Reset values to null or appropriate defaults
+      workShiftControl?.setValue(null);  // null for optional workShiftId
+      supervisorControl?.setValue('');   // Empty string for optional supervisorId
+      teamLeaderControl?.setValue('');   // Empty string for optional teamLeaderId
+    } else if (this.roleName === Roles.TeamLead.toString()) {
+      // Set workShiftId as required for TeamLead
+      workShiftControl?.setValidators([Validators.required]);
+    } else if (this.roleName === Roles.Supervisor.toString()) {
+      // Set workShiftId as required for Supervisor
+      teamLeaderControl?.clearValidators();  // Clear teamLeader for Supervisor
       teamLeaderControl?.setValue('');
+      workShiftControl?.setValidators([Validators.required]);
+    } else if (this.roleName === Roles.Employee.toString()) {
+      // Add validators for supervisor and teamLeader for Employee
+      supervisorControl?.setValidators([Validators.required]);
+      teamLeaderControl?.setValidators([Validators.required]);
+      workShiftControl?.setValidators([Validators.required]);
     }
-    else if(this.roleName === 'Supervisor'){
-      teamLeaderControl?.clearValidators();
-      teamLeaderControl?.setValue('');
-    }
+  
+    // Ensure form controls are updated after changing validators
     supervisorControl?.updateValueAndValidity();
     teamLeaderControl?.updateValueAndValidity();
-  }
-
+    workShiftControl?.updateValueAndValidity();
+  }  
+  
   onSubmit(): void {
+    // Mark all controls as touched to trigger validation
     Object.values(this.registerForm.controls).forEach(control => {
       control.markAsTouched();
     });
-
-    if (this.registerForm.invalid) return;
-
+  
+    // Check form validity after applying role-based changes
+    if (this.registerForm.invalid) {
+      this.toastr.error('Invalid Data');
+      return;
+    }
+  
+    // Prepare the data for submission
     this.createUser = this.registerForm.value;
+  
+    // Call the service to create the user
     this.accountService.createUser(this.createUser).subscribe({
       next: (response) => {
         if (response.success) {
@@ -138,8 +169,8 @@ export class CreateUserComponent implements OnInit {
           this.loadSupervisors();
           this.loadTeamLeaders();
           this.closeModal();
-          this.registerForm.reset(); 
-        } else {  
+          this.registerForm.reset();
+        } else {
           this.toastr.error(response.message, 'Error');
         }
       },
@@ -148,8 +179,29 @@ export class CreateUserComponent implements OnInit {
       }
     });
   }
+  
 
   closeModal(): void {
     this.close.emit(false);
+  }
+  filteredWorkShifts() {
+    return this.workShifts.filter(workShift =>
+      workShift.shiftName.toLowerCase().includes(this.workShiftSearch.toLowerCase())
+    );
+  }
+  filteredSupervisors() {
+    this.supervisors.filter(supervisor => {
+      return supervisor.userName.includes(this.supervisorSearch.toLowerCase())
+    });
+  }
+  filteredTeamLeads() {
+    this.teamLeaders.filter(teamLeader => {
+      return teamLeader.userName.includes(this.teamLeaderSearch.toLowerCase())
+    });
+  }
+  filteredRoles() {
+    return this.roles.filter(role =>
+      role.roleName.toLowerCase().includes(this.roleSearch.toLowerCase())
+    );
   }
 }

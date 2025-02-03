@@ -61,16 +61,23 @@
         </div>
       </div>
     </div>
+
+    <!-- Pagination -->
+    <app-pagination 
+    [totalItems]="filteredRoles.length" 
+    [currentPage]="currentPage" 
+    [itemsPerPage]="itemsPerPage">
+  </app-pagination>
   
     <!-- Create Role Modal -->
-    <app-add-roles [isVisible]="createRoleModalVisible" (close)="closeCreateRoleModal($event)"></app-add-roles>
+    <app-add-roles [isVisible]="createRoleModalVisible" (roleCreated)="loadAllRolesAndCount()" (close)="closeCreateRoleModal($event)"></app-add-roles>
   
     <!-- Edit Role Modal -->
-    <app-edit-roles [role]="selectedRole" [isVisible]="editRoleModalVisible" (close)="closeEditRoleModal($event)"></app-edit-roles>
+    <app-edit-roles [role]="selectedRole" [isVisible]="editRoleModalVisible" (roleUpdated)="loadAllRolesAndCount()" (close)="closeEditRoleModal($event)"></app-edit-roles>
   
     <!-- View Role Modal -->
     <app-view-roles [role]="selectedRole" [isVisible]="viewRoleModalVisible" (close)="closeViewRoleModal($event)"></app-view-roles>
   
     <!-- Delete Confirmation Modal -->
-    <app-delete-confirmation-modal [role]="selectedRole" [isVisible]="deleteRoleModalVisible" (close)="closeDeleteRoleModal($event)"></app-delete-confirmation-modal>
+    <app-delete-confirmation-modal [role]="selectedRole" [isVisible]="deleteRoleModalVisible" (roleDeleted)="loadAllRolesAndCount()" (close)="closeDeleteRoleModal($event)"></app-delete-confirmation-modal>
   </div>

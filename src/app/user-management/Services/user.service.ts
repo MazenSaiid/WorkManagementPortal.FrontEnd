@@ -16,43 +16,41 @@ export class UserService {
 
   // Get all users
   getAllUsers(): Observable<UserValidationResponse> {
-    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/GetAllUsersPaginated`);
+    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/GetAllUsers`);
   }
-  // Get all usersManaged
+  getAllAbsentUsers(date:string): Observable<UserValidationResponse> {
+    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/AbsentUsers?date=${date}`);
+  }
+  // Get all users Included Supervisors And TeamLeads
   getAllEmployeesWithSupervisorsAndTeamLeads(): Observable<UserValidationResponse> {
-    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/GetAllEmployeesWithSupervisorsAndTeamLeadsPaginatedAsync`);
+    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/EmployeesWithSupervisorsAndTeamLeads`);
   }
-  // Get a user by ID
   getUserById(id: string): Observable<UserValidationResponse> {
     return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/GetUserById/${id}`);
   }
-
-  // Get all supervisors
   getAllSupervisors(): Observable<UserValidationResponse> {
-    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/SupervisorsPaginated`);
+    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/Supervisors`);
   }
 
   // Get all team leaders
   getAllTeamLeaders(): Observable<UserValidationResponse> {
-    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/TeamLeadersPaginated`);
+    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/TeamLeaders`);
   }
 
   // Get all employees
   getAllEmployees(): Observable<UserValidationResponse> {
-    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/EmployeesPaginated`);
+    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/Employees`);
   }
 
   // Get all supervisors and their team leaders
   getAllSupervisorsAndTeamLeaders(): Observable<UserValidationResponse> {
-    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/SupervisorsAndTeamLeadersPaginated`);
+    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/SupervisorsAndTeamLeaders`);
   }
 
   // Get all employees and their supervisors
   getAllEmployeesAndSupervisors(): Observable<UserValidationResponse> {
-    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/EmployeesAndSupervisorsPaginated`);
+    return this.http.get<UserValidationResponse>(`${this.apiUrl}/Users/EmployeesAndSupervisors`);
   }
-
-  // Create or update a user
   updateUser(id: string, user: UpdateUserDto): Observable<UserValidationResponse> {
     return this.http.put<UserValidationResponse>(`${this.apiUrl}/Users/UpdateUser/${id}`, user);
   }

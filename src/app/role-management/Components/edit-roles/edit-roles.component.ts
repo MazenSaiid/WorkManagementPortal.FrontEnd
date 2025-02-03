@@ -14,6 +14,7 @@ export class EditRolesComponent implements OnInit{
   @Input() role: RolesListDto | any ;
   @Input() isVisible: boolean = false;
   @Output() close = new EventEmitter<boolean>();
+  @Output() roleUpdated = new EventEmitter<void>();
   editRoleForm: FormGroup;
   updatedRole: RolesListDto | any;
 
@@ -30,7 +31,10 @@ export class EditRolesComponent implements OnInit{
     }
   }
   onSubmit() {
-    if (this.editRoleForm.invalid) return;
+    if (this.editRoleForm.invalid) {
+      this.toastr.error('Invalid Data');
+      return;
+    }
 
     this.updatedRole = this.editRoleForm.value;
     this.updatedRole.roleId = this.role.id;
@@ -38,7 +42,8 @@ export class EditRolesComponent implements OnInit{
       next: (response) => {
         if (response.success) {
         this.toastr.success('Role updated successfully!');
-        this.close.emit(true); // Close modal
+        this.roleUpdated.emit();
+        this.closeModal();
       }else {
         this.toastr.error(response.message, 'Error'); // Error notification
       }

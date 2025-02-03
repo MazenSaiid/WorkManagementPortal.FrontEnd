@@ -1,0 +1,98 @@
+<!-- Modal -->
+<div class="modal" *ngIf="isVisible" tabindex="-1" style="display: block; background: rgba(0, 0, 0, 0.5)">
+  <div class="modal-dialog" style="max-width: 80%; width: auto; height: auto">
+    <div class="modal-content" style="
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        background-color: #f4f9fc;
+      ">
+      <div class="modal-header">
+        <h5 class="modal-title" style="font-size: 24px; color: #0056b3; font-weight: 700">
+          Create New Work Shift
+        </h5>
+        <button type="button" class="btn-close" (click)="closeModal()"
+          style="border: none; font-size: 20px; color: #007bff"></button>
+      </div>
+      <div class="modal-body" style="padding: 20px">
+        <form [formGroup]="createComplexWorkShiftForm" (ngSubmit)="onSubmit()">
+          <!-- Shift Name -->
+          <div class="form-group mb-3">
+            <label for="shiftName" class="form-label" style="font-weight: 600">Shift Name</label>
+            <input formControlName="shiftName" class="form-control" id="shiftName" type="text" required placeholder="Enter shift name" />
+            <div *ngIf="createComplexWorkShiftForm.get('shiftName')?.invalid && createComplexWorkShiftForm.get('shiftName')?.touched" class="text-danger">
+              Shift name is required.
+            </div>
+          </div>
+        
+          <!-- Shift Type -->
+          <div class="form-group mb-3">
+            <label for="shiftType" class="form-label" style="font-weight: 600">Shift Type</label>
+            <select formControlName="shiftType" class="form-select" required>
+              <option *ngFor="let shift of shiftTypes" [value]="shift.id">
+                {{ shift.name }}
+              </option>
+            </select>
+            <div *ngIf="createComplexWorkShiftForm.get('shiftType')?.invalid && createComplexWorkShiftForm.get('shiftType')?.touched" class="text-danger">
+              Shift type is required.
+            </div>
+          </div>
+        
+          <!-- Add Day Shift Logic -->
+          <div class="form-row align-items-center mb-4">
+            <div class="col-md-4">
+              <!-- Day Dropdown -->
+              <label for="selectedDay" class="form-label" style="font-weight: 600">Select Day</label>
+              <select [(ngModel)]="selectedDay" [ngModelOptions]="{ standalone: true }" class="form-select">
+                <option *ngFor="let day of daysOfWeek" [value]="day.name">
+                  {{ day.name }}
+                </option>
+              </select>
+            </div>
+        
+            <!-- Start Time Picker -->
+            <div class="col-md-4 mb-2">
+              <label for="startTime" class="form-label">Start Time</label>
+              <input [(ngModel)]="startTime" [ngModelOptions]="{ standalone: true }" type="time" class="form-control" />
+            </div>
+        
+            <!-- End Time Picker -->
+            <div class="col-md-4 mb-2">
+              <label for="endTime" class="form-label">End Time</label>
+              <input [(ngModel)]="endTime" [ngModelOptions]="{ standalone: true }" type="time" class="form-control" />
+            </div>
+          </div>
+        
+          <!-- Button to Add Day Shift to List -->
+          <div class="text-center">
+            <button type="button" class="btn btn-primary" (click)="addShiftToList()">
+              Add Shift
+            </button>
+          </div>
+        
+          <!-- Display Added Shifts -->
+          <div class="mt-4">
+            <h6>Added Shifts</h6>
+            <ul class="list-group">
+              <li *ngFor="let shift of workShiftDetails.controls; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
+                {{ shift.value.day }}: {{ shift.value.startTime }} - {{ shift.value.endTime }}
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeShift(i)">
+                  Remove
+                </button>
+              </li>
+            </ul>
+          </div>
+        
+          <!-- Modal Footer -->
+          <div class="modal-footer" style="border-top: none">
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="createComplexWorkShiftForm.invalid">
+              Create Work Shift
+            </button>
+          </div>
+        </form>                      
+      </div>
+    </div>
+  </div>
+</div>

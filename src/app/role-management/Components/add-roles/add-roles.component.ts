@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AddRolesComponent implements OnInit{
   @Input() isVisible: boolean = false;
   @Output() close = new EventEmitter<boolean>();
+  @Output() roleCreated = new EventEmitter<void>();
   roleForm: FormGroup;
   createRole: any;
 
@@ -25,14 +26,18 @@ export class AddRolesComponent implements OnInit{
   }
 
   onSubmit(): void {
-    if (this.roleForm.invalid) return;
+    if (this.roleForm.invalid) {
+      this.toastr.error('Invalid Data');
+      return;
+    }
 
     this.createRole = this.roleForm.value;
     this.roleService.createRole(this.createRole).subscribe({
       next: (response) => {
         if (response.success) {
           this.toastr.success('Role created successfully!');
-          this.close.emit(true);
+          this.roleCreated.emit();
+          this.closeModal();
         } else {
           this.toastr.error(response.message, 'Error');
         }

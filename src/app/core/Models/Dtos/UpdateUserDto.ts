@@ -1,4 +1,5 @@
 export interface UpdateUserDto {
+    employeeSerialNumber:number;
     firstName: string;
     lastName: string;
     roleName: string;

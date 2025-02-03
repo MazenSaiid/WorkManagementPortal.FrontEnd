@@ -11,7 +11,7 @@ export class Globals {
   private _UID = "portal_guid";
 
   lang: string = 'en';
-  loggedIn: boolean = true;
+  loggedIn: boolean = false;
   currentUserInfo: any;
 
   constructor(public route: ActivatedRoute, private router: Router) {
@@ -41,19 +41,6 @@ export class Globals {
           this.loggedIn = decryptedUser.logged_in;
         }
       }
-    }
-  }
-
-  updateUserLoginFlag(loginFlag: boolean) {
-    if (this.isClient()) {
-      if (localStorage.getItem(this._UID) != null) {
-        let uid = localStorage.getItem(this._UID) ?? '';
-        let UserInfo = JSON.parse(this.decryptData(uid));
-        UserInfo.logged_in = loginFlag;
-        UserInfo = this.encryptData(JSON.stringify(UserInfo));
-        localStorage.setItem(this._UID, UserInfo);
-      }
-      this.loggedIn = loginFlag;
     }
   }
 

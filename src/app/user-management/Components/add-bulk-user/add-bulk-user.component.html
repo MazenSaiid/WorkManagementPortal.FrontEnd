@@ -1,1 +1,62 @@
-<p>add-bulk-user works!</p>
+<!-- Modal -->
+<div class="modal" *ngIf="isVisible" tabindex="-1" style="display: block; background: rgba(0, 0, 0, 0.5)">
+  <div class="modal-dialog" style="max-width: 80%; width: auto; height: auto">
+    <div class="modal-content" style="border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); background-color: #f4f9fc;">
+      <div class="modal-header">
+        <h5 class="modal-title" style="font-size: 24px; color: #0056b3; font-weight: 700">
+          Bulk User Upload
+        </h5>
+        <button type="button" class="btn-close" (click)="closeModal()" style="border: none; font-size: 20px; color: #007bff"></button>
+      </div>
+      <div class="modal-body" style="padding: 20px">
+        <form [formGroup]="bulkUploadForm" (ngSubmit)="onFileUpload()">
+          <!-- File Input & Download CSV Button -->
+          <div class="form-group d-flex align-items-center">
+            <label for="fileInput" style="font-weight: 600; margin-right: 10px">Upload CSV File</label>
+            <input type="file" id="fileInput" #fileInput (change)="onFileChange($event)" class="form-control" accept=".csv" required />
+            <button type="button"class="btn btn-link csv-button" (click)="downloadSample('csv')">
+              Download CSV Sample
+            </button>
+          </div>
+
+          <!-- Other Form Fields (WorkShift, Role, Supervisor, etc.) -->
+          <div class="form-group">
+            <label for="workShiftName" style="font-weight: 600">WorkShift</label>
+            <div class="input-group">
+              <div class="input-group-text">
+                <i class="bi bi-clock" style="font-size: 20px; color: #007bff"></i>
+              </div>
+              <select id="workShiftName" class="form-control" formControlName="workShiftName">
+                <option *ngFor="let workShift of workShifts" [value]="workShift.shiftName">
+                  {{ workShift.shiftName }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="roleName" style="font-weight: 600">Role</label>
+            <div class="input-group">
+              <div class="input-group-text">
+                <i class="bi bi-person-badge" style="font-size: 20px; color: #007bff"></i>
+              </div>
+              <select id="roleName" class="form-control" formControlName="roleName">
+                <option *ngFor="let role of roles" [value]="role.roleName">
+                  {{ role.roleName }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="modal-footer" style="border-top: none">
+            <button type="button" class="btn btn-action btn-secondary" (click)="closeModal()">Close</button>
+            <button type="submit" class="btn btn-action btn-primary">
+              Upload Users
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

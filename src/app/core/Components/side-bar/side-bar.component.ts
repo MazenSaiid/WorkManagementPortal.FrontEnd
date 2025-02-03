@@ -12,6 +12,7 @@ import { AccountServiceValidationResponse } from '../../Models/Responses/UserVal
 export class SideBarComponent implements OnInit  {
   constructor(private accountService:AccountService,private globals: Globals,private router:Router) {
   }
+  
   currentUser: any | null = null;
   ngOnInit(): void {
   this.checkUserSession();

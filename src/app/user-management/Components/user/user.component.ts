@@ -20,9 +20,12 @@ export class UserComponent implements OnInit {
   filteredUsers: UserDto[] = [];   // This will hold the filtered users
   searchText: string = '';  // This binds to the search input field
   createUserModalVisible: boolean = false;
+  createBulkUserModalVisible:boolean= false;
   editUserModalVisible: boolean = false;
   viewUserModalVisible: boolean = false;
   deleteUserModalVisible:boolean = false;
+  currentPage: number =1;
+  itemsPerPage: number = 20; 
   ngOnInit(): void {
     this.loadAllUsers();
   }
@@ -41,11 +44,6 @@ export class UserComponent implements OnInit {
       }
     });
   }
-    
-  // Method to open Create User Modal
-  openCreateUserModal(): void {
-    this.createUserModalVisible = true;
-  }
   filterUsers() {
     if (!this.searchText) {
       // If no search text, show all users
@@ -58,16 +56,31 @@ export class UserComponent implements OnInit {
       });
     }
   }
+     
+  // Method to open Create User Modal
+  openCreateUserModal(): void {
+    this.createUserModalVisible = true;
+  }
   // Method to close Create User Modal
   closeCreateUserModal(event: boolean): void {
     this.createUserModalVisible = event;
   }
-  // Method to delete User Modal
+  
+  // Method to open Create User Modal
+  openCreateBulkUserModal(): void {
+    this.createBulkUserModalVisible = true;
+  }
+  // Method to close Create Bulk User Modal
+  closeCreateBulkUserModal(event: boolean): void {
+    this.createBulkUserModalVisible = event;
+  }
+  
+  // Method to open delete User Modal
   openDeleteConfirmationModal(user: UserDto) {
     this.selectedUser = user;
    this.deleteUserModalVisible =true;
   }
-  // Method to close Create User Modal
+  // Method to close delete User Modal
   closeDeleteUserModal(event: boolean): void {
     this.deleteUserModalVisible = event;
   }

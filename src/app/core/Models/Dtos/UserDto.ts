@@ -1,5 +1,8 @@
+import { ListWorkShiftDto } from "./ListWorkShiftDto";
+
 export interface UserDto {
     id: string;
+    employeeSerialNumber: number;
     firstName: string;
     lastName: string;
     userName: string;
@@ -10,4 +13,5 @@ export interface UserDto {
     teamLeaderId: string;
     teamLeader?: UserDto;  // Team Leader is now a UserDto, not just an ID
     roleName: string;
+    workShift: ListWorkShiftDto;
   }
