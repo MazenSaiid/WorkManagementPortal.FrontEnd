@@ -10,90 +10,59 @@
 
     <!-- Dashboard Summary Cards -->
     <div class="dashboard-summary">
-
       <!-- Total Team Members Card (Static or dynamic depending on your data) -->
       <div class="dashboard-card">
         <div class="dashboard-card-title">Total Team Members</div>
-        <h4 class="dashboard-card-value">{{ users.length || '-' }}</h4>
+        <h4 class="dashboard-card-value">{{ usersCount || '-' }}</h4>
       </div>
       <!-- Finished Work Logs -->
-      <div class="dashboard-card">
-        <div class="dashboard-card-title">Currently Finished Work</div>
-        <h4 class="dashboard-card-value">{{ finishedWorkLogs?.count || '-' }}</h4>
+      <div class="dashboard-card" (click)="openFinishedWorkLogsModal()">
+        <div class="dashboard-card-title"> Finished Work</div>
+        <h4 class="dashboard-card-value">{{ finishedWorkLogs?.length || '-' }}</h4>
       </div>
 
       <!-- Active Work Logs -->
-      <div class="dashboard-card">
-        <div class="dashboard-card-title">Currently Working</div>
-        <h4 class="dashboard-card-value">{{ activeWorkLogs?.count || '-' }}</h4>
+      <div class="dashboard-card" (click)="openActiveWorkLogsModal()">
+        <div class="dashboard-card-title">Currently Active Working</div>
+        <h4 class="dashboard-card-value">{{ activeWorkLogs?.length || '-' }}</h4>
       </div>
 
       <!-- Paused Work Logs -->
-      <div class="dashboard-card">
+      <div class="dashboard-card" (click)="openPausedWorkLogsModal()">
         <div class="dashboard-card-title">Currently On Break</div>
-        <h4 class="dashboard-card-value">{{ pausedWorkLogs?.count || '-' }}</h4>
+        <h4 class="dashboard-card-value">{{ pausedWorkLogs?.length || '-' }}</h4>
       </div>
 
        <!-- Late CheckIn Work Logs -->
-       <div class="dashboard-card">
+       <div class="dashboard-card" (click)="openLateCheckInModal()">
         <div class="dashboard-card-title">Late Check In</div>
-        <h4 class="dashboard-card-value">{{ pausedWorkLogs?.count || '-' }}</h4>
+        <h4 class="dashboard-card-value">{{ lateCheckinWorkLogs?.length || '-' }}</h4>
       </div>
 
-       <!-- Paused Work Logs -->
-       <div class="dashboard-card">
+       <!-- Early Checkout Logs -->
+       <div class="dashboard-card" (click)="openEarlyCheckoutModal()">
         <div class="dashboard-card-title">Early Checkout</div>
-        <h4 class="dashboard-card-value">{{ pausedWorkLogs?.count || '-' }}</h4>
-      </div>
-    </div>
-
-    <!-- Dashboard Charts and Tables -->
-    <div class="dashboard-charts">
-      <!-- Late Clock-in Employees Table -->
-      <div class="dashboard-table-section">
-        <div class="dashboard-header">
-          <div class="dashboard-header-title">Late Clock-in Employees</div>
-        </div>
-        <div class="table-responsive">
-          <table class="dashboard-table">
-            <thead>
-              <tr>
-                <th>Employee Name</th>
-                <th>Actual</th>
-                <th>Required</th>
-                <th>Late By</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let employee of lateClockInEmployees">
-                <td>
-                  <div class="employee-info">
-                    <div class="employee-avatar">{{ employee.avatar }}</div>
-                    <div class="employee-name">{{ employee.name }}</div>
-                  </div>
-                </td>
-                <td>{{ employee.actual }}</td>
-                <td>{{ employee.required }}</td>
-                <td>{{ employee.lateBy }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <h4 class="dashboard-card-value">{{ earlyCheckoutWorkLogs?.length || '-' }}</h4>
       </div>
 
-      <!-- Absence Today Table -->
-      <div class="dashboard-table-section">
-        <div class="dashboard-header">
-          <div class="dashboard-header-title">Absence Today</div>
-        </div>
-        <div class="dashboard-absence-listing">
-          <div class="absence-item" *ngFor="let employee of absentUsers">
-            <div class="employee-avatar">{{ employee.firstName[0] }}</div>
-            <div class="employee-name">{{ employee.firstName }} {{employee.lastName}}-- </div>
-            <div class="employee-name"> {{ employee.workShift.shiftTypeName }} -- {{employee.workShift.shiftName}}</div>
-          </div>
-        </div>
+      <!-- Absent Logs -->
+      <div class="dashboard-card" (click)="openAbsentUsersModal()">
+        <div class="dashboard-card-title">Absent Users</div >
+        <h4 class="dashboard-card-value">{{ absentUsers.length || '-' }}</h4>
+      </div>
+      <!-- Out of Schedule Logs -->
+      <div class="dashboard-card" (click)="openOutofScheduleModal()">
+        <div class="dashboard-card-title">Out of Schedule Active Users</div >
+        <h4 class="dashboard-card-value">{{ outOfScheduleActiveLogs?.length || '-' }}</h4>
       </div>
     </div>
   </div>
 </div>
+
+<app-absent-users [absentUsersToday]="absentUsers" [todayDate]="selectedDate" [isVisible]="absentUsersModalVisible"  (close)="closeAbsentUsersModal($event)"></app-absent-users>
+<app-late-checkin-worklogs [lateCheckinToday]="lateCheckinWorkLogs" [todayDate]="selectedDate" [isVisible]="lateCheckInModalVisible"  (close)="closeLateCheckInModal($event)" ></app-late-checkin-worklogs>
+<app-active-worklogs [activeWorkLogsToday]="activeWorkLogs" [todayDate]="selectedDate" [isVisible]="activeWorkingModalVisible"  (close)="closeActiveWorkLogsModal($event)" ></app-active-worklogs>
+<app-paused-worklogs [pausedWorkLogsToday]="pausedWorkLogs" [todayDate]="selectedDate" [isVisible]="pausedModalVisible"  (close)="closePausedWorkLogsModal($event)"></app-paused-worklogs>
+<app-finished-worklogs [finishedWorkLogsToday]="finishedWorkLogs" [todayDate]="selectedDate" [isVisible]="finishedWorkingModalVisible"  (close)="closeFinishedWorkLogsModal($event)"></app-finished-worklogs>
+<app-early-checkout-worklogs [earlyCheckoutWorkLogsToday]="earlyCheckoutWorkLogs" [todayDate]="selectedDate" [isVisible]="earlyCheckOutModalVisible"  (close)="closeEarlyCheckoutModal($event)"></app-early-checkout-worklogs>
+<app-outofschedule-worklogs [outOfScheduleLogsToday]="outOfScheduleActiveLogs" [todayDate]="selectedDate" [isVisible]="outOfScheduleModalVisible"  (close)="closeOutofScheduleModal($event)"></app-outofschedule-worklogs>

@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';  // Make sure to import ToastrServic
   providedIn: 'root'
 })
 export class WorklogService {
+  
   private apiUrl = `${environment.apiUrl}/api`;
 
   constructor(
@@ -45,5 +46,8 @@ export class WorklogService {
   // Get Late Checkin WorkLogs
   getLateCheckinWorkLogs(date:string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/WorkTrackings/GetLateCheckInWorkLogs?date=${date}`);
+  }
+  getOutOfScheduleActiveLogs(date: string) {
+    return this.http.get<any>(`${this.apiUrl}/WorkTrackings/GetUnScheduledActiveWorkLogs?date=${date}`);
   }
 }

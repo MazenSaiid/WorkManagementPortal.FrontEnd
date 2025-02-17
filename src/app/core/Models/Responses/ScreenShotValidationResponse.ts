@@ -17,3 +17,10 @@ export interface ScreenShotValidationResponse extends ValidationResponse {
     screenShotTime: string;
     screenshotFile: any;
   }
+  export interface ScreenShotValidationPaginatedResponse extends ValidationResponse {
+    userScreenShotLogDtos: UserScreenShotLogDto[];
+      currentPage: number;
+      pageSize: number;
+      totalCount: number;
+      totalPages: number;
+    }

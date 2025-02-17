@@ -72,3 +72,10 @@
     </div>
   </div>
 </div>
+    <!-- Pagination -->
+    <app-pagination 
+    [currentPage]="currentPage" 
+    [itemsPerPage]="itemsPerPage"
+    [totalItems]="totalCount"
+    (pageChange)="onPageChange($event)">
+  </app-pagination>

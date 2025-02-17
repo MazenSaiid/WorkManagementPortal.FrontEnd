@@ -22,7 +22,6 @@ export class ErrorInterceptor implements HttpInterceptor {
             return throwError(() => new Error('Bad Request. Please check your input.'));
           }
         }
-
         // Handle other HTTP status codes if needed
         if (err.status === 404) {
           this.router.navigateByUrl('not-found');

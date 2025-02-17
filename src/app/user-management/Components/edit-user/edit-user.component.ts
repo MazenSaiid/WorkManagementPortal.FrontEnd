@@ -3,11 +3,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../Services/user.service';
 import { RoleService } from '../../../role-management/Services/role.service';
-import { Roles, RolesListDto } from '../../../core/Models/Dtos/RolesListDto';
 import { UserValidationResponse } from '../../../core/Models/Responses/UserValidationResponse';
 import { UserDto } from '../../../core/Models/Dtos/UserDto';
 import { WorkShiftService } from '../../../work-shifts-management/Services/work-shift.service';
 import { ListWorkShiftDto } from '../../../core/Models/Dtos/ListWorkShiftDto';
+import { Roles, RolesListDto } from '../../../core/Models/Dtos/RolesListDto';
 
 @Component({
   selector: 'app-edit-user',

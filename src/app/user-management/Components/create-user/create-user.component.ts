@@ -83,7 +83,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   constructor(private roleService: RoleService, private fb: FormBuilder, private userService: UserService,
-    private accountService: AccountService, private workShiftService: WorkShiftService, private toastr: ToastrService) {
+     private workShiftService: WorkShiftService, private toastr: ToastrService) {
     this.registerForm = this.fb.group({
       employeeSerialNumber:[
         '',
@@ -161,7 +161,7 @@ export class CreateUserComponent implements OnInit {
     this.createUser = this.registerForm.value;
   
     // Call the service to create the user
-    this.accountService.createUser(this.createUser).subscribe({
+    this.userService.createUser(this.createUser).subscribe({
       next: (response) => {
         if (response.success) {
           this.toastr.success('User created successfully!');

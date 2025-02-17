@@ -1,48 +1,32 @@
 <div class="my-team-root-filter-button my-team-root-filter-button-all">
   <button
+    *ngFor="let role of roles"
     type="button"
     class="rounded-pill px-3 team-status-filter"
-    [ngClass]="{'team-status-filter-selected': selectedFilter === 'All'}"
-    (click)="filterTeam('All')"
+    [ngClass]="{ 'team-status-filter-selected': selectedFilter === role.name }"
+    (click)="filterTeam(role.name)"
   >
-    All Members ({{ users.length }})
-  </button>
-  <button
-    type="button"
-    class="rounded-pill px-3 team-status-filter"
-    [ngClass]="{'team-status-filter-selected': selectedFilter === 'Employees'}"
-    (click)="filterTeam('Employees')"
-  >
-    Employees ({{ employeesLength}})
-  </button>
-  <button
-    type="button"
-    class="rounded-pill px-3 team-status-filter"
-    [ngClass]="{'team-status-filter-selected': selectedFilter === 'Supervisors'}"
-    (click)="filterTeam('Supervisors')"
-  >
-    Supervisors ({{supervisorsLength}})
-  </button>
-  <button
-    type="button"
-    class="rounded-pill px-3 team-status-filter"
-    [ngClass]="{'team-status-filter-selected': selectedFilter === 'TeamLeaders'}"
-    (click)="filterTeam('TeamLeaders')"
-  >
-    Team Leaders ({{ teamLeaderLength }})
+    {{ role.name }} ({{ role.count }})
   </button>
 </div>
+
 
 <div class="team-card-root">
   <div *ngFor="let user of filteredUsers" class="team-card">
     <div class="team-card-header">
-      <div class="team-card-avatar">{{ user.firstName[0] }}</div>
+      <div class="team-card-avatar">{{ user.firstName[0] | titlecase }}</div>
       <div class="team-card-name">
-        <div class="team-card-teammembername">{{ user.firstName + ' ' + user.lastName }}</div>
+        <div class="team-card-teammembername">{{ ( user.firstName | titlecase )+ ' ' + (user.lastName | titlecase )}}</div>
         <div class="team-card-teammemberemail">{{ user.email }}</div>
       </div>
       <div class="team-card-role">
         <div class="team-card-rolename">{{ user.roleName }}</div>
+      </div>
+      <div class="team-card-role">
+        <div class="team-card-rolename">{{ user.workShift.shiftName}}</div>
+      </div>
+      <div class="team-card-role">
+        <div class="team-card-rolename">{{ user.workShift.shiftType | enumToString }}</div>
       </div>
     </div>
     <div class="team-card-footer">
@@ -51,3 +35,10 @@
     </div>
   </div>
 </div>
+ <!-- Pagination -->
+ <app-pagination 
+ [currentPage]="currentPage" 
+ [itemsPerPage]="itemsPerPage"
+ [totalItems]="totalCount"
+ (pageChange)="onPageChange($event)">
+</app-pagination>

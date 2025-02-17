@@ -46,7 +46,7 @@ export class EditWorkShiftComponent implements OnInit {
         }
       },
       error: () => {
-        this.toastr.error('Error fetching shift types.');
+        console.error('Error fetching shift types.');
       }
     });
   }
@@ -73,7 +73,7 @@ export class EditWorkShiftComponent implements OnInit {
         }
       },
       error: (err) => {
-        this.toastr.error('Error updating Workshift.');
+        console.error('Error updating Workshift.');
       }
     });
   }

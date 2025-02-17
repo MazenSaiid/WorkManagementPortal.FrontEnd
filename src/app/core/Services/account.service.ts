@@ -16,19 +16,13 @@ export class AccountService {
 
   constructor(private http: HttpClient,private globals:Globals, private router:Router) { }
 
-  createUser(user: any): Observable<ValidationResponse> {
-    return this.http.post<ValidationResponse>(`${this.apiUrl}/Accounts/Register`, user)
-  }
-  createBulkUsers(formData: FormData): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/Accounts/UploadBulk`, formData); 
-  }
-
   // login
   login( loginDto: any): Observable<AccountServiceValidationResponse> {
     return this.http.post<AccountServiceValidationResponse>(`${this.apiUrl}/Accounts/Login`, loginDto).pipe(
       map(response => {
       if (response) { 
         const user: AccountServiceValidationResponse = {
+          userId: response.userId,
           success: response.success,
           message: response.message,
           username: response.username,
@@ -37,7 +31,6 @@ export class AccountService {
           localSessionExpiryDate: response.localSessionExpiryDate
         };
         this.globals.storeUserInfo(user); // Save to localStorage and update Globals state
-        console.log(user);
         this.router.navigate(['home']);
         this.globals.loggedIn = true;
       } else {
@@ -56,5 +49,9 @@ export class AccountService {
    // request password change 
    requestPasswordReset( email: any): Observable<ValidationResponse> {
     return this.http.post<ValidationResponse>(`${this.apiUrl}/Accounts/ForgotPassword`, email);
+  }
+
+  changePassword(changePasswordDto:any) : Observable<ValidationResponse> {
+    return this.http.post<ValidationResponse>(`${this.apiUrl}/Accounts/ChangePassword`, changePasswordDto);
   }
 }

@@ -1,0 +1,88 @@
+
+/* Modal Overlay */
+.modal{
+  display: block;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal Dialog */
+.modal-dialog {
+  max-width: 80%;
+  width: auto;
+  height: auto;
+}
+
+/* Modal Content */
+.modal-content {
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f4f9fc;
+  padding: 15px;
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0056b3;
+  padding: 10px 20px;
+  border-bottom: 2px solid #ededed;
+}
+
+/* Modal Header Actions (Button Group) */
+.modal-header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-weight: 500;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+.btn-close {
+  font-size: 20px;
+  color: black;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Table Styles */
+.table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+
+.table th {
+  background-color: #007bff;
+  color: white; 
+  text-align: center; /* Center aligns header text */
+  vertical-align: middle; /* Ensures text is vertically centered */
+  padding: 8px;
+}
+
+.table td {
+  padding: 8px;
+  border-bottom: 1px solid #ededed;
+  text-align: center; /* Center aligns header text */
+  vertical-align: middle; /* Ensures text is vertically centered */
+}
+
+.table-striped tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}

@@ -140,7 +140,7 @@ onSubmit(): void {
       }
     },
     error: () => {
-      this.toastr.error('Error creating work shift.');
+      console.error('Error creating work shift.');
     }
   });
 }

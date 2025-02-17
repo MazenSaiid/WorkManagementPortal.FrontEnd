@@ -15,13 +15,17 @@ export class AllScreenshotsComponent {
   selectedDate: string = '';     // Store selected date
   filteredUserScreenshotsData: UserScreenShotLogDto[] = [];   // This will hold the filtered users
   searchText: string = '';  // This binds to the search input field
+  currentPage: number =1;
+  itemsPerPage: number = 12; 
+  totalCount: number = 0;
+  totalPages: number = 0; 
   constructor(private toastrService: ToastrService, private screenshotService: ScreenshotsService,private router: Router) { }
 
   ngOnInit(): void {
     const today = new Date();
     this.selectedDate = this.formatDateWithTime(today);
     
-    this.loadUserScreenshots();
+    this.loadPaginatedUserScreenshots();
   }
   filterUsers() {
     if (!this.searchText) {
@@ -44,14 +48,18 @@ export class AllScreenshotsComponent {
       return ''; // Return empty string if not Base64 (for debugging)
     }
   }
-   
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.loadPaginatedUserScreenshots(page); // Reload users for the selected page
+  }
 
-  loadUserScreenshots(): void {
-    this.screenshotService.getScreenshotsForAllUsers(this.selectedDate).subscribe({
+  loadPaginatedUserScreenshots(page: number = this.currentPage): void {
+    this.screenshotService.getPaginatedScreenshotsForAllUsers(this.selectedDate,page,this.itemsPerPage).subscribe({
       next: (response) => {
         if (response.success) {
           this.userScreenshotsData =this.filteredUserScreenshotsData = response.userScreenShotLogDtos; // Assuming the API response contains an array of screenshots
-          console.log(this.userScreenshotsData);
+          this.totalCount = response.totalCount; // Total number of users
+          this.totalPages = response.totalPages;
         } else {
           this.toastrService.error(response.message, 'Error'); // Show error using Toastr
         }
@@ -82,7 +90,7 @@ export class AllScreenshotsComponent {
       this.selectedDate = event.target.value;  // Get the selected date (date part)
       if (this.selectedDate) {
         this.selectedDate = this.appendCurrentTime(this.selectedDate);  // Append current time
-        this.loadUserScreenshots(); // Fetch logs for the selected date
+        this.loadPaginatedUserScreenshots(); // Fetch logs for the selected date
       }
     }
      // Format the date with time (YYYY-MM-DD HH:mm:ss)

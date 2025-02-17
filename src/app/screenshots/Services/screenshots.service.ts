@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environment/environment';
-import { ScreenShotValidationResponse } from '../../core/Models/Responses/ScreenShotValidationResponse';
+import { ScreenShotValidationPaginatedResponse, ScreenShotValidationResponse } from '../../core/Models/Responses/ScreenShotValidationResponse';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,6 +18,20 @@ export class ScreenshotsService {
     const params = new HttpParams().set('date', date); // Convert date to string
     return this.http.get<ScreenShotValidationResponse>(`${this.apiUrl}/ScreenShotTrackings/GetScreenshotsForAllUsers`, { params });
   }
+
+    // Get all screenshots
+  getPaginatedScreenshotsForAllUsers(date: string,page: number = 1,
+    pageSize: number = 20,
+    fetchAll: boolean = false): Observable<ScreenShotValidationPaginatedResponse> {
+      const params = new HttpParams()
+      .set('date', date)
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString())
+      .set('fetchAll', fetchAll.toString());
+       
+      return this.http.get<ScreenShotValidationPaginatedResponse>(`${this.apiUrl}/ScreenShotTrackings/GetScreenshotsForAllUsers`, { params });
+    }
+
     // Get all userscreenshots
   getScreenshotsForUser(date: string, userId: string): Observable<ScreenShotValidationResponse> {
     const params = new HttpParams()

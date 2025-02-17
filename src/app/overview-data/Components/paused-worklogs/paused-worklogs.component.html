@@ -1,0 +1,80 @@
+<div class="modal" *ngIf="isVisible" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            Paused Employees ({{ todayDate | date }})
+          </h5>
+          <div class="modal-header-actions">
+            <button type="button" class="btn btn-primary" (click)="downloadCSV()">
+              Extract CSV
+            </button>
+            <button type="button" class="btn-close" (click)="closeModal()">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </div>
+  
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <thead class="table-primary">
+                <tr>
+                  <th>Id</th>
+                  <th>Employee Name</th>
+                  <th>Date</th>
+                  <th>Email</th>
+                  <th>Shift Name</th>
+                  <th>Shift Type</th>
+                  <th>Pause Type</th>
+                  <th>Start Pause Time</th>
+                  <th>End Pause Time</th>
+                  <th>Pause Duration</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Loop through each paused employee -->
+                <tr *ngFor="let data of pausedWorkLogsToday">
+                  <td>{{ data.user.employeeSerialNumber }}</td>
+                  <td>{{ data.user.firstName | titlecase }} {{ data.user.lastName | titlecase }}</td>
+                  <td>{{ todayDate | date }}</td>
+                  <td>{{ data.user.email }}</td>
+                  <td>{{ data.user.workShift?.shiftName }}</td>
+                  <td>{{ data.user.workShift?.shiftTypeName }}</td>
+  
+                  <!-- Handle multiple pause logs -->
+                  <td *ngIf="data.pauseTrackingLogs.length > 0">
+                    <ng-container *ngFor="let pause of data.pauseTrackingLogs">
+                      {{ pause.pauseTypeName }} <br />
+                    </ng-container>
+                  </td>
+  
+                  <td *ngIf="data.pauseTrackingLogs.length > 0">
+                    <ng-container *ngFor="let pause of data.pauseTrackingLogs">
+                      {{ pause.pauseStart | date: 'HH:mm:ss' }} <br />
+                    </ng-container>
+                  </td>
+  
+                  <td *ngIf="data.pauseTrackingLogs.length > 0">
+                    <ng-container *ngFor="let pause of data.pauseTrackingLogs">
+                      {{ pause.pauseEnd !== '0001-01-01T00:00:00' ? (pause.pauseEnd | date: 'HH:mm:ss') : '-' }} <br />
+                    </ng-container>
+                  </td>
+
+                  <td *ngIf="data.pauseTrackingLogs.length > 0">
+                    <ng-container *ngFor="let pause of data.pauseTrackingLogs">
+                      {{ pause.pauseDurationInMinutes !== 0 ? (formatMinutes(pause.pauseDurationInMinutes)) : '-' }} <br />
+                    </ng-container>
+                  </td>
+  
+                  <td>{{ data.isPaused ? "Currently on Pause" : "-" }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>

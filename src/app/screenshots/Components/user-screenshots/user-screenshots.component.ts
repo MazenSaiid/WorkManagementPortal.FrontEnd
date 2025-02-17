@@ -8,25 +8,34 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class UserScreenshotsComponent implements OnInit {
   userId: string | null = null;
-  screenshots: any[] = [];  // Array to hold screenshots for the user
+  screenshots: any[] = [];  // Full array of screenshots
+  paginatedScreenshots: any[] = []; // Array to hold paginated screenshots
   userName: string | null = null;  // To hold the username (if available)
   workShiftName: string | undefined = '';
   workShiftType: any;
   isVisible: boolean = false;
   selectedImage: any | null = null;  // Store the selected image
+  currentPage: number = 1;
+  itemsPerPage: number = 15; 
+  totalCount: number = 0;
+  totalPages: number = 0;
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   // Method to open the modal and set the selected image
   viewImage(screenshot: any): void {
-    this.selectedImage = screenshot;
-    this.isVisible = true;
+    this.selectedImage = screenshot;  // Set the selected image
+    this.isVisible = true;  // Open modal
   }
   
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.updatePaginatedScreenshots();
+  }
 
   closeModal(): void {
     this.selectedImage = null;
-    this.isVisible = false
+    this.isVisible = false;
   }
 
   ngOnInit(): void {
@@ -38,20 +47,32 @@ export class UserScreenshotsComponent implements OnInit {
       this.workShiftType = state.workShiftType;
       this.userId = state.userId;
       this.userName = state.userName;
+
+      // Set totalCount and calculate totalPages
+      this.totalCount = this.screenshots.length;
+      this.totalPages = Math.ceil(this.totalCount / this.itemsPerPage);
+
+      // Initialize paginated data
+      this.updatePaginatedScreenshots();
     } else {
       console.error("No data passed via navigation state.");
     }
   }
 
+  updatePaginatedScreenshots(): void {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedScreenshots = this.screenshots.slice(startIndex, endIndex);
+  }
+
   getImageUrl(fileContent: any): string {
-    // Check if the fileContent is a Base64 string
     if (fileContent && fileContent.fileContents) {
-      // Combine with the appropriate data URI prefix
       return `data:${fileContent.contentType};base64,${fileContent.fileContents}`;
     } else {
-      return ''; // Return empty string if not Base64 (for debugging)
+      return ''; // Return empty string if not Base64
     }
   }
+  
 
   goBack(): void {
     this.router.navigate(['/screenshots/all']);  // Navigate to the screenshots/all route

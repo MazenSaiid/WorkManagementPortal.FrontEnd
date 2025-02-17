@@ -5,7 +5,6 @@ import { CoreModule } from '../core/core.module';
 import { EditWorkShiftComponent } from './Components/edit-work-shift/edit-work-shift.component';
 import { ViewWorkShiftComponent } from './Components/view-work-shift/view-work-shift.component';
 import { WorkShiftComponent } from './Components/work-shift/work-shift.component';
-import { EnumToStringPipe } from './Pipes/EnumToStringPipe';
 import { AddComplexWorkShiftComponent } from './Components/add-complex-work-shift/add-complex-work-shift.component';
 
 
@@ -14,7 +13,7 @@ import { AddComplexWorkShiftComponent } from './Components/add-complex-work-shif
     EditWorkShiftComponent,
     ViewWorkShiftComponent,
     AddComplexWorkShiftComponent,
-    WorkShiftComponent,EnumToStringPipe, AddComplexWorkShiftComponent
+    WorkShiftComponent, AddComplexWorkShiftComponent
   ],
   imports: [
     CommonModule,CoreModule,

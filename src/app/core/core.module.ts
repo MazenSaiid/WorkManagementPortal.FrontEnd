@@ -24,6 +24,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CheckoutConfirmationModalComponent } from './Components/checkout-confirmation-modal/checkout-confirmation-modal.component';
 import { CoreRoutingModule } from './core.routing.module';
 import { LoginComponent } from './Components/login/login.component';
+import { EnumToStringPipe } from './Pipes/EnumToStringPipe';
 import { PaginationComponent } from './Components/pagination/pagination.component';
 
 
@@ -31,6 +32,7 @@ import { PaginationComponent } from './Components/pagination/pagination.componen
 @NgModule({ 
   declarations: [
     HeaderComponent,
+    EnumToStringPipe,
     FooterComponent,
     HomeComponent,
     NotFoundComponent,
@@ -90,6 +92,7 @@ import { PaginationComponent } from './Components/pagination/pagination.componen
     HeaderComponent,
     FooterComponent,
     HomeComponent,
+    EnumToStringPipe,
     PaginationComponent,
     LoginComponent,
     NotFoundComponent,

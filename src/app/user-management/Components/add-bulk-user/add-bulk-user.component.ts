@@ -29,7 +29,7 @@ export class AddBulkUserComponent implements OnInit {
   teamLeaders: UserDto[] | null = [];
 
   constructor(private roleService: RoleService, private fb: FormBuilder, private userService: UserService,
-    private accountService:AccountService,private workShiftService: WorkShiftService, private toastr: ToastrService) {
+ private workShiftService: WorkShiftService, private toastr: ToastrService) {
     // Initialize the form with additional fields
     this.bulkUploadForm = this.fb.group({
       workShiftName: ['', Validators.required],
@@ -234,7 +234,7 @@ export class AddBulkUserComponent implements OnInit {
     formData.append('supervisorId', this.bulkUploadForm.value.supervisorId);
     formData.append('teamLeaderId', this.bulkUploadForm.value.teamLeaderId);
 
-    this.accountService.createBulkUsers(formData).subscribe({
+    this.userService.createBulkUsers(formData).subscribe({
       next: (response) =>
         {
           if (response.success) {

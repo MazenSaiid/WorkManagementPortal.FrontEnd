@@ -9,13 +9,13 @@
 
     <!-- Workshift Info -->
     <div class="workshift-info">
-      <p><strong>Work Shift:</strong> {{ workShiftName }}</p>
+      <p>Work Shift: {{ workShiftName }}</p>
     </div>
   </div>
 
   <!-- Screenshot List -->
   <div class="screenshots-list">
-    <div *ngFor="let screenshot of screenshots" class="screenshot-card">
+    <div *ngFor="let screenshot of paginatedScreenshots" class="screenshot-card">
       <div class="image-container">
         <!-- Screenshot Thumbnail -->
         <img 
@@ -36,7 +36,17 @@
 <div class="modal" *ngIf="isVisible" (click)="closeModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <span class="close" (click)="closeModal()">&times;</span>
-    <img [src]="getImageUrl(selectedImage.screenshotFile)" alt="Full size screenshot" class="modal-image" />
-    <p class="modal-time">{{ selectedImage.screenShotTime | date: 'short' }}</p>
+    <img [src]="getImageUrl(selectedImage?.screenshotFile)" alt="Full size screenshot" class="modal-image" />
+    <p class="modal-time">{{ selectedImage?.screenShotTime | date: 'short' }}</p>
   </div>
 </div>
+
+
+
+   <!-- Pagination -->
+   <app-pagination 
+   [currentPage]="currentPage" 
+   [itemsPerPage]="itemsPerPage"
+   [totalItems]="totalCount"
+   (pageChange)="onPageChange($event)">
+ </app-pagination>

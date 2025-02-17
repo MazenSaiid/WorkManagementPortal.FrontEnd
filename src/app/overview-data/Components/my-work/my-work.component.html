@@ -14,14 +14,14 @@
         <div class="personal-header-summary-card-text">
           <i class="fas fa-clock"></i> Clock-in Time
         </div>
-        <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ workLog.WorkTimeStart || '-' }}</h4>
+        <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{formatTime(workLog?.workTimeStart) || '-' }}</h4>
         <small class="text-muted">The time you started your work.</small>
       </div>
       <div class="personal-header-summary-card">
         <div class="personal-header-summary-card-text">
           <i class="fas fa-clock"></i> Clock-Out Time
         </div>
-        <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ workLog.WorkTimeEnd || '-' }}</h4>
+        <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{formatTime(workLog?.workTimeEnd) || '-' }}</h4>
         <small class="text-muted">The time you ended your work.</small>
       </div>
     </div>
@@ -32,41 +32,41 @@
         <div class="personal-header-summary-card-text">
           <i class="fas fa-hourglass-half"></i> Total Worked Hours
         </div>
-        <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ workLog.TotalWorkedHours.toFixed(2) }}h</h4>
+        <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{formatSpentTime()}}</h4>
         <small class="text-muted">The total time spent working today.</small>
       </div>
       <div class="personal-header-summary-card">
         <div class="personal-header-summary-card-text">
           <i class="fas fa-pause"></i> Total Paused Time
         </div>
-        <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ workLog.PausedTime.toFixed(2) }}h</h4>
+        <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ formatPausedTime()}}</h4>
         <small class="text-muted">Time you spent on breaks or idle.</small>
       </div>
       <div class="personal-header-summary-card">
         <div class="personal-header-summary-card-text">
           <i class="fas fa-cogs"></i> Actual Work Duration
         </div>
-        <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ workLog.ActualWorkDuration.toFixed(2) }}h</h4>
+        <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ formatActualWorkTime()}}</h4>
         <small class="text-muted">Time actively spent working, excluding pauses.</small>
       </div>
     </div>
 
     <!-- Paused Times Section -->
-    <div class="personal-header-paused-times">
+    <div class="personal-header-paused-times" *ngFor="let pauseLog of workLog?.pauseTrackingLogs">
       <div class="personal-header-summary-card">
         <div class="row">
           <div class="col-md-6">
             <div class="personal-header-summary-card-text">
               <i class="fas fa-stopwatch"></i> Pause Type
             </div>
-            <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ workLog.PauseType || '-' }}</h4>
+            <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ pauseLog.pauseTypeName || '-' }}</h4>
             <small class="text-muted">Type of pause (e.g., lunch, meeting, etc.).</small>
           </div>
           <div class="col-md-6">
             <div class="personal-header-summary-card-text">
               <i class="fas fa-clock"></i> Pause Duration
             </div>
-            <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ workLog.PauseDuration || '-' }}h</h4>
+            <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{formatMinutes(pauseLog.pauseDurationInMinutes) || '-' }}</h4>
             <small class="text-muted">The total time paused.</small>
           </div>
         </div>
@@ -76,14 +76,14 @@
             <div class="personal-header-summary-card-text">
               <i class="fas fa-calendar-check"></i> Pause Start
             </div>
-            <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ workLog.PauseStart || '-' }}</h4>
+            <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{formatTime( pauseLog.pauseStart) || '-' }}</h4>
             <small class="text-muted">The start time of your break.</small>
           </div>
           <div class="col-md-6">
             <div class="personal-header-summary-card-text">
               <i class="fas fa-calendar-times"></i> Pause End
             </div>
-            <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{ workLog.PauseEnd || '-' }}</h4>
+            <h4 class="mb-0 mt-1 font-weight-bold text-dark">{{formatTime(pauseLog.pauseEnd) || '-' }}</h4>
             <small class="text-muted">The time you resumed working after the break.</small>
           </div>
         </div>

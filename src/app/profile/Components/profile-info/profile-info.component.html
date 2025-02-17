@@ -1,0 +1,52 @@
+<div class="container mt-4">
+    <div class="card profile-card shadow-lg p-4">
+      <h2 class="text-center mb-4 profile-header">Profile Information</h2>
+  
+      <!-- User Details -->
+      <div class="row">
+        <div class="col-md-6">
+          <p><strong>Employee ID:</strong> {{ currentUser?.employeeSerialNumber }}</p>
+          <p><strong>Name:</strong> {{ currentUser?.firstName | titlecase }} {{ currentUser?.lastName | titlecase }}</p>
+          <p><strong>Username:</strong> {{ currentUser?.userName }}</p>
+          <p><strong>Email:</strong> {{ currentUser?.email }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Phone:</strong> {{ currentUser?.phoneNumber }}</p>
+          <p><strong>Role:</strong> {{ currentUser?.roleName }}</p>
+          <p><strong>Supervisor:</strong> {{ (currentUser?.supervisor?.firstName | titlecase) || 'N/A' }}</p>
+          <p><strong>Team Leader:</strong> {{ (currentUser?.teamLeader?.firstName | titlecase) || 'N/A' }}</p>
+        </div>
+      </div>
+  
+      <!-- Work Shift Details -->
+      <div class="mt-4">
+        <h4 class="text-center profile-subheader">Work Shift Details</h4>
+        <div class="card p-3 mt-2 profile-card-light">
+          <p><strong>Shift Name:</strong> {{ currentUser?.workShift?.shiftName }}</p>
+          <p><strong>Shift Type:</strong> {{ currentUser?.workShift?.shiftType | enumToString }}</p>
+  
+          <!-- Work Shift Schedule -->
+          <div class="table-responsive">
+            <table class="table table-bordered profile-table">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let detail of currentUser?.workShift?.workShiftDetails">
+                  <td>{{ detail.day }}</td>
+                  <td>{{ detail.startTime }}</td>
+                  <td>{{ detail.endTime }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  

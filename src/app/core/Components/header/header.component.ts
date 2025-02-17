@@ -23,7 +23,6 @@ export class HeaderComponent implements OnInit {
         this.currentUser = user;  // Update the local user state when currentUser changes
         if (user) {
           this.globals.loggedIn = true;
-          console.log(this.currentUser);
         } else {
           this.globals.loggedIn = false;
         }
@@ -38,7 +37,6 @@ export class HeaderComponent implements OnInit {
     this.globals.clearSession();
     this.router.navigate(['']);
     this.toastr.success("Logout Completed Successfully");
-    console.log(1231)
   }
   
 

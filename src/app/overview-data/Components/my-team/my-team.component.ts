@@ -5,6 +5,10 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../../user-management/Services/user.service';
 import { UserDto } from '../../../core/Models/Dtos/UserDto';
 import { Globals } from '../../../core/globals';
+import { forkJoin, Observable } from 'rxjs';
+import { UserValidationPaginatedResponse } from '../../../core/Models/Responses/UserValidationResponse';
+import { RoleService } from '../../../role-management/Services/role.service';
+import { RolesListDto } from '../../../core/Models/Dtos/RolesListDto';
 
 @Component({
   selector: 'app-my-team',
@@ -15,108 +19,98 @@ export class MyTeamComponent implements OnInit {
   users: UserDto[] = [];
   filteredUsers: UserDto[] = [];
   selectedFilter: string = 'All'; // Default filter
-  employeesLength: number = 0;
-  supervisorsLength: number = 0;
-  teamLeaderLength : number = 0;
+  roles: { name: string; count: number }[] = []; // Holds role names & counts dynamically
+  currentPage: number = 1;
+  itemsPerPage: number = 12; 
+  totalCount: number = 0;
+  totalPages: number = 0; 
+
   constructor(
     private toastrService: ToastrService,
     public globals: Globals,
-    private http: HttpClient,
-    private router: Router,
+    private rolesService: RoleService,
     private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    this.loadAllUsers(); // Initially load all users
-    this.loadAllEmployees();
-    this.loadAllSupervisors();
-    this.loadAllTeamLeaders();
+    this.fetchUsersCountLogs();
+    this.loadPaginatedUsers();
+    this.loadAllRoles();
   }
 
-  loadAllUsers() {
-    this.userService.getAllUsers().subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.users = response.users;
-          this.filteredUsers = this.users; // Initially, all users are shown
-        } else {
-          this.toastrService.error(response.message, 'Error');
-        }
-      },
-      error: (err) => {
-        console.error('An error occurred while fetching users.', 'Error');
-      }
-    });
-  }
-
-  loadAllEmployees() {
-    this.userService.getAllEmployees().subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.users = response.users;
-          this.filteredUsers = this.users;
-          this.employeesLength = this.filteredUsers.length; 
-        } else {
-          this.toastrService.error(response.message, 'Error');
-        }
-      },
-      error: (err) => {
-        console.error('An error occurred while fetching users.', 'Error');
-      }
-    });
-  }
-
-  loadAllSupervisors() {
-    this.userService.getAllSupervisors().subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.users = response.users;
-          this.filteredUsers = this.users;
-          this.supervisorsLength =  this.filteredUsers.length; 
-        } else {
-          this.toastrService.error(response.message, 'Error');
-        }
-      },
-      error: (err) => {
-        console.error('An error occurred while fetching users.', 'Error');
-      }
-    });
-  }
-
-  loadAllTeamLeaders() {
-    this.userService.getAllTeamLeaders().subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.users = response.users;
-          this.filteredUsers = this.users;
-          this.teamLeaderLength =  this.filteredUsers.length
-        } else {
-          this.toastrService.error(response.message, 'Error');
-        }
-      },
-      error: (err) => {
-        console.error('An error occurred while fetching users.', 'Error');
-      }
-    });
-  }
-
-  filterTeam(status: string) {
-    this.selectedFilter = status;
-    switch (status) {
-      case 'All':
-        this.filteredUsers = this.users;
-        break;
-      case 'Employees':
-        this.filteredUsers = this.users.filter(user => user.roleName === 'Employee');
-        break;
-      case 'Supervisors':
-        this.filteredUsers = this.users.filter(user => user.roleName === 'Supervisor');
-        break;
-      case 'TeamLeaders':
-        this.filteredUsers = this.users.filter(user => user.roleName === 'TeamLead');
-        break;
-      default:
-        this.filteredUsers = this.users;
+  loadPaginatedUsers(page: number = this.currentPage) {
+    let request$: Observable<UserValidationPaginatedResponse>;
+    
+    if (this.selectedFilter === 'All') {
+      request$ = this.userService.getAllUsersPaginated(page, this.itemsPerPage);
+    } else {
+      request$ = this.userService.getUsersByRolePaginated(this.selectedFilter, page, this.itemsPerPage);
     }
+  
+    request$.subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.users = response.users;
+          this.filteredUsers = response.users;
+          this.totalCount = response.totalCount;
+          this.totalPages = response.totalPages;
+        } else {
+          this.toastrService.error(response.message, 'Error');
+        }
+      },
+      error: (err) => {
+        console.error('An error occurred while fetching users.', 'Error');
+      }
+    });
+  }
+
+  loadAllRoles() {
+    this.rolesService.getAllRoles().subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.roles = response.roles.map((role: RolesListDto) => ({
+            name: role.roleName,
+            count: role.userCount || 0
+          }));
+          this.roles.unshift({ name: 'All', count: this.totalCount }); // Add "All" role at the beginning
+        } else {
+          this.toastrService.error(response.message, 'Error');
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching roles.', err);
+      }
+    });
+  }
+
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.loadPaginatedUsers(page); // Preserve filter during pagination
+  }
+
+  fetchUsersCountLogs(): void {
+    const allUsersCount$ = this.userService.getAllUsersCount();
+    const roleCounts$ = this.rolesService.getUserCountPerRole(); // Fetch all role counts
+
+    forkJoin([allUsersCount$, roleCounts$]).subscribe({
+      next: ([allUsersResponse, roleCountsResponse]) => {
+        this.totalCount = allUsersResponse.count;
+        this.roles = roleCountsResponse.roles.map((role: RolesListDto) => ({
+          name: role.roleName,
+          count: role.userCount || 0
+        }));
+        this.roles.unshift({ name: 'All', count: this.totalCount });
+      },
+      error: (err) => {
+        console.error('Error fetching user counts.', err);
+      }
+    });
+  }
+
+  filterTeam(role: string) {
+    this.selectedFilter = role;
+    this.currentPage = 1;
+    this.loadPaginatedUsers(1);
   }
 }
+
