@@ -126,7 +126,6 @@ onSubmit(): void {
 
   this.workShiftData = formData;
 
-  console.log(this.workShiftData);
 
   // Call the service to create the work shift
   this.workShiftService.createWorkShift(this.workShiftData).subscribe({

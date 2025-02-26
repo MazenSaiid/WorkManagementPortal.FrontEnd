@@ -47,11 +47,11 @@ formatDuration(minutes: number): string {
   const mins = Math.floor(minutes % 60);
 
   if (hours > 0 && mins > 0) {
-    return `${hours} hr ${mins} min`;
+    return `${hours} hours ${mins} minutes`;
   } else if (hours > 0) {
-    return `${hours} hr`;
+    return `${hours} hours`;
   } else {
-    return `${mins} min`;
+    return `${mins} minutes`;
   }
 }
 getRequiredCheckout(data: any): string {
@@ -119,7 +119,7 @@ downloadCSV() {
   // Define CSV headers
   const headers = ["Id", "Employee Name", "Date","Day", "Email",
     "Shift Name", "Shift Type",
-    "Required Check-In Time","Actual Check-In Time","Required Check-Out Time","Actual Check-Out Time","Early By/Late By"];
+    "Required Check-In Time","Actual Check-In Time","Required Check-Out Time","Actual Check-Out Time","Worked Overtime","Early By/Late By"];
   
   // Format data as CSV
   // Format data as CSV
@@ -135,6 +135,7 @@ downloadCSV() {
     this.formatTime(data.workTimeStart), // Actual Check-In
     this.getRequiredCheckout(data),
     this.formatTime(data.workTimeEnd), // Actual Check-In
+    data.workedOvertime? "No": this.formatDuration(data.overtimeWorkDurationInHours * 60),
     this.getEarlyOrLateBy(data)
   ]);
 

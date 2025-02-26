@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ScreenShotLogDto, ScreenShotValidationResponse, UserScreenShotLogDto } from '../../../core/Models/Responses/ScreenShotValidationResponse';
 import { ScreenshotsService } from '../../Services/screenshots.service';
 import { ToastrService } from 'ngx-toastr';
 import { UserDto } from '../../../core/Models/Dtos/UserDto';
 import { Router } from '@angular/router';
+import { UserScreenShotLogDto } from '../../../core/Models/Dtos/ScreenshotLogDto';
 
 @Component({
   selector: 'app-all-screenshots',

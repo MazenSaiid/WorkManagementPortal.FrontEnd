@@ -33,7 +33,7 @@ export class EditUserComponent implements OnInit{
         '',
         [
           Validators.required, 
-          Validators.pattern('^[0-9]$')  // Only all digits must be numbers.
+          Validators.pattern('^[0-9]+$')  // Only all digits must be numbers.
         ]
       ],
       firstName: ['', Validators.required],

@@ -25,7 +25,7 @@ export class UserComponent implements OnInit {
   viewUserModalVisible: boolean = false;
   deleteUserModalVisible:boolean = false;
   currentPage: number =1;
-  itemsPerPage: number = 5; 
+  itemsPerPage: number = 8; 
   totalCount: number = 0;
   totalPages: number = 0; 
   ngOnInit(): void {

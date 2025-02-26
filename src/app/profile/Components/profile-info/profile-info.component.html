@@ -13,8 +13,8 @@
         <div class="col-md-6">
           <p><strong>Phone:</strong> {{ currentUser?.phoneNumber }}</p>
           <p><strong>Role:</strong> {{ currentUser?.roleName }}</p>
-          <p><strong>Supervisor:</strong> {{ (currentUser?.supervisor?.firstName | titlecase) || 'N/A' }}</p>
-          <p><strong>Team Leader:</strong> {{ (currentUser?.teamLeader?.firstName | titlecase) || 'N/A' }}</p>
+          <p><strong>Supervisor:</strong> {{ currentUser?.supervisor?.firstName | titlecase }} {{ currentUser?.supervisor?.lastName | titlecase }}</p>
+          <p><strong>Team Leader:</strong> {{ currentUser?.teamLeader?.firstName | titlecase }} {{ currentUser?.teamLeader?.lastName | titlecase }} </p>
         </div>
       </div>
   
@@ -49,4 +49,3 @@
   
     </div>
   </div>
-  

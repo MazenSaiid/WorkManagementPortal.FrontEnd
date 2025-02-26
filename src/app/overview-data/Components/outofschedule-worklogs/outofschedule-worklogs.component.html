@@ -30,6 +30,7 @@
                   <th>Actual Check-In Time</th>
                   <th>Required Check-Out Time</th>
                   <th>Actual Check-Out Time</th>
+                  <th>Worked Overtime</th>
                   <th>Early By / Late By</th>
                 </tr>
               </thead>
@@ -46,6 +47,7 @@
                   <td>{{ data.workTimeStart | date: 'HH:mm:ss' }}</td>
                   <td>{{ getRequiredCheckout(data) }}</td>
                   <td>{{ data.workTimeEnd | date: 'HH:mm:ss' }}</td>
+                  <td>{{data.workedOvertime? "No": formatDuration(data.overtimeWorkDurationInHours * 60)}}</td>
                   <td>{{ getEarlyOrLateBy(data) }}</td>
                 </tr>
               </tbody>

@@ -29,6 +29,7 @@
                   <th>Check-In Time</th>
                   <th>Check-Out Time</th>
                   <th>Actual Work Duration</th>
+                  <th>Worked Overtime</th>
                   <th>Status</th>
                 </tr>
               </thead>
@@ -43,6 +44,7 @@
                   <td>{{ data.workTimeStart | date: 'HH:mm:ss' }}</td>
                   <td>{{ data.workTimeEnd | date: 'HH:mm:ss' }}</td>
                   <td>{{formatTimeInHoursAndMinutes(data.actualWorkDurationInHours)}}</td>
+                  <td>{{data.workedOvertime? "No": formatTimeInHoursAndMinutes(data.overtimeWorkDurationInHours)}}</td>
                   <td>{{data.hasFinished? "Finished Working": "-"}}</td>
                 </tr>
               </tbody>

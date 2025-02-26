@@ -1,22 +1,45 @@
-import { CanActivateFn } from '@angular/router';
-import { inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
+import {
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  Router,
+} from '@angular/router';
+import { Observable } from 'rxjs';
 import { Globals } from '../../globals';
 import { ToastrService } from 'ngx-toastr';
 
-export const authGuard: CanActivateFn = (route, state) => {
-  // Injecting necessary services
-  const globals = inject(Globals);
-  const router = inject(Router);
-  const toastr = inject(ToastrService);
-  // Check if the user is logged in (using the Globals service)
-  if (globals.loggedIn) {
-    // User is logged in, allow access
-    return true;
-  } else {
-    router.navigate(['']);
-    toastr.warning('You must be logged in to access this page. Please log in and try again.');
-    return false;
-  }
-};
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthGuard implements CanActivate {
+  constructor(
+    private toastr: ToastrService,
+    private globals: Globals,
+    private router: Router
+  ) {}
 
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean | Observable<boolean> {
+    const user = this.globals.currentUserInfo; // Get the logged-in user info
+
+    const requiredRoles = route.data['roles'] as Array<string>; // Get roles from route data
+    if (!requiredRoles || requiredRoles.length === 0) {
+      return true; // If no specific roles are required, allow access
+    }
+    if (user) {
+      const hasRole = user.roles.some((role: string) =>
+        requiredRoles.includes(role)
+      );
+      if (!hasRole) {
+        this.toastr.warning('You are not authorized');
+        setTimeout(() => this.router.navigate(['/not-authorized']), 2000); // Redirect unauthorized users
+        return false;
+      }
+    }
+
+    return true;
+  }
+}

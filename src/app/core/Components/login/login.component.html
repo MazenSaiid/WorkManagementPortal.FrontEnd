@@ -15,9 +15,27 @@
             <label for="email" style="font-weight: 600">Email</label>
             <div class="input-group">
               <div class="input-group-text">
-                <i class="bi bi-envelope" style="font-size: 20px; color: #007bff"></i>
+                <i
+                  class="bi bi-envelope"
+                  style="font-size: 20px; color: #007bff"
+                ></i>
               </div>
-              <input formControlName="email" class="form-control" id="email" type="email" required />
+              <input
+                formControlName="email"
+                class="form-control"
+                id="email"
+                type="email"
+                required
+              />
+            </div>
+            <div
+              *ngIf="
+                loginForm.get('email')?.invalid &&
+                loginForm.get('email')?.touched
+              "
+              class="text-danger error-message"
+            >
+              Email is required.
             </div>
           </div>
 
@@ -26,24 +44,58 @@
             <label for="password" style="font-weight: 600">Password</label>
             <div class="input-group">
               <div class="input-group-text">
-                <i class="bi bi-lock" style="font-size: 20px; color: #007bff"></i>
+                <i
+                  class="bi bi-lock"
+                  style="font-size: 20px; color: #007bff"
+                ></i>
               </div>
-              <input formControlName="password" class="form-control" id="password"
-                [type]="passwordVisible ? 'text' : 'password'" required />
+              <input
+                formControlName="password"
+                class="form-control"
+                id="password"
+                [type]="passwordVisible ? 'text' : 'password'"
+                required
+              />
               <div class="input-group-text">
-                <i class="bi bi-eye" id="eyeIcon" style="font-size: 20px; cursor: pointer"
-                  (click)="togglePasswordVisibility()"></i>
+                <i
+                  class="bi bi-eye"
+                  id="eyeIcon"
+                  style="font-size: 20px; cursor: pointer"
+                  (click)="togglePasswordVisibility()"
+                ></i>
               </div>
+            </div>
+            <div
+              *ngIf="
+                loginForm.get('password')?.invalid &&
+                loginForm.get('password')?.touched
+              "
+              class="text-danger error-message"
+            >
+              Password is required.
             </div>
           </div>
 
           <div class="login-footer">
-            <button type="submit" class="btn btn-action btn-primary" style="width: 100%;">Login</button>
+            <button
+              type="submit"
+              class="btn btn-action btn-primary"
+              style="width: 100%"
+            >
+              Login
+            </button>
           </div>
 
           <!-- Forgot Password Link -->
-          <div class="forgot-password" style="text-align: center; margin-top: 10px;">
-            <a href="javascript:void(0)" (click)="openForgotPasswordModal()" style="color: #007bff; text-decoration: none;">
+          <div
+            class="forgot-password"
+            style="text-align: center; margin-top: 10px"
+          >
+            <a
+              href="javascript:void(0)"
+              (click)="openForgotPasswordModal()"
+              style="color: #007bff; text-decoration: none"
+            >
               Forgot Password?
             </a>
           </div>
@@ -55,30 +107,68 @@
   <div class="login-right">
     <!-- Display two images in a stacked or side-by-side manner -->
     <div class="image-container">
-      <img src="assets/images/login.jpg" alt="Background Image" class="right-image"/>
-      <img src="assets/images/login2.jpg" alt="Background Image" class="right-image"/>
+      <img
+        src="assets/images/login.jpg"
+        alt="Background Image"
+        class="right-image"
+      />
+      <img
+        src="assets/images/login2.jpg"
+        alt="Background Image"
+        class="right-image"
+      />
     </div>
   </div>
 
   <!-- Forgot Password Modal -->
-<div *ngIf="isForgotPasswordModalVisible" class="modal-overlay" (click)="closeForgotPasswordModal()">
-  <div class="modal-content" (click)="$event.stopPropagation()">
-    <div class="modal-header">
-      <h4 class="modal-title">Reset Password</h4>
-      <button (click)="closeForgotPasswordModal()" class="close-btn">&times;</button>
-    </div>
-    <form [formGroup]="forgotPasswordForm" (ngSubmit)="onForgotPasswordSubmit()">
-      <div class="modal-body">
-        <div class="form-group">
-          <label for="email">Enter your Email</label>
-          <input formControlName="email" class="form-control" type="email" placeholder="Email" required />
+  <div
+    *ngIf="isForgotPasswordModalVisible"
+    class="modal-overlay"
+    (click)="closeForgotPasswordModal()"
+  >
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h4 class="modal-title">Reset Password</h4>
+        <button (click)="closeForgotPasswordModal()" class="close-btn">
+          &times;
+        </button>
+      </div>
+      <form
+        [formGroup]="forgotPasswordForm"
+        (ngSubmit)="onForgotPasswordSubmit()"
+      >
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="email">Enter your Email</label>
+            <input
+              formControlName="email"
+              class="form-control"
+              type="email"
+              placeholder="Email"
+              required
+            />
+            <div
+              *ngIf="
+                forgotPasswordForm.get('email')?.invalid &&
+                forgotPasswordForm.get('email')?.touched
+              "
+              class="text-danger"
+            >
+              Email is required.
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closeForgotPasswordModal()">Cancel</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
-    </form>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closeForgotPasswordModal()"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
 </div>

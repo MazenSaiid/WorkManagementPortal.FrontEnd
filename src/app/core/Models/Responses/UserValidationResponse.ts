@@ -21,7 +21,8 @@ export interface UserValidationPaginatedResponse extends ValidationResponse {
 }
 export interface AccountServiceValidationResponse extends ValidationResponse {
   userId: string;
-  username?: string;
-  roles?: string[];
-  localSessionExpiryDate?: string;
+  username: string;
+  roles: string[];
+  localSessionExpiryDate: string;
 }
+

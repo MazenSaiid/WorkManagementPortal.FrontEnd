@@ -20,7 +20,7 @@ export class WorkShiftComponent implements OnInit {
   viewWorkShiftModalVisible: boolean = false;
   deleteWorkShiftModalVisible:boolean = false;
   currentPage: number =1;
-  itemsPerPage: number = 5; 
+  itemsPerPage: number = 8; 
   totalCount: number = 0;
   totalPages: number = 0; 
   constructor(private toastrService: ToastrService, private http: HttpClient, private workShiftService: WorkShiftService) {

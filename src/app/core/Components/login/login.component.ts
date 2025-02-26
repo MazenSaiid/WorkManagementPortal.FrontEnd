@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private accountService: AccountService,
-    private router:Router
+    private router: Router
   ) {
     // Create the form group with validators
     this.loginForm = this.fb.group({
@@ -33,11 +33,12 @@ export class LoginComponent implements OnInit {
   }
   ngOnInit(): void {}
 
-
   onForgotPasswordSubmit() {
-    if (this.forgotPasswordForm.invalid) return;
+    if (this.forgotPasswordForm.invalid) {
+      this.toastr.error('Invalid Data');
+      return;
+    }
     this.emailforPasswordReset = this.forgotPasswordForm.value;
-    console.log(this.emailforPasswordReset);
     this.accountService
       .requestPasswordReset(this.emailforPasswordReset)
       .subscribe({
@@ -46,6 +47,7 @@ export class LoginComponent implements OnInit {
             this.toastr.success(
               'Request Password Reset! Please check your email.'
             );
+            setTimeout(() => this.closeForgotPasswordModal(), 2000);
           } else {
             this.toastr.error(response.message, 'Error');
           }

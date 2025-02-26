@@ -1,4 +1,4 @@
-<!-- Modal --> 
+<!-- Edit Work Shift Modal -->
 <div class="modal" *ngIf="isVisible" tabindex="-1" style="display: block; background: rgba(0, 0, 0, 0.5)">
   <div class="modal-dialog" style="max-width: 80%; width: auto; height: auto">
     <div class="modal-content" style="border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); background-color: #f4f9fc;">
@@ -11,40 +11,61 @@
       <div class="modal-body" style="padding: 20px">
         <form [formGroup]="editWorkShiftForm" (ngSubmit)="onSubmit()">
           <!-- Shift Name -->
-          <div class="form-group">
-            <label for="shiftName" style="font-weight: 600">Shift Name</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="fas fa-briefcase"></i> <!-- Icon for shift name -->
-                </span>
-              </div>
-              <input formControlName="shiftName" class="form-control" id="shiftName" type="text" required placeholder="Enter shift name" [value]="workShift?.shiftName"/>
+          <div class="form-group mb-3">
+            <label for="shiftName" class="form-label" style="font-weight: 600">Shift Name</label>
+            <input formControlName="shiftName" class="form-control" id="shiftName" type="text" required />
+            <div *ngIf="editWorkShiftForm.get('shiftName')?.invalid && editWorkShiftForm.get('shiftName')?.touched" class="text-danger">
+              Shift name is required.
             </div>
           </div>
 
           <!-- Shift Type -->
-          <div class="form-group">
-            <label for="shiftType" style="font-weight: 600">Shift Type</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="fas fa-tasks"></i> <!-- Icon for shift type -->
-                </span>
-              </div>
-              <select formControlName="shiftType" class="form-control" required>
-                <option *ngFor="let shift of shiftTypes" [value]="shift.id">{{ shift.name }}</option>
-              </select>
+          <div class="form-group mb-3">
+            <label for="shiftType" class="form-label" style="font-weight: 600">Shift Type</label>
+            <select formControlName="shiftType" class="form-select" required>
+              <option *ngFor="let shift of shiftTypes" [value]="shift.id">
+                {{ shift.name }}
+              </option>
+            </select>
+            <div *ngIf="editWorkShiftForm.get('shiftType')?.invalid && editWorkShiftForm.get('shiftType')?.touched" class="text-danger">
+              Shift type is required.
             </div>
           </div>
 
-
-          <!-- Modal Footer with Updated Button Styling -->
+          <!-- Shift Details -->
+          <div class="mt-4">
+            <h6>Work Shift Details</h6>
+            <div formArrayName="workShiftDetails">
+              <div *ngFor="let shift of workShiftDetails.controls; let i = index" [formGroupName]="i" class="list-group-item">
+                <div class="row">
+                  <div class="col-md-4">
+                    <label class="form-label">Day</label>
+                    <select formControlName="day" class="form-select">
+                      <option *ngFor="let day of daysOfWeek" [value]="day.name">{{ day.name }}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="form-label">Start Time</label>
+                    <input type="time" formControlName="startTime" class="form-control" />
+                  </div>
+                  <div class="col-md-3">
+                    <label class="form-label">End Time</label>
+                    <input type="time" formControlName="endTime" class="form-control" />
+                  </div>
+                  <div class="col-md-2 d-flex align-items-end">
+                    <button type="button" class="btn btn-danger" (click)="removeShiftDetail(i)">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary mt-3" (click)="addShiftDetail()">Add New Day</button>
+          </div>
+          <!-- Modal Footer -->
           <div class="modal-footer" style="border-top: none">
-            <button type="button" class="btn btn-action btn-secondary" (click)="closeModal()">
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">
               Close
             </button>
-            <button type="submit" class="btn btn-action btn-primary">
+            <button type="submit" class="btn btn-primary" [disabled]="editWorkShiftForm.invalid">
               Update Work Shift
             </button>
           </div>

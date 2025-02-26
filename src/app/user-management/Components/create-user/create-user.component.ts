@@ -89,7 +89,7 @@ export class CreateUserComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern('^[0-9]$')  // all digits must be numbers.
+          Validators.pattern('^[0-9]+$')  // all digits must be numbers.
         ]
       ],
       firstName: ['', Validators.required],
@@ -156,7 +156,7 @@ export class CreateUserComponent implements OnInit {
       this.toastr.error('Invalid Data');
       return;
     }
-  
+    console.log(this.registerForm.value);
     // Prepare the data for submission
     this.createUser = this.registerForm.value;
   

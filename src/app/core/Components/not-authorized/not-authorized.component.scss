@@ -1,0 +1,138 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f9fc;  /* Matching sidebar background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Main Container */
+.not-authorized-container {
+    text-align: center;
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ededed;
+    animation: fadeIn 0.8s ease-in-out;
+    max-width: 500px;
+}
+
+/* Headings */
+h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0056b3;
+    margin-top: 20px;
+}
+
+p {
+    font-size: 16px;
+    color: #333;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+/* Role Information */
+.role-info {
+    text-align: left;
+    background: #f4f9fc;
+    padding: 15px;
+    border-radius: 6px;
+    color: #0056b3;
+    margin-bottom: 20px;
+    animation: slideIn 1s ease-in-out;
+    border-left: 4px solid #0056b3;
+}
+
+.role-info h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #f4f9fc;
+    font-weight: 700;
+}
+
+.role-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.role-info li {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.role-info i {
+    color: #f4f9fc;
+    margin-right: 10px;
+}
+
+/* Buttons */
+.button-group {
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+/* Back to Home Button */
+.btn-home {
+    background: #007bff;
+    border: 2px solid #0056b3;
+}
+
+.btn-home:hover {
+    background: #0056b3;
+}
+
+
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

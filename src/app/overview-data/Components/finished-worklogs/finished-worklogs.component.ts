@@ -39,7 +39,7 @@ downloadCSV() {
   // Define CSV headers
   const headers = ["Id", "Employee Name", "Date", "Email",
     "Shift Name", "Shift Type",
-    "CheckIn Time","CheckOut Time","Actual Work Duration","Status"];
+    "CheckIn Time","CheckOut Time","Actual Work Duration","Worked Overtime","Status"];
   
   // Format data as CSV
   // Format data as CSV
@@ -51,8 +51,9 @@ downloadCSV() {
     data.user?.workShift?.shiftName || "-",
     data.user?.workShift?.shiftTypeName || "-",
     this.formatTime(data.workTimeStart), // Actual Check-In
-    this.formatTime(data.workTimeEnd), // Actual Check-out
-    this.formatTimeInHoursAndMinutes(data.actualWorkDurationInHours),
+    this.formatTime(data.workTimeEnd), // Actual Check-out,
+    this.formatTimeInHoursAndMinutes(data.overtimeWorkDurationInHours),
+    data.workedOvertime? "No": this.formatTimeInHoursAndMinutes(data.actualWorkDurationInHours),
     data.hasFinished? "Finished Working": "-"
   ]);
 

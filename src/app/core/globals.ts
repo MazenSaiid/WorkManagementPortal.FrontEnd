@@ -11,7 +11,7 @@ import { ReplaySubject } from 'rxjs';
 export class Globals {
   private _UID = 'portal_guid';
   loggedIn: boolean = false;
-  currentUserInfo: any = null; // This is where we store the logged-in user info
+  currentUserInfo: AccountServiceValidationResponse | null = null; // This is where we store the logged-in user info
   currentUser = new ReplaySubject<AccountServiceValidationResponse | null>(1); // Observable for current user
   currentUser$ = this.currentUser.asObservable(); // Exporting the observable to be used in components
 
@@ -49,12 +49,23 @@ export class Globals {
       if (userInfo) {
         const decryptedUser = JSON.parse(this.decryptData(userInfo));
         if (decryptedUser) {
+          const expiryDate = new Date(decryptedUser.localSessionExpiryDate);
+          const currentTime = new Date();
+
+        // Check if session is expired
+        if (currentTime > expiryDate) {
+          this.clearSession(); // Clear session and logout
+          this.loggedIn = false; 
+          return false;
+        }
           this.currentUserInfo = decryptedUser;
           this.loggedIn = true; // Update logged-in status
           this.currentUser.next(decryptedUser); // Emit the user info
+          return true;
         }
       }
     }
+    return false;
   }
 
   // Encrypt data using AES
@@ -65,7 +76,6 @@ export class Globals {
         environment.ENCRYPT_SECRET_KEY
       ).toString();
     } catch (e) {
-      console.log(e);
       return '';
     }
   }
@@ -79,7 +89,6 @@ export class Globals {
       }
       return data;
     } catch (e) {
-      console.log(e);
     }
   }
 

@@ -35,6 +35,25 @@
         <div *ngIf="workShift">
           <p><strong>Shift Name:</strong> {{ workShift.shiftName }}</p>
           <p><strong>Shift Type:</strong> {{ workShift.shiftTypeName }}</p>
+          <!-- Work Shift Schedule -->
+          <div class="table-responsive">
+            <table class="table table-bordered profile-table">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let detail of workShift?.workShiftDetails">
+                  <td>{{ detail.day }}</td>
+                  <td>{{ detail.startTime }}</td>
+                  <td>{{ detail.endTime }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 

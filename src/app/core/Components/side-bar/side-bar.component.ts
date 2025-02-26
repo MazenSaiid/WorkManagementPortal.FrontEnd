@@ -23,8 +23,10 @@ export class SideBarComponent implements OnInit  {
       next: (user: AccountServiceValidationResponse | null) => {
         this.currentUser = user;
         if (user) {
+          console.log(this.currentUser);
           this.globals.loggedIn = true;
         } else {
+          this.globals.clearSession();
           this.globals.loggedIn = false;
           this.router.navigateByUrl('login');
         }

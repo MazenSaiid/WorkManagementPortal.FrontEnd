@@ -18,22 +18,6 @@
               Download CSV Sample
             </button>
           </div>
-
-          <!-- Other Form Fields (WorkShift, Role, Supervisor, etc.) -->
-          <div class="form-group">
-            <label for="workShiftName" style="font-weight: 600">WorkShift</label>
-            <div class="input-group">
-              <div class="input-group-text">
-                <i class="bi bi-clock" style="font-size: 20px; color: #007bff"></i>
-              </div>
-              <select id="workShiftName" class="form-control" formControlName="workShiftName">
-                <option *ngFor="let workShift of workShifts" [value]="workShift.shiftName">
-                  {{ workShift.shiftName }}
-                </option>
-              </select>
-            </div>
-          </div>
-
           <div class="form-group">
             <label for="roleName" style="font-weight: 600">Role</label>
             <div class="input-group">
@@ -46,8 +30,62 @@
                 </option>
               </select>
             </div>
+            <div *ngIf="bulkUploadForm.get('roleName')?.invalid && bulkUploadForm.get('roleName')?.touched"
+              class="text-danger">
+              Role is required.
+            </div>
           </div>
-
+          <div *ngIf="roleName === 'Employee'">
+            <div class="form-group">
+              <label for="supervisorId" style="font-weight: 600">Supervisor</label>
+              <div class="input-group">
+                <div class="input-group-text">
+                  <i class="bi bi-person-check" style="font-size: 20px; color: #007bff"></i>
+                </div>
+                <select id="supervisorId" class="form-control" formControlName="supervisorId">
+                  <option *ngFor="let supervisor of supervisors" [value]="supervisor.id">
+                    {{ supervisor.firstName }} {{ supervisor.lastName }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- Team Leader Fields (Conditional) -->
+          <div *ngIf="roleName === 'Employee' || roleName === 'Supervisor'">
+            <div class="form-group">
+              <label for="teamLeaderId" style="font-weight: 600">Team Leader</label>
+              <div class="input-group">
+                <div class="input-group-text">
+                  <i class="bi bi-person-bounding-box" style="font-size: 20px; color: #007bff"></i>
+                </div>
+                <select id="teamLeaderId" class="form-control" formControlName="teamLeaderId">
+                  <option *ngFor="let teamleader of teamLeaders" [value]="teamleader.id">
+                    {{ teamleader.firstName }} {{ teamleader.lastName }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- WorkShift -->
+          <div *ngIf="roleName !== 'Manager' && roleName !== 'Admin'">
+            <div class="form-group">
+              <label for="workShiftId" style="font-weight: 600">WorkShift</label>
+              <div class="input-group">
+                <div class="input-group-text">
+                  <i class="bi bi-clock" style="font-size: 20px; color: #007bff"></i>
+                </div>
+                <select id="workShiftId" class="form-control" formControlName="workShiftId">
+                  <option *ngFor="let workShift of workShifts" [value]="workShift.id">
+                    {{ workShift.shiftName }}
+                  </option>
+                </select>
+              </div>
+              <div *ngIf="bulkUploadForm.get('workShiftId')?.invalid && bulkUploadForm.get('workShiftId')?.touched"
+                class="text-danger">
+                WorkShift is required.
+              </div>
+            </div>
+          </div>
 
           <div class="modal-footer" style="border-top: none">
             <button type="button" class="btn btn-action btn-secondary" (click)="closeModal()">Close</button>

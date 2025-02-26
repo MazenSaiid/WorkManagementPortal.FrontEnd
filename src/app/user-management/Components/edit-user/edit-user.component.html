@@ -21,7 +21,7 @@
                 <i class="bi bi-phone" style="font-size: 20px; color: #007bff"></i>
               </div>
               <input formControlName="employeeSerialNumber" class="form-control" id="employeeSerialNumber" type="number" inputmode="numeric"
-                pattern="^[0-9]{11}$"  />
+                pattern="^[0-9]+$"  />
             </div>
             <!-- Validation Message -->
             <div *ngIf="userForm.get('employeeSerialNumber')?.invalid && userForm.get('employeeSerialNumber')?.touched"

@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ListWorkShiftDto } from '../../../core/Models/Dtos/ListWorkShiftDto';
-import { RolesListDto } from '../../../core/Models/Dtos/RolesListDto';
+import { Roles, RolesListDto } from '../../../core/Models/Dtos/RolesListDto';
 import { UserDto } from '../../../core/Models/Dtos/UserDto';
 import { RoleService } from '../../../role-management/Services/role.service';
 import { UserService } from '../../Services/user.service';
@@ -32,7 +32,7 @@ export class AddBulkUserComponent implements OnInit {
  private workShiftService: WorkShiftService, private toastr: ToastrService) {
     // Initialize the form with additional fields
     this.bulkUploadForm = this.fb.group({
-      workShiftName: ['', Validators.required],
+      workShiftId: [null],
       roleName: ['', Validators.required],
       supervisorId: ['', ],
       teamLeaderId: ['', ]
@@ -49,22 +49,40 @@ export class AddBulkUserComponent implements OnInit {
     });
 }
   toggleRoleFields(): void {
-    const supervisorControl = this.bulkUploadForm.get('supervisorId');
-    const teamLeaderControl = this.bulkUploadForm.get('teamLeaderId');
-
-    if (this.roleName === 'Admin' || this.roleName === 'Manager') {
-      supervisorControl?.clearValidators();
-      teamLeaderControl?.clearValidators();
-      supervisorControl?.setValue('');
-      teamLeaderControl?.setValue('');
+      const supervisorControl = this.bulkUploadForm.get('supervisorId');
+      const teamLeaderControl = this.bulkUploadForm.get('teamLeaderId');
+      const workShiftControl = this.bulkUploadForm.get('workShiftId');
+    
+      if (this.roleName === Roles.Admin.toString() || this.roleName === Roles.Manager.toString()) {
+        // Clear validators for supervisor, teamLeader, and workShift for Admin/Manager
+        supervisorControl?.clearValidators();
+        teamLeaderControl?.clearValidators();
+        workShiftControl?.clearValidators();
+        
+        // Reset values to null or appropriate defaults
+        workShiftControl?.setValue(null);  // null for optional workShiftId
+        supervisorControl?.setValue('');   // Empty string for optional supervisorId
+        teamLeaderControl?.setValue('');   // Empty string for optional teamLeaderId
+      } else if (this.roleName === Roles.TeamLead.toString()) {
+        // Set workShiftId as required for TeamLead
+        workShiftControl?.setValidators([Validators.required]);
+      } else if (this.roleName === Roles.Supervisor.toString()) {
+        // Set workShiftId as required for Supervisor
+        teamLeaderControl?.clearValidators();  // Clear teamLeader for Supervisor
+        teamLeaderControl?.setValue('');
+        workShiftControl?.setValidators([Validators.required]);
+      } else if (this.roleName === Roles.Employee.toString()) {
+        // Add validators for supervisor and teamLeader for Employee
+        supervisorControl?.setValidators([Validators.required]);
+        teamLeaderControl?.setValidators([Validators.required]);
+        workShiftControl?.setValidators([Validators.required]);
+      }
+    
+      // Ensure form controls are updated after changing validators
+      supervisorControl?.updateValueAndValidity();
+      teamLeaderControl?.updateValueAndValidity();
+      workShiftControl?.updateValueAndValidity();
     }
-    else if(this.roleName === 'Supervisor'){
-      teamLeaderControl?.clearValidators();
-      teamLeaderControl?.setValue('');
-    }
-    supervisorControl?.updateValueAndValidity();
-    teamLeaderControl?.updateValueAndValidity();
-  }
   loadSupervisors(): void {
     this.userService.getAllSupervisors().subscribe({
       next: (data) => {
@@ -229,7 +247,9 @@ export class AddBulkUserComponent implements OnInit {
     // Send the file and form data for processing
     const formData = new FormData();
     formData.append('file', this.fileInput.nativeElement.files[0]);
-    formData.append('workShiftName', this.bulkUploadForm.value.workShiftName);
+    if (this.bulkUploadForm.value.workShiftId !== null) {
+      formData.append("workShiftId", this.bulkUploadForm.value.workShiftId);
+  }
     formData.append('roleName', this.bulkUploadForm.value.roleName);
     formData.append('supervisorId', this.bulkUploadForm.value.supervisorId);
     formData.append('teamLeaderId', this.bulkUploadForm.value.teamLeaderId);
@@ -237,15 +257,18 @@ export class AddBulkUserComponent implements OnInit {
     this.userService.createBulkUsers(formData).subscribe({
       next: (response) =>
         {
-          if (response.success) {
+          if (response.failureCount === 0){
           this.toastr.success('Users created successfully!');
           this.closeModal();
           this.bulkUsersCreated.emit();
+          this.bulkUploadForm.reset();
           }
           else {  
-            this.toastr.error(response.message, 'Error');
+            response.results.forEach((result: { message: string | undefined; }) => {
+              this.toastr.error(result.message, 'Error in Creating Bulk');
+            });
+            
           }
-          // Handle successful upload
         },error: (err) => {
         console.error(err.message, 'Error');
         }

@@ -12,7 +12,26 @@
       <p>Work Shift: {{ workShiftName }}</p>
     </div>
   </div>
-
+    <!-- Idle Percentage Card -->
+    <div class="idle-percentage-card">
+      <h3>Idle Screenshots Percentage</h3>
+      <p>{{ getIdlePercentage() | number:'1.2-2' }}%</p>
+    </div>
+<!-- Toggle Buttons for Idle/Non-Idle Screenshots -->
+<div class="toggle-buttons">
+  <button 
+    [class.active]="filterType === 'All'" 
+    (click)="setFilter('All')">All Screenshots
+  </button>
+  <button 
+    [class.active]="filterType === 'Idle'" 
+    (click)="setFilter('Idle')">Idle Screenshots
+  </button>
+  <button 
+    [class.active]="filterType === 'NonIdle'" 
+    (click)="setFilter('NonIdle')">Non-Idle Screenshots
+  </button>
+</div>
   <!-- Screenshot List -->
   <div class="screenshots-list">
     <div *ngFor="let screenshot of paginatedScreenshots" class="screenshot-card">

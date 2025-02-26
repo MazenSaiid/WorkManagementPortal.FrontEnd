@@ -24,7 +24,7 @@ export class UserService {
     );
   }
   createBulkUsers(formData: FormData): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/Accounts/UploadBulk`, formData);
+    return this.http.post<any>(`${this.apiUrl}/Accounts/BulkUpload`, formData);
   }
   // Get all users
   getAllUsers(): Observable<UserValidationResponse> {

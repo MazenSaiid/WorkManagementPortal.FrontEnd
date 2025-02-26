@@ -20,7 +20,7 @@ export class RolesComponent implements OnInit{
   viewRoleModalVisible: boolean = false;
   deleteRoleModalVisible:boolean = false;
   currentPage: number =1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 8;
   totalCount: number = 0;
   totalPages: number = 0;
   constructor(private toastrService: ToastrService, private rolesService: RoleService) {

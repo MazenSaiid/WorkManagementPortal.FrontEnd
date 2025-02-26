@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core'; 
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -6,9 +6,10 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './user-screenshots.component.html',
   styleUrls: ['./user-screenshots.component.scss']
 })
-export class UserScreenshotsComponent implements OnInit {
+export class UserScreenshotsComponent implements OnInit{
   userId: string | null = null;
   screenshots: any[] = [];  // Full array of screenshots
+  filteredScreenshots: any[] = []; // Array to hold filtered screenshots
   paginatedScreenshots: any[] = []; // Array to hold paginated screenshots
   userName: string | null = null;  // To hold the username (if available)
   workShiftName: string | undefined = '';
@@ -19,6 +20,7 @@ export class UserScreenshotsComponent implements OnInit {
   itemsPerPage: number = 15; 
   totalCount: number = 0;
   totalPages: number = 0;
+  filterType: string = 'All';
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
@@ -52,17 +54,47 @@ export class UserScreenshotsComponent implements OnInit {
       this.totalCount = this.screenshots.length;
       this.totalPages = Math.ceil(this.totalCount / this.itemsPerPage);
 
-      // Initialize paginated data
-      this.updatePaginatedScreenshots();
+      this.setFilter(this.filterType);
+      this.getIdlePercentage();
     } else {
       console.error("No data passed via navigation state.");
     }
+  }
+  getIdlePercentage(): number {
+    if (this.screenshots.length === 0) {
+      return 0;
+    }
+    const idleCount = this.screenshots.filter(screenshot => screenshot.isIdle).length;
+    return Math.round((idleCount / this.screenshots.length) * 100);
+  }
+  
+  setFilter(filter: string): void {
+    this.filterType = filter;
+    this.updateFilteredScreenshots();
+    this.updatePaginatedScreenshots();
+  }
+
+  updateFilteredScreenshots(): void {
+    switch (this.filterType) {
+      case 'Idle':
+        this.filteredScreenshots = this.screenshots.filter(s => s.isIdle);
+        console.log(this.filteredScreenshots);
+        break;
+      case 'NonIdle':
+        this.filteredScreenshots = this.screenshots.filter(s => !s.isIdle);
+        break;
+      default:
+        this.filteredScreenshots = [...this.screenshots];
+        break;
+    }
+    this.totalCount = this.filteredScreenshots.length;
+    this.totalPages = Math.ceil(this.totalCount / this.itemsPerPage);
   }
 
   updatePaginatedScreenshots(): void {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedScreenshots = this.screenshots.slice(startIndex, endIndex);
+    this.paginatedScreenshots = this.filteredScreenshots.slice(startIndex, endIndex);
   }
 
   getImageUrl(fileContent: any): string {
@@ -72,7 +104,6 @@ export class UserScreenshotsComponent implements OnInit {
       return ''; // Return empty string if not Base64
     }
   }
-  
 
   goBack(): void {
     this.router.navigate(['/screenshots/all']);  // Navigate to the screenshots/all route

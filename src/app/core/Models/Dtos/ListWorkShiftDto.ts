@@ -4,7 +4,7 @@ export interface ListWorkShiftDto {
     shiftName: string;
     shiftTypeName: string;
     isComplex: boolean;
-    workShiftDetails?: WorkShiftDetailDto[];
+    workShiftDetails: WorkShiftDetailDto[];
   }
   export interface WorkShiftDetailDto {
     day: DayOfWeek;    // Day of the week for this work shift detail

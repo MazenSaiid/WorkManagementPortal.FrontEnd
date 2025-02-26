@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Globals } from '../../../core/globals';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -19,18 +19,20 @@ constructor(private userService:UserService,private globals: Globals,private rou
     this.getCurrentUserInfo();
   }
   getCurrentUserInfo(){
-    this.userService.getUserById(this.globals.currentUserInfo.userId).subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.currentUser = response.users[0];
-          console.log(this.currentUser);
-        } else {
-          this.toastr.error(response.message, 'Error'); // Show error using Toastr
+    const currentUser = this.globals.currentUserInfo; // Store in a variable
+    if(currentUser){
+      this.userService.getUserById(currentUser.userId).subscribe({
+        next: (response) => {
+          if (response.success) {
+            this.currentUser = response.users[0];
+          } else {
+            this.toastr.error(response.message, 'Error'); // Show error using Toastr
+          }
+        },
+        error: (err) => {
+          console.error('An error occurred while fetching the user.', 'Error'); // Show error using Toastr
         }
-      },
-      error: (err) => {
-        console.error('An error occurred while fetching the user.', 'Error'); // Show error using Toastr
-      }
-    })
+      })
+    }
   }
 }

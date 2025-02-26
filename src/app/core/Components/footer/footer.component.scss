@@ -1,8 +1,21 @@
-footer{
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    background-color: #f4f9fc; 
+footer {
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f4f9fc; 
+  padding: 10px 0 !important;  /* Reduce top and bottom padding */
+  margin-top: 5px !important;  /* Reduce margin */
 }
+
+/* Reduce the spacing inside the footer container */
+footer .container {
+  padding: 5px 0 !important;
+}
+
+/* Reduce padding for copyright section */
+footer .text-center.p-3 {
+  padding: 5px !important;
+}
+
  /* Header: 'Realtime' */
 h6{
     font-size: 20px; 

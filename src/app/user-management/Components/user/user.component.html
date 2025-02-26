@@ -83,17 +83,17 @@
 
 
    <!-- Create Bulk User Modal -->
-  <app-add-bulk-user [isVisible]="createBulkUserModalVisible" (bulkUsersCreated)="loadAllUsers()" (close)="closeCreateBulkUserModal($event)"></app-add-bulk-user>
+  <app-add-bulk-user [isVisible]="createBulkUserModalVisible" (bulkUsersCreated)="loadPaginatedUsers()" (close)="closeCreateBulkUserModal($event)"></app-add-bulk-user>
   
   <!-- Create User Modal -->
-  <app-create-user [isVisible]="createUserModalVisible" (userCreated)="loadAllUsers()" (close)="closeCreateUserModal($event)"></app-create-user>
+  <app-create-user [isVisible]="createUserModalVisible" (userCreated)="loadPaginatedUsers()" (close)="closeCreateUserModal($event)"></app-create-user>
 
   <!-- Edit User Modal -->
-  <app-edit-user [user]="selectedUser" [isVisible]="editUserModalVisible" (userUpdated)="loadAllUsers()" (close)="closeEditUserModal($event)"></app-edit-user>
+  <app-edit-user [user]="selectedUser" [isVisible]="editUserModalVisible" (userUpdated)="loadPaginatedUsers()" (close)="closeEditUserModal($event)"></app-edit-user>
 
   <!-- View User Modal -->
   <app-user-details [user]="selectedUser" [isVisible]="viewUserModalVisible" (close)="closeViewUserModal($event)"></app-user-details>
 
   <!-- Delete Confirmation Modal -->
-  <app-delete-confirmation-modal [user]="selectedUser" [isVisible]="deleteUserModalVisible" (userDeleted)="loadAllUsers()" (close)="closeDeleteUserModal($event)"></app-delete-confirmation-modal>
+  <app-delete-confirmation-modal [user]="selectedUser" [isVisible]="deleteUserModalVisible" (userDeleted)="loadPaginatedUsers()" (close)="closeDeleteUserModal($event)"></app-delete-confirmation-modal>
 </div>

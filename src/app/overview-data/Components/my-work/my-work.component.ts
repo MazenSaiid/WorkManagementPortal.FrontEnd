@@ -26,20 +26,24 @@ export class MyWorkComponent implements OnInit {
   }
   // Fetch work logs for the selected date
   fetchWorkLogs(date: string){
-    this.workLogService.getWorkLogsByDate(this.globals.currentUserInfo.userId,date).subscribe({
-      next: (data) => {
-        if (data.success) {
-          this.toastrService.success(data.message, 'Success');
-          this.workLog = data.workTrackingLog;
-          this.calculatePauseAndSpentTime();
-        } else {
-          this.toastrService.error(data.message, 'Error');
+    const currentUser = this.globals.currentUserInfo;
+    if(currentUser){
+      this.workLogService.getWorkLogsByDate(currentUser.userId,date).subscribe({
+        next: (data) => {
+          if (data.success) {
+            this.toastrService.success(data.message, 'Success');
+            this.workLog = data.workTrackingLog;
+            this.calculatePauseAndSpentTime();
+          } else {
+            this.toastrService.error(data.message, 'Error');
+          }
+        },
+        error: (err) => {
+          this.toastrService.error('No work logs found for the given date', 'Error');
         }
-      },
-      error: (err) => {
-        this.toastrService.error('No work logs found for the given date', 'Error');
-      }
-    });
+      });
+    }
+    
   }
   calculatePauseAndSpentTime(): void {
     if (this.workLog) {

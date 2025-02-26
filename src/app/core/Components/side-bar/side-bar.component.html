@@ -35,7 +35,7 @@
   </div>
 
   <!-- Role Management Parent -->
-  <div class="sidebar-wrapper-content-parent">
+  <div class="sidebar-wrapper-content-parent" *ngIf="currentUser.roles">
     <div class="sidebar-wrapper-content-parent-name">
       <i class="fa fa-shield-alt"></i> Role Management
     </div>
@@ -68,25 +68,20 @@
         <i class="fa fa-image"></i> Screenshots
       </div>
     </a>
-    <a class="sidebar-wrapper-content-navbar-list" href="/reports/worklog-reports">
-      <div class="sidebar-wrapper-content-navbar-list-item-name">
-        <i class="fa fa-clock"></i> Work Log Timesheet
-      </div>
-    </a>
     <a class="sidebar-wrapper-content-navbar-list" href="/reports/absence-reports">
       <div class="sidebar-wrapper-content-navbar-list-item-name">
-        <i class="fa fa-calendar-check"></i> Daily Attendance
+        <i class="fa fa-calendar-check"></i> Attendance
       </div>
     </a>
-    <a class="sidebar-wrapper-content-navbar-list" href="">
+    <a class="sidebar-wrapper-content-navbar-list" href="/reports/worklog-reports">
       <div class="sidebar-wrapper-content-navbar-list-item-name">
-        <i class="fa fa-file-alt"></i> Reports
+        <i class="fa fa-file-alt"></i> Work Log Reports
       </div>
     </a>
   </div>
 
   <!-- HR Parent -->
-  <div class="sidebar-wrapper-content-parent">
+  <!-- <div class="sidebar-wrapper-content-parent">
     <div class="sidebar-wrapper-content-parent-name">
       <i class="fa fa-building"></i> HR
     </div>
@@ -97,8 +92,8 @@
     </a>
   </div>
 
-  <!-- Leave Management Parent -->
-  <div class="sidebar-wrapper-content-parent">
+  <-- Leave Management Parent -->
+  <!-- <div class="sidebar-wrapper-content-parent">
     <div class="sidebar-wrapper-content-parent-name">
       <i class="fa fa-calendar-alt"></i> Leave Management
     </div>
@@ -122,12 +117,12 @@
         <i class="fa fa-calendar-day"></i> Manage Holiday
       </div>
     </a>
-  </div>
+  </div>  -->
 
   <!-- Apps Usage Parent -->
   <div class="sidebar-wrapper-content-parent">
     <div class="sidebar-wrapper-content-parent-name">
-      <i class="fa fa-cogs"></i> Apps Usage
+      <i class="fa fa-cogs"></i>Users Apps Usage
     </div>
     <a class="sidebar-wrapper-content-navbar-list" href="/review-usage">
       <div class="sidebar-wrapper-content-navbar-list-item-name">

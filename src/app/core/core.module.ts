@@ -26,6 +26,9 @@ import { CoreRoutingModule } from './core.routing.module';
 import { LoginComponent } from './Components/login/login.component';
 import { EnumToStringPipe } from './Pipes/EnumToStringPipe';
 import { PaginationComponent } from './Components/pagination/pagination.component';
+import { ResetPasswordComponent } from './Components/reset-password/reset-password.component';
+import { NotAuthorizedComponent } from './Components/not-authorized/not-authorized.component';
+import { ServerErrorComponent } from './Components/server-error/server-error.component';
 
 
 
@@ -41,6 +44,9 @@ import { PaginationComponent } from './Components/pagination/pagination.componen
     CheckoutConfirmationModalComponent,
     LoginComponent,
     PaginationComponent,
+    ResetPasswordComponent,
+    NotAuthorizedComponent,
+    ServerErrorComponent,
   ],
   imports: [
     CommonModule,

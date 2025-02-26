@@ -48,10 +48,13 @@ export class AccountService {
 
    // request password change 
    requestPasswordReset( email: any): Observable<ValidationResponse> {
-    return this.http.post<ValidationResponse>(`${this.apiUrl}/Accounts/ForgotPassword`, email);
+    return this.http.post<ValidationResponse>(`${this.apiUrl}/Accounts/RequestPasswordReset`, email);
   }
 
   changePassword(changePasswordDto:any) : Observable<ValidationResponse> {
     return this.http.post<ValidationResponse>(`${this.apiUrl}/Accounts/ChangePassword`, changePasswordDto);
+  }
+  resetPassword(resetPasswordDto:any) : Observable<ValidationResponse> {
+    return this.http.post<ValidationResponse>(`${this.apiUrl}/Accounts/ResetPassword`, resetPasswordDto);
   }
 }

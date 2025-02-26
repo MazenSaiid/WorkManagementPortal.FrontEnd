@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           // JWT token has expired, logout the user
           this.globals.clearSession();
-          this.globals.currentUserInfo.next(null);
+          this.globals.currentUserInfo = null;
           this.globals.loggedIn = false;
           this.toastr.warning('You must be logged in to access this page. Please log in and try again.');
           this.router.navigate(['']);
