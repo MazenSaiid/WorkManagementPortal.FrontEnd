@@ -13,17 +13,22 @@ export class SideBarComponent implements OnInit  {
   constructor(private accountService:AccountService,private globals: Globals,private router:Router) {
   }
   
-  currentUser: any | null = null;
+  currentUser: AccountServiceValidationResponse | null = null;
   ngOnInit(): void {
   this.checkUserSession();
+  this.hasAdminAccess();
   }
-
+  hasAdminAccess(): boolean {
+    return this.currentUser?.roles?.some(role => ['Admin', 'Manager'].includes(role)) ?? false;
+  }
+  hasSupervisorLeaderAccess(): boolean {
+    return this.currentUser?.roles?.some(role => ['Supervisor', 'TeamLead'].includes(role)) ?? false;
+  }
   checkUserSession(){
     this.globals.currentUser$.subscribe({
       next: (user: AccountServiceValidationResponse | null) => {
-        this.currentUser = user;
         if (user) {
-          console.log(this.currentUser);
+          this.currentUser = user;
           this.globals.loggedIn = true;
         } else {
           this.globals.clearSession();

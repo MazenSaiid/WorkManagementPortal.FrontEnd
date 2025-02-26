@@ -8,15 +8,17 @@ import { NotAuthorizedComponent } from './core/Components/not-authorized/not-aut
 import { ServerErrorComponent } from './core/Components/server-error/server-error.component';
 
 const routes: Routes = [
-  {path:'',component: LoginComponent},
+  {path:'login',component: LoginComponent},
   {path:'home',component:HomeComponent },
   {path:'not-authorized',component: NotAuthorizedComponent},
   {path:'server-error',component: ServerErrorComponent},
-  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent},
   {path: 'core',loadChildren: () =>  import('./core/core.module').then(module => module.CoreModule)},
   {path: 'reports',loadChildren: () =>  import('./reports/reports.module').then(module => module.ReportsModule)},
   {path: 'data',loadChildren: () =>  import('./overview-data/overview-data.module').then(module => module.OverviewDataModule)},
-  {path: 'screenshots',loadChildren: () =>  import('./screenshots/screenshots.module').then(module => module.ScreenshotsModule)},
+  {path: 'screenshots',loadChildren: () =>  import('./screenshots/screenshots.module').then(module => module.ScreenshotsModule),
+    canActivate: [AuthGuard], 
+    data: { roles: ['Admin','Manager']}},
   {path: 'profile',loadChildren: () =>  import('./profile/profile.module').then(module => module.ProfileModule)},
   {path: 'users',loadChildren: () =>  import('./user-management/user-management.module').then(module => module.UserManagementModule),
     canActivate: [AuthGuard], 
@@ -29,6 +31,7 @@ const routes: Routes = [
     canActivate: [AuthGuard], 
     data: { roles: ['Admin','Manager']}
   },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {path:'**',redirectTo:'not-found',pathMatch:'full'},
 ];
 

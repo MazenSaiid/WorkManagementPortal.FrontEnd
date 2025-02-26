@@ -11,7 +11,7 @@
     <!-- Dashboard Summary Cards -->
     <div class="dashboard-summary">
       <!-- Total Team Members Card (Static or dynamic depending on your data) -->
-      <div class="dashboard-card">
+      <div class="dashboard-card" (click)="routeToAllTeam()">
         <div class="dashboard-card-title">Total Team Members</div>
         <h4 class="dashboard-card-value">{{ usersCount || '-' }}</h4>
       </div>

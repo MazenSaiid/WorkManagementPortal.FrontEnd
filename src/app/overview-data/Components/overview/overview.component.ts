@@ -4,6 +4,7 @@ import { forkJoin } from 'rxjs'; // Import forkJoin for parallel requests
 import { WorklogService } from '../../../core/Services/worklog.service';
 import { UserService } from '../../../user-management/Services/user.service';
 import { UserDto } from '../../../core/Models/Dtos/UserDto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-overview',
@@ -33,7 +34,8 @@ export class OverviewComponent implements OnInit {
   constructor(
     private worklogService: WorklogService,
     private toastr: ToastrService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,9 @@ export class OverviewComponent implements OnInit {
     // Fetch work logs for the current date with time
     this.fetchWorkLogs();
   }
+  routeToAllTeam() {
+    this.router.navigate(['data/all-team']);
+    }
   // Handle date change and fetch work logs for the selected date
   onDateChange(event: any): void {
     this.selectedDate = event.target.value; // Get the selected date (date part)

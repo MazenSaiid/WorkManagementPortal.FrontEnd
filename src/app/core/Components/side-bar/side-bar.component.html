@@ -5,14 +5,19 @@
     <div class="sidebar-wrapper-content-parent-name">
       <i class="fa fa-tachometer-alt"></i> Realtime
     </div>
-    <a class="sidebar-wrapper-content-navbar-list selected tour-fourth-step" href="/data/overview">
+    <a class="sidebar-wrapper-content-navbar-list selected tour-fourth-step" href="/data/overview" *ngIf="hasAdminAccess()">
       <div class="sidebar-wrapper-content-navbar-list-item-name">
         <i class="fa fa-chart-line"></i> Overview
       </div>
     </a>
-    <a class="sidebar-wrapper-content-navbar-list" href="/data/my-teams">
+    <a class="sidebar-wrapper-content-navbar-list" href="/data/all-team" *ngIf="hasAdminAccess()">
       <div class="sidebar-wrapper-content-navbar-list-item-name">
-        <i class="fa fa-users"></i> My Team
+        <i class="fa fa-users"></i> All Team
+      </div>
+    </a>
+    <a class="sidebar-wrapper-content-navbar-list" href="/data/my-team"*ngIf="hasSupervisorLeaderAccess() || hasAdminAccess()">
+      <div class="sidebar-wrapper-content-navbar-list-item-name">
+        <i class="fa fa-people-group"></i> My Team
       </div>
     </a>
     <a class="sidebar-wrapper-content-navbar-list" href="/data/my-work">
@@ -23,7 +28,7 @@
   </div>
 
   <!-- User Management Parent -->
-  <div class="sidebar-wrapper-content-parent">
+  <div class="sidebar-wrapper-content-parent" *ngIf="hasAdminAccess()">
     <div class="sidebar-wrapper-content-parent-name">
       <i class="fa fa-users-cog"></i> User Management
     </div>
@@ -35,7 +40,7 @@
   </div>
 
   <!-- Role Management Parent -->
-  <div class="sidebar-wrapper-content-parent" *ngIf="currentUser.roles">
+  <div class="sidebar-wrapper-content-parent" *ngIf="hasAdminAccess()">
     <div class="sidebar-wrapper-content-parent-name">
       <i class="fa fa-shield-alt"></i> Role Management
     </div>
@@ -47,7 +52,7 @@
   </div>
 
   <!-- Work Management Parent -->
-  <div class="sidebar-wrapper-content-parent">
+  <div class="sidebar-wrapper-content-parent" *ngIf="hasAdminAccess()">
     <div class="sidebar-wrapper-content-parent-name">
       <i class="fa fa-clipboard-list"></i> Work Management
     </div>
@@ -63,19 +68,24 @@
     <div class="sidebar-wrapper-content-parent-name">
       <i class="fa fa-check-circle"></i> Proof of Work
     </div>
-    <a class="sidebar-wrapper-content-navbar-list" href="/screenshots/all">
+    <a class="sidebar-wrapper-content-navbar-list" href="/screenshots/all" *ngIf="hasAdminAccess()">
       <div class="sidebar-wrapper-content-navbar-list-item-name">
         <i class="fa fa-image"></i> Screenshots
       </div>
     </a>
-    <a class="sidebar-wrapper-content-navbar-list" href="/reports/absence-reports">
+    <a class="sidebar-wrapper-content-navbar-list" href="/reports/absence-reports" *ngIf="hasAdminAccess()">
       <div class="sidebar-wrapper-content-navbar-list-item-name">
         <i class="fa fa-calendar-check"></i> Attendance
       </div>
     </a>
-    <a class="sidebar-wrapper-content-navbar-list" href="/reports/worklog-reports">
+    <a class="sidebar-wrapper-content-navbar-list" href="/reports/worklog-reports" *ngIf="hasAdminAccess()">
       <div class="sidebar-wrapper-content-navbar-list-item-name">
         <i class="fa fa-file-alt"></i> Work Log Reports
+      </div>
+    </a>
+    <a class="sidebar-wrapper-content-navbar-list" href="/reports/work-timesheet">
+      <div class="sidebar-wrapper-content-navbar-list-item-name">
+        <i class="fa fa-calendar-alt"></i> Work TimeSheet
       </div>
     </a>
   </div>
@@ -120,11 +130,11 @@
   </div>  -->
 
   <!-- Apps Usage Parent -->
-  <div class="sidebar-wrapper-content-parent">
+  <div class="sidebar-wrapper-content-parent" *ngIf="hasAdminAccess()">
     <div class="sidebar-wrapper-content-parent-name">
       <i class="fa fa-cogs"></i>Users Apps Usage
     </div>
-    <a class="sidebar-wrapper-content-navbar-list" href="/review-usage">
+    <a class="sidebar-wrapper-content-navbar-list" href="/review-usage" >
       <div class="sidebar-wrapper-content-navbar-list-item-name">
         <i class="fa fa-search"></i> Review Apps
       </div>
